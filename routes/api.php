@@ -27,6 +27,7 @@ Route::post('/orders', [OrderController::class, 'create']);
 Route::get('/orders/{id}', [OrderController::class, 'findOne']);
 Route::get('/orders', [OrderController::class, 'find']);
 Route::get('/orders/{id}/cancel', [OrderController::class, 'cancel']);
+Route::get('/orders/{id}/done', [OrderController::class, 'markDone']);
 
 // Product routes
 Route::post('/products', [ProductController::class, 'create']);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\CreateOrderService;
 use App\Services\OrderCancelService;
 use App\Services\OrderFindService;
+use App\Services\OrderMarkDoneService;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -32,5 +33,10 @@ class OrderController extends Controller
     public function cancel($id)
     {
         new OrderCancelService($id);
+    }
+
+    public function markDone($id)
+    {
+        OrderMarkDoneService::markDone($id);
     }
 }
