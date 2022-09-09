@@ -6,8 +6,11 @@ export interface Product {
     toll: number
     price: number
     brand: Brand
+    created_at: number
 }
 
 export interface ProductResponse {
     data: Product[]
+    total: number
+    per_page: number
 }

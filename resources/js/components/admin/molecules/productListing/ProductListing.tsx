@@ -1,16 +1,23 @@
 import React from 'react'
 import { toCurrency, toDate } from '../../../../helpers'
+import { type Product } from '../../../../types'
 
-export const ProductListing: React.FC = () => {
-    const createdTime = toDate(1682312472)
+interface Props {
+    product: Product
+    index: number
+}
+
+export const ProductListing: React.FC<Props> = ({ product, index }) => {
+    const createdTime = toDate(product.created_at)
+    const brand = product.brand
 
     return (
         <tr>
-            <td className="px-4 border-r border-b border-slate-200 py-2 text-center">{1}.</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2 text-center">{index}.</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{166792897823}</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2">{'Telkomsel'}</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(5000)}</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(5500, 'Rp')}</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2">{brand.name}</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(product.toll)}</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(product.price, 'Rp')}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{createdTime}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2 !text-gray-400">{'Sold'}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2 whitespace-nowrap w-10">

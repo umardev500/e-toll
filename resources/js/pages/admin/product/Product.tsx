@@ -1,15 +1,58 @@
-import React, { useCallback, useState } from 'react'
-import { AdminOrderList, OrderFilter, ProductList, Search } from '../../../components/admin'
+import React, { useCallback, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { OrderFilter, ProductList, Search } from '../../../components/admin'
 import { Pagination } from '../../../components/organisms'
+import { useFetchProducts } from '../../../hooks'
+import { type Product } from '../../../types'
 
-export const Product: React.FC = () => {
+export const Products: React.FC = () => {
     const [search, setSearch] = useState('')
     const [total, setTotal] = useState(0)
     const [showFilter, setShowFilter] = useState(false)
+    const [products, setProducts] = useState<Product[]>([])
+    const [perPage, setPerPage] = useState(10)
+    const navigate = useNavigate()
+
+    const [searchParams] = useSearchParams()
+    const page = parseInt(searchParams.get('page') ?? '0')
 
     const searchCallback = useCallback((keyword: string) => {
         console.log('callback key', keyword)
         setSearch(keyword)
+    }, [])
+    const fetchProducts = useFetchProducts()
+
+    useEffect(() => {
+        toast
+            .promise(
+                fetchProducts(page),
+                {
+                    success: 'Products data is loaded',
+                    error: 'Something went wrong!',
+                    loading: 'Loading products...',
+                },
+                { className: 'roboto' }
+            )
+            .then((res) => {
+                const data = res.data
+                const total = res.total
+                const perPage = res.per_page
+                const pages = Math.ceil(total / perPage)
+                setTotal(pages)
+                setProducts(data)
+                setPerPage(perPage)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [page])
+
+    const paginationCallback = useCallback((params: string) => {
+        navigate({
+            pathname: '/admin/products',
+            search: `?${params}`,
+        })
     }, [])
 
     return (
@@ -30,10 +73,10 @@ export const Product: React.FC = () => {
                         <Search callback={searchCallback} title="Enter the keyword" placeholder="Enter key to search" />
                     </div>
                     <div className="bg-white overflow-auto rounded-lg border mb-5">
-                        <ProductList />
+                        <ProductList perPage={perPage} products={products} />
                     </div>
                     <div>
-                        <Pagination pageCount={total} />
+                        <Pagination onPageChangeCallback={paginationCallback} pageCount={total} />
                     </div>
                 </div>
             </div>

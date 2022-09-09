@@ -1,7 +1,18 @@
 import React from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { type Product } from '../../../../types'
 import { ProductListing } from '../../molecules'
 
-export const ProductList: React.FC = () => {
+interface Props {
+    products: Product[]
+    perPage: number
+}
+
+export const ProductList: React.FC<Props> = ({ products, perPage }) => {
+    const [searchParams] = useSearchParams()
+    const page = parseInt(searchParams.get('page') ?? '0')
+    const startIndex = page * perPage
+
     return (
         <>
             <table className="w-full table table-nohover">
@@ -19,7 +30,9 @@ export const ProductList: React.FC = () => {
                 </thead>
 
                 <tbody>
-                    <ProductListing />
+                    {products.map((product, i) => (
+                        <ProductListing product={product} key={product.id} index={startIndex + (i + 1)} />
+                    ))}
                 </tbody>
             </table>
         </>

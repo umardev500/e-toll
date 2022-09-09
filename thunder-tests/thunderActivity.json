@@ -3,7 +3,7 @@
     "_id": "d23c1ae2-a3c4-4ae5-bf92-58d405f40f9d",
     "colId": "history",
     "containerId": "",
-    "name": "http://localhost:8000/api/orders/1/done",
+    "name": "mark order done",
     "url": "http://localhost:8000/api/orders/1/done",
     "method": "GET",
     "sortNum": 0,
@@ -103,11 +103,11 @@
     "colId": "history",
     "containerId": "",
     "name": "product find all",
-    "url": "http://localhost:8000/api/products?prefix=0706",
+    "url": "http://localhost:8000/api/products?page=2",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2023-03-21T07:34:21.838Z",
+    "modified": "2022-09-09T20:13:04.951Z",
     "headers": [],
     "params": [
       {
@@ -119,12 +119,12 @@
       {
         "name": "page",
         "value": "2",
-        "isDisabled": true,
         "isPath": false
       },
       {
         "name": "prefix",
         "value": "0706",
+        "isDisabled": true,
         "isPath": false
       },
       {
@@ -187,7 +187,7 @@
     "_id": "be1325ed-fca8-4788-b2b4-d0c6ff93ace9",
     "colId": "history",
     "containerId": "",
-    "name": "http://127.0.0.1:8000/sanctum/csrf-cookie",
+    "name": "get csrf token",
     "url": "http://127.0.0.1:8000/sanctum/csrf-cookie",
     "method": "GET",
     "sortNum": 0,
