@@ -5,7 +5,8 @@
     mask: var(--off) no-repeat center;
 }
 
-.sidebar-link.active {
+.sidebar-link.active,
+.sidebar-link.active:hover {
     background-color: #3b82f6;
     color: white;
     font-weight: bold;
