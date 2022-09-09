@@ -23,6 +23,7 @@ export const ProductList: React.FC<Props> = ({ products, perPage }) => {
                         <th className="text-left px-4 border-r py-3 whitespace-nowrap">Vendor</th>
                         <th className="text-left px-4 border-r py-3 whitespace-nowrap">Balance</th>
                         <th className="text-left px-4 border-r py-3 whitespace-nowrap">Price</th>
+                        <th className="text-left px-4 border-r py-3 whitespace-nowrap">Stock</th>
                         <th className="text-left px-4 border-r py-3 whitespace-nowrap">Created Time</th>
                         <th className="text-left px-4 border-r py-3 whitespace-nowrap">Status</th>
                         <th className="text-center px-4 border-r py-3 whitespace-nowrap">Action</th>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { toCurrency, toDate } from '../../../../helpers'
+import { toCurrency, toDate, toUpperFirst } from '../../../../helpers'
 import { type Product } from '../../../../types'
 
 interface Props {
@@ -10,6 +10,9 @@ interface Props {
 export const ProductListing: React.FC<Props> = ({ product, index }) => {
     const createdTime = toDate(product.created_at)
     const brand = product.brand
+    const getStatus = (): string => {
+        return product.status
+    }
 
     return (
         <tr>
@@ -18,8 +21,9 @@ export const ProductListing: React.FC<Props> = ({ product, index }) => {
             <td className="px-4 border-r border-b border-slate-200 py-2">{brand.name}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(product.toll)}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(product.price, 'Rp')}</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(product.stock)}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{createdTime}</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2 !text-gray-400">{'Sold'}</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2 !text-gray-400">{toUpperFirst(getStatus())}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2 whitespace-nowrap w-10">
                 <div className="text-center">
                     <button className="outline-none bg-yellow-600 hover:bg-yellow-700 px-2 py-1.5 rounded-lg">
