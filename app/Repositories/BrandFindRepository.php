@@ -10,7 +10,7 @@ class BrandFindRepository
     public static function find($perPage, $sort, $status, $search)
     {
         $query = Brand::query();
-        if (!empty($status)) {
+        if (!empty($status) && $status != 'none') {
             $query->where('status', $status);
         }
 
