@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { Home, Orders } from './pages'
-import { AdminHome, AdminOrders, Auth, Products } from './pages/admin'
+import { AdminHome, AdminOrders, Auth, Brands, Products } from './pages/admin'
 import { Dashboard } from './template'
 
 export const router = createBrowserRouter([
@@ -31,6 +31,10 @@ export const router = createBrowserRouter([
             {
                 path: '/admin/products',
                 element: <Products />,
+            },
+            {
+                path: '/admin/brands',
+                element: <Brands />,
             },
         ],
     },

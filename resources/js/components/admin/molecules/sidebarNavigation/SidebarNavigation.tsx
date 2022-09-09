@@ -6,6 +6,7 @@ const SidebarElement = () => {
     const isHome = useMatchRouteClass('/admin')
     const isOrders = useMatchRouteClass('/admin/orders')
     const isProduct = useMatchRouteClass('/admin/products')
+    const isBrands = useMatchRouteClass('/admin/brands')
 
     return (
         <div className="px-2 mt-4">
@@ -50,6 +51,20 @@ const SidebarElement = () => {
                         <div className="flex gap-2.5 items-center flex-1 roboto">
                             <span className="icon" style={{ ['--off' as string]: "url('/app-icon/payment.svg')", ['--on' as string]: "url('/app-icon/payment-solid.svg')" }}></span>
                             <span>Products</span>
+                        </div>
+                    </Link>
+                </li>
+                <li className="overflow-hidden">
+                    <Link
+                        to={'/admin/brands'}
+                        className={`outline-none sidebar-link ${isBrands} rounded flex px-4 items-center hover:bg-gray-100 my-1 h-11 text-gray-500 hover:text-gray-600 font-medium`}
+                    >
+                        <div className="flex gap-2.5 items-center flex-1 roboto">
+                            <span
+                                className="icon"
+                                style={{ ['--off' as string]: "url('/app-icon/task-featured.svg')", ['--on' as string]: "url('/app-icon/task-featured.svg')" }}
+                            ></span>
+                            <span>Vendors / Brands</span>
                         </div>
                     </Link>
                 </li>

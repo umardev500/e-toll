@@ -35,6 +35,10 @@ Route::middleware('auth:sanctum')->get('/admin/products', function () {
     return view('welcome');
 });
 
+Route::middleware('auth:sanctum')->get('/admin/brands', function () {
+    return view('welcome');
+});
+
 Route::get('/auth', function () {
     return view('welcome');
 })->name('login');
