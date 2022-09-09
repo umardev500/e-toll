@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { OrderFilter, ProductList, Search } from '../../../components/admin'
+import { ProductFilter, ProductList, Search } from '../../../components/admin'
 import { Pagination } from '../../../components/organisms'
 import { useFetchProducts } from '../../../hooks'
 import { type Product } from '../../../types'
@@ -32,7 +32,7 @@ export const Products: React.FC = () => {
                     error: 'Something went wrong!',
                     loading: 'Loading products...',
                 },
-                { className: 'roboto' }
+                { className: 'roboto', position: 'top-right' }
             )
             .then((res) => {
                 const data = res.data
@@ -80,7 +80,7 @@ export const Products: React.FC = () => {
                     </div>
                 </div>
             </div>
-            {showFilter ? <OrderFilter setState={setShowFilter} /> : null}
+            {showFilter ? <ProductFilter setState={setShowFilter} /> : null}
         </div>
     )
 }
