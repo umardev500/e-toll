@@ -16,6 +16,8 @@ export const Products: React.FC = () => {
 
     const [searchParams] = useSearchParams()
     const page = parseInt(searchParams.get('page') ?? '0')
+    const sort = searchParams.get('sort') ?? 'desc'
+    const status = searchParams.get('status') ?? 'none'
 
     const searchCallback = useCallback((keyword: string) => {
         console.log('callback key', keyword)
@@ -26,7 +28,7 @@ export const Products: React.FC = () => {
     useEffect(() => {
         toast
             .promise(
-                fetchProducts(page),
+                fetchProducts(page, sort, status),
                 {
                     success: 'Products data is loaded',
                     error: 'Something went wrong!',
@@ -46,7 +48,7 @@ export const Products: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [page])
+    }, [page, sort, status])
 
     const paginationCallback = useCallback((params: string) => {
         navigate({
