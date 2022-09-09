@@ -29,7 +29,7 @@ export const AdminOrderDetail: React.FC<Props> = ({ setState, order }) => {
     const isExp = useExpTime(expTimeUnix)
 
     const getStatus = (): Status => {
-        if (isExp) return 'expired'
+        if (isExp && status !== 'settlement' && status !== 'succeed') return 'expired'
         return status
     }
 
