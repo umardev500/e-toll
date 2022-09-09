@@ -21,7 +21,7 @@ class ProductFindService
         $perPage = intval($perPage);
         $prefix = $req->input('prefix');
         $sort = $req->input('sort', 'desc');
-        $status = $req->input('status', 'active');
+        $status = $req->input('status');
         $search = $req->input('search');
 
         return ProductFindRepository::find(perPage: $perPage, prefix: $prefix, brandId: $brandId, sort: $sort, status: $status, search: $search);

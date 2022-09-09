@@ -103,11 +103,11 @@
     "colId": "history",
     "containerId": "",
     "name": "product find all",
-    "url": "http://localhost:8000/api/products?search=plc&status=sold",
+    "url": "http://localhost:8000/api/products?status=active",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2022-09-09T21:02:51.530Z",
+    "modified": "2022-09-09T21:05:17.237Z",
     "headers": [],
     "params": [
       {
@@ -137,11 +137,12 @@
       {
         "name": "search",
         "value": "plc",
+        "isDisabled": true,
         "isPath": false
       },
       {
         "name": "status",
-        "value": "sold",
+        "value": "active",
         "isPath": false
       }
     ],
