@@ -1,5 +1,5 @@
 import React from 'react'
-import { toDate } from '../../../../helpers'
+import { toDate, toUpperFirst } from '../../../../helpers'
 import { type Brand } from '../../../../types'
 
 interface Props {
@@ -18,12 +18,12 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) =
     return (
         <tr>
             <td className="px-4 border-r border-b border-slate-200 py-2 text-center">{index}.</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2">{'16778276723'}</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2">{brand.brand_id}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{brand.name}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{brand.prefix.join(', ')}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{createdTime}</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2">{'Active'}</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2 whitespace-nowrap w-10">
+            <td className="px-4 border-r border-b border-slate-200 !text-gray-400 hover:!text-gray-500 !cursor-pointer py-2">{toUpperFirst(brand.status)}</td>
+            <td className="px-4 border-r border-b border-slate-200  py-2 whitespace-nowrap w-10">
                 <div className="text-center flex gap-1.5">
                     <button className="outline-none text-white hover:text-gray-200 bg-yellow-600 hover:bg-yellow-700 px-2 py-1.5 rounded-lg">
                         <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
