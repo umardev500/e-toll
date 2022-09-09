@@ -5,6 +5,8 @@ export interface Product {
     brand_id: number
     toll: number
     price: number
+    stock: number
+    status: string
     brand: Brand
     created_at: number
 }
