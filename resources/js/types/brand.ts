@@ -1,6 +1,6 @@
 export interface Brand {
     id: number
-    bran_id: number
+    brand_id: number
     name: string
     prefix: number[]
     status: string
