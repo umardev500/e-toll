@@ -22,8 +22,8 @@ export const AdminOrderList: React.FC<Props> = ({ orders }) => {
             </thead>
 
             <tbody>
-                {orders.map((order) => (
-                    <AdminOrderListing order={order} key={order.id} />
+                {orders.map((order, i) => (
+                    <AdminOrderListing index={i + 1} order={order} key={order.id} />
                 ))}
             </tbody>
         </table>

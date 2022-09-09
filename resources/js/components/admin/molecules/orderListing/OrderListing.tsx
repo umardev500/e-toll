@@ -7,9 +7,10 @@ import { type Order, type Status } from '../../../../types'
 
 interface Props {
     order: Order
+    index: number
 }
 
-export const AdminOrderListing: React.FC<Props> = ({ order }) => {
+export const AdminOrderListing: React.FC<Props> = ({ order, index }) => {
     const globalContext = useContext(GlobalContext) as GlobalContextType
 
     const product = order.product_copy
@@ -27,7 +28,7 @@ export const AdminOrderListing: React.FC<Props> = ({ order }) => {
 
     return (
         <tr>
-            <td className="px-4 border-r border-b border-slate-200 py-2 text-center">{1}.</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2 text-center">{index}.</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{order.order_id}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(product.toll)}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(product.price, 'Rp')}</td>
