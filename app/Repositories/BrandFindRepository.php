@@ -8,7 +8,7 @@ class BrandFindRepository
 {
     public static function find()
     {
-        $brands = Brand::all();
+        $brands = Brand::paginate();
         return $brands;
     }
 }
