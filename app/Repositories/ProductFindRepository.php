@@ -13,19 +13,36 @@ class ProductFindRepository
             ->first();
     }
 
-    public static function find($perPage, $prefix, $brandId)
+    public static function find($perPage, $prefix, $brandId, $sort, $search)
     {
-        $product = Product::with('brand')
-            ->whereHas('brand', function ($query) use ($prefix, $brandId) {
-                if ($prefix) {
-                    $query->whereJsonContains('prefix', $prefix);
-                }
+        $query = Product::with('brand');
 
-                if ($brandId) {
-                    $query->where('id', $brandId);
-                }
-            })
-            ->paginate(perPage: $perPage);
-        return $product;
+        $query->whereHas('brand', function ($q) use ($prefix, $brandId) {
+            if ($prefix) {
+                $q->whereJsonContains('prefix', $prefix);
+            }
+
+            if ($brandId) {
+                $q->where('id', $brandId);
+            }
+        });
+
+        if (!empty($search)) {
+            $query->where('product_id', 'LIKE', '%' . $search . '%')
+                ->orWhere('status', 'LIKE', '%' . $search . '%')
+                ->orWhereHas('brand', function ($q) use ($search, $prefix, $brandId) {
+                    $q->where('name', 'LIKE', '%' . $search . '%');
+                    if ($prefix) {
+                        $q->whereJsonContains('prefix', $prefix);
+                    }
+                    if ($brandId) {
+                        $q->where('id', $brandId);
+                    }
+                });
+        }
+
+        $query = $query->orderBy('created_at', $sort);
+        $products = $query->paginate(perPage: $perPage);
+        return $products;
     }
 }

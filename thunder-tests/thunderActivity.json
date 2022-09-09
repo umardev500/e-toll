@@ -103,11 +103,11 @@
     "colId": "history",
     "containerId": "",
     "name": "product find all",
-    "url": "http://localhost:8000/api/products?page=2",
+    "url": "http://localhost:8000/api/products?prefix=0879&brand_id=1&search=plc",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2022-09-09T20:13:04.951Z",
+    "modified": "2022-09-09T20:53:21.346Z",
     "headers": [],
     "params": [
       {
@@ -118,19 +118,23 @@
       },
       {
         "name": "page",
-        "value": "2",
+        "value": "1",
+        "isDisabled": true,
         "isPath": false
       },
       {
         "name": "prefix",
-        "value": "0706",
-        "isDisabled": true,
+        "value": "0879",
         "isPath": false
       },
       {
         "name": "brand_id",
         "value": "1",
-        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "search",
+        "value": "plc",
         "isPath": false
       }
     ],
