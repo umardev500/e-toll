@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactPaginate from 'react-paginate'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 interface Props {
     pageCount: number
+    onPageChangeCallback: (params: string) => void
 }
 
-export const Pagination = React.memo(({ pageCount }: Props) => {
-    const navigate = useNavigate()
+export const Pagination = React.memo(({ pageCount, onPageChangeCallback }: Props) => {
     const [searchParams] = useSearchParams()
     let page = searchParams.get('page') ?? 0
     page = parseInt(page.toString())
@@ -16,11 +16,7 @@ export const Pagination = React.memo(({ pageCount }: Props) => {
     const handlePageChange = (e: { selected: number }) => {
         searchParams.set('page', e.selected.toString())
         const params = searchParams.toString()
-
-        navigate({
-            pathname: '/admin/orders',
-            search: `?${params}`,
-        })
+        onPageChangeCallback(params)
     }
 
     return (
