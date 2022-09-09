@@ -1,8 +1,22 @@
-.sidebar-link .icon {
-    width: 24px;
-    height: 24px;
-    background-color: currentColor;
-    mask: var(--off) no-repeat center;
+:root {
+    --mask-size: 24px;
+}
+
+.sidebar-link {
+    .icon {
+        width: 24px;
+        height: 24px;
+        background-color: currentColor;
+        mask: var(--off) no-repeat center;
+        mask-size: var(--mask-size);
+    }
+
+    &.active {
+        .icon {
+            mask: var(--on) no-repeat center;
+            mask-size: var(--mask-size);
+        }
+    }
 }
 
 .sidebar-link.active,

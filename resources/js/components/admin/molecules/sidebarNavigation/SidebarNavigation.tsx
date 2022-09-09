@@ -15,7 +15,14 @@ const SidebarElement = () => {
                         className={`outline-none sidebar-link ${isHome} rounded flex px-4 items-center hover:bg-gray-100 my-1 h-11 text-gray-500 hover:text-gray-600 font-medium`}
                     >
                         <div className="flex gap-2.5 items-center flex-1 roboto">
-                            <span className="icon" style={{ ['--off' as string]: "url('/app-icon/dashboard_icon_solid.svg')" }}></span>
+                            <span
+                                className="icon"
+                                style={{
+                                    ['--off' as string]: "url('/app-icon/dashboard_icon.svg')",
+                                    ['--on' as string]: "url('/app-icon/dashboard_icon_solid.svg')",
+                                    ['--mask-size' as string]: '22px',
+                                }}
+                            ></span>
                             <span>Dashboard</span>
                         </div>
                     </Link>
@@ -26,7 +33,10 @@ const SidebarElement = () => {
                         className={`outline-none sidebar-link ${isOrders} rounded flex px-4 items-center hover:bg-gray-100 my-1 h-11 text-gray-500 hover:text-gray-600 font-medium`}
                     >
                         <div className="flex gap-2.5 items-center flex-1 roboto">
-                            <span className="icon" style={{ ['--off' as string]: "url('/app-icon/receipt.svg')" }}></span>
+                            <span
+                                className="icon"
+                                style={{ ['--off' as string]: "url('/app-icon/receipt.svg')", ['--on' as string]: "url('/app-icon/receipt-filled.svg')" }}
+                            ></span>
                             <span>Orders List</span>
                         </div>
                     </Link>
