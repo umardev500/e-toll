@@ -1,5 +1,5 @@
 import { format } from 'libphonenumber-js'
-import React, { useContext, useRef } from 'react'
+import React, { useCallback, useContext, useRef } from 'react'
 import { GlobalContext, type GlobalContextType } from '../../../../context'
 import { toCurrency, toDate, toUpperFirst } from '../../../../helpers'
 import { useClickOutside, useCloseModal, useExpTime } from '../../../../hooks'
@@ -34,6 +34,10 @@ export const AdminOrderDetail: React.FC<Props> = ({ setState, order }) => {
     }
 
     useClickOutside(overlayRef, innerRef, setState)
+
+    const handleMark = useCallback(() => {
+        console.log('marking handler')
+    }, [])
 
     return (
         <div ref={overlayRef} className="modal pt-5 px-5">
@@ -83,6 +87,12 @@ export const AdminOrderDetail: React.FC<Props> = ({ setState, order }) => {
                         <span className="font-semibold text-gray-500">Total:</span>
                         <span className="ml-2 font-semibold text-gray-500">{toCurrency(product?.price ?? 0, 'Rp')}</span>
                     </div>
+                </div>
+                {/* footer */}
+                <div className="px-5 pb-4 flex justify-center flex-col">
+                    <button onClick={handleMark} className={`roboto bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white mb-2`}>
+                        Mark as done
+                    </button>
                 </div>
             </div>
         </div>
