@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { AdminOrderList, OrderFilter, Search } from '../../../components/admin'
 import { Pagination } from '../../../components/organisms'
 import { useFetchOrderAdmin } from '../../../hooks'
@@ -16,6 +16,8 @@ export const AdminOrders: React.FC = () => {
     const [total, setTotal] = useState(0)
     const [search, setSearch] = useState('')
     const [showFilter, setShowFilter] = useState(false)
+
+    const navigate = useNavigate()
 
     const fetchOrder = useFetchOrderAdmin()
     useEffect(() => {
@@ -47,6 +49,13 @@ export const AdminOrders: React.FC = () => {
         setSearch(keyword)
     }, [])
 
+    const paginateCallback = useCallback((params: string) => {
+        navigate({
+            pathname: '/admin/orders',
+            search: `?${params}`,
+        })
+    }, [])
+
     return (
         <div>
             <div className="pt-4">
@@ -68,7 +77,7 @@ export const AdminOrders: React.FC = () => {
                         <AdminOrderList orders={orders} />
                     </div>
                     <div>
-                        <Pagination pageCount={total} />
+                        <Pagination onPageChangeCallback={paginateCallback} pageCount={total} />
                     </div>
                 </div>
             </div>
