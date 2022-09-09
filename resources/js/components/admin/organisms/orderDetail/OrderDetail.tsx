@@ -89,11 +89,13 @@ export const AdminOrderDetail: React.FC<Props> = ({ setState, order }) => {
                     </div>
                 </div>
                 {/* footer */}
-                <div className="px-5 pb-4 flex justify-center flex-col">
-                    <button onClick={handleMark} className={`roboto bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white mb-2`}>
-                        Mark as done
-                    </button>
-                </div>
+                {status === 'settlement' ? (
+                    <div className="px-5 pb-4 flex justify-center flex-col">
+                        <button onClick={handleMark} className={`roboto bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white mb-2`}>
+                            Mark as done
+                        </button>
+                    </div>
+                ) : null}
             </div>
         </div>
     )
