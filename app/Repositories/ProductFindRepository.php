@@ -45,7 +45,7 @@ class ProductFindRepository
         if (!empty($status) && $status == 'sold') {
             $query->where('status', $status);
             $query->where('stock', '<=', 0);
-        } elseif (!empty($status)) {
+        } elseif (!empty($status) && $status != 'none') {
             $query->where('status', $status);
         }
 
