@@ -3,3 +3,9 @@ export interface Brand {
     name: string
     prefix: number[]
 }
+
+export interface BrandResponse {
+    data: Brand[]
+    total: number
+    per_page: number
+}

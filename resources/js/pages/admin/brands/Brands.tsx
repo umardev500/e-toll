@@ -1,13 +1,23 @@
-import React, { useCallback, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useCallback, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { BrandList, ProductFilter, Search } from '../../../components/admin'
 import { Pagination } from '../../../components/organisms'
+import { useFetchBrands } from '../../../hooks'
+import { type Brand } from '../../../types'
 
 export const Brands: React.FC = () => {
+    const [brands, setBrands] = useState<Brand[]>([])
     const [search, setSearch] = useState('')
     const [total, setTotal] = useState(0)
+    const [perPage, setPerPage] = useState(10)
     const [showFilter, setShowFilter] = useState(false)
     const navigate = useNavigate()
+
+    const [searchParams] = useSearchParams()
+    const page = parseInt(searchParams.get('page') ?? '0')
+    const sort = searchParams.get('sort') ?? 'desc'
+    const status = searchParams.get('status') ?? 'none'
 
     const searchCallback = useCallback((keyword: string) => {
         console.log('callback key', keyword)
@@ -20,6 +30,33 @@ export const Brands: React.FC = () => {
             search: `?${params}`,
         })
     }, [])
+
+    const fetchBrands = useFetchBrands()
+
+    useEffect(() => {
+        toast
+            .promise(
+                fetchBrands(page, sort, status, search),
+                {
+                    success: 'Products data is loaded',
+                    error: 'Something went wrong!',
+                    loading: 'Loading products...',
+                },
+                { className: 'roboto', position: 'top-right' }
+            )
+            .then((res) => {
+                const data = res.data
+                const total = res.total
+                const perPage = res.per_page
+                const pages = Math.ceil(total / perPage)
+                setTotal(pages)
+                setPerPage(perPage)
+                setBrands(data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [page, sort, status, search])
 
     return (
         <div>
