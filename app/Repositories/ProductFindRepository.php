@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Product;
+use Illuminate\Support\Facades\Log;
 
 class ProductFindRepository
 {
@@ -13,7 +14,7 @@ class ProductFindRepository
             ->first();
     }
 
-    public static function find($perPage, $prefix, $brandId, $sort, $search)
+    public static function find($perPage, $prefix, $brandId, $sort, $status, $search)
     {
         $query = Product::with('brand');
 
@@ -39,6 +40,13 @@ class ProductFindRepository
                         $q->where('id', $brandId);
                     }
                 });
+        }
+
+        if (!empty($status) && $status == 'sold') {
+            $query->where('status', $status);
+            $query->where('stock', '<=', 0);
+        } elseif (!empty($status)) {
+            $query->where('status', $status);
         }
 
         $query = $query->orderBy('created_at', $sort);
