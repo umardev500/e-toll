@@ -9,6 +9,7 @@ export interface Order {
     bank: string
     va: string
     created_at: number
+    settlement_time: number
 }
 
 export interface OrderResponse {

@@ -1,9 +1,9 @@
 import { format } from 'libphonenumber-js'
 import React, { useContext, useRef } from 'react'
 import { GlobalContext, type GlobalContextType } from '../../../../context'
-import { toCurrency, toUpperFirst } from '../../../../helpers'
+import { toCurrency, toDate, toUpperFirst } from '../../../../helpers'
 import { useClickOutside, useCloseModal, useExpTime } from '../../../../hooks'
-import { type Status, type Order } from '../../../../types'
+import { type Order, type Status } from '../../../../types'
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
@@ -17,6 +17,12 @@ export const AdminOrderDetail: React.FC<Props> = ({ setState, order }) => {
     const status = (order?.status ?? 'none') as Status
     const globalContext = useContext(GlobalContext) as GlobalContextType
     const product = order?.product_copy
+    const settledTime = order?.settlement_time
+    let settlementTime = ''
+    if (settledTime !== null) {
+        settlementTime = toDate(order?.settlement_time ?? 0)
+    }
+    const orderTime = toDate(order?.created_at ?? 0)
 
     const trxTimeUnix: number = order?.created_at ?? 0
     const expTimeUnix: number = trxTimeUnix + globalContext.orderExp
@@ -60,13 +66,17 @@ export const AdminOrderDetail: React.FC<Props> = ({ setState, order }) => {
                         <span className="ml-2 text-sm text-gray-400">{format(order?.phone_number ?? '', 'ID', 'INTERNATIONAL')}</span>
                     </div>
                     <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium text-gray-500">Order Time:</span>
+                        <span className="ml-2 text-sm text-gray-400">{orderTime}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-gray-500">Status:</span>
                         <span className="ml-2 text-sm text-gray-400">{toUpperFirst(getStatus())}</span>
                     </div>
                     {status === 'settlement' ? (
                         <div className="flex items-center justify-between">
                             <span className="text-sm font-medium text-gray-500">Payment Time:</span>
-                            <span className="ml-2 text-sm text-gray-400">Mar 23, 2023 10:15</span>
+                            <span className="ml-2 text-sm text-gray-400">{settlementTime}</span>
                         </div>
                     ) : null}
                     <div className="flex items-center justify-between pt-2.5 border-t border-dashed">
