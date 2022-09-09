@@ -28,7 +28,7 @@ export const Products: React.FC = () => {
     useEffect(() => {
         toast
             .promise(
-                fetchProducts(page, sort, status),
+                fetchProducts(page, sort, status, search),
                 {
                     success: 'Products data is loaded',
                     error: 'Something went wrong!',
@@ -48,7 +48,7 @@ export const Products: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [page, sort, status])
+    }, [page, sort, status, search])
 
     const paginationCallback = useCallback((params: string) => {
         navigate({

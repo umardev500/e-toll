@@ -1,10 +1,10 @@
 import { type ProductResponse } from '../types'
 
 export const useFetchProducts = () => {
-    const fetchProduct = async (page = 0, sort: string, status: string): Promise<ProductResponse> => {
+    const fetchProduct = async (page = 0, sort: string, status: string, search: string): Promise<ProductResponse> => {
         page += 1
 
-        const target = `${import.meta.env.VITE_API_URL}/products?page=${page}&status=${status}&sort=${sort}`
+        const target = `${import.meta.env.VITE_API_URL}/products?page=${page}&status=${status}&sort=${sort}&search=${search}`
 
         try {
             const response = await fetch(target)
