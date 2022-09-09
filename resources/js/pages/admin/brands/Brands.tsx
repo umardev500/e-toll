@@ -26,7 +26,7 @@ export const Brands: React.FC = () => {
 
     const paginationCallback = useCallback((params: string) => {
         navigate({
-            pathname: '/admin/products',
+            pathname: '/admin/brands',
             search: `?${params}`,
         })
     }, [])
