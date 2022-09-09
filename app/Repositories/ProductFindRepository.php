@@ -28,6 +28,13 @@ class ProductFindRepository
             }
         });
 
+        if (!empty($status) && $status == 'sold') {
+            $query->where('status', $status);
+            $query->where('stock', '<=', 0);
+        } elseif (!empty($status) && $status != 'none') {
+            $query->where('status', $status);
+        }
+
         if (!empty($search)) {
             $query->where('product_id', 'LIKE', '%' . $search . '%')
                 ->orWhere('status', 'LIKE', '%' . $search . '%')
@@ -40,13 +47,6 @@ class ProductFindRepository
                         $q->where('id', $brandId);
                     }
                 });
-        }
-
-        if (!empty($status) && $status == 'sold') {
-            $query->where('status', $status);
-            $query->where('stock', '<=', 0);
-        } elseif (!empty($status) && $status != 'none') {
-            $query->where('status', $status);
         }
 
         $query = $query->orderBy('created_at', $sort);
