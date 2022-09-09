@@ -19,6 +19,8 @@ class ProductFactory extends Factory
         return [
             'toll' => fake()->numberBetween(1000, 8888),
             'price' => fake()->numberBetween(1000, 9999),
+            'stock' => fake()->numberBetween(1, 100),
+            'status' => 'active',
             'created_at' => fake()->unixTime()
         ];
     }

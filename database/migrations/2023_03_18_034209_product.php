@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreign('brand_id')->references('id')->on('brands');
             $table->string('toll');
             $table->unsignedInteger(column: 'price');
+            $table->unsignedInteger(column: 'stock');
+            $table->string(column: 'status');
             TimeStamps::addTimeStamps($table);
         });
     }
