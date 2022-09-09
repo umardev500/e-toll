@@ -22,8 +22,10 @@ class BrandFactory extends Factory
         }
 
         return [
+            'brand_id' => fake()->unixTime(),
             'name' => fake()->company(),
             'prefix' => $prefix,
+            'status' => 'active',
             'created_at' => fake()->unixTime(),
         ];
     }
