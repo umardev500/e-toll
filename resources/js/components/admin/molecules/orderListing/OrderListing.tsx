@@ -1,5 +1,5 @@
 import { format } from 'libphonenumber-js'
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { GlobalContext, type GlobalContextType } from '../../../../context'
 import { toCurrency, toUpperFirst } from '../../../../helpers'
 import { useExpTime } from '../../../../hooks'

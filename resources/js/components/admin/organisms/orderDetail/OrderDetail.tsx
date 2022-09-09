@@ -29,8 +29,6 @@ export const AdminOrderDetail: React.FC<Props> = ({ setState, order }) => {
 
     useClickOutside(overlayRef, innerRef, setState)
 
-    console.log(getStatus())
-
     return (
         <div ref={overlayRef} className="modal pt-5 px-5">
             <div ref={innerRef} style={{ width: 325 }} className="modal-inner bg-white rounded-lg">
@@ -65,10 +63,12 @@ export const AdminOrderDetail: React.FC<Props> = ({ setState, order }) => {
                         <span className="text-sm font-medium text-gray-500">Status:</span>
                         <span className="ml-2 text-sm text-gray-400">{toUpperFirst(getStatus())}</span>
                     </div>
-                    <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-500">Payment Time:</span>
-                        <span className="ml-2 text-sm text-gray-400">Mar 23, 2023 10:15</span>
-                    </div>
+                    {status === 'settlement' ? (
+                        <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-500">Payment Time:</span>
+                            <span className="ml-2 text-sm text-gray-400">Mar 23, 2023 10:15</span>
+                        </div>
+                    ) : null}
                     <div className="flex items-center justify-between pt-2.5 border-t border-dashed">
                         <span className="font-semibold text-gray-500">Total:</span>
                         <span className="ml-2 font-semibold text-gray-500">{toCurrency(product?.price ?? 0, 'Rp')}</span>
