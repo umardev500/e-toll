@@ -25,7 +25,7 @@ class ProductFindRepository
                     $query->where('id', $brandId);
                 }
             })
-            ->simplePaginate(perPage: $perPage);
+            ->paginate(perPage: $perPage);
         return $product;
     }
 }
