@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +18,7 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
+            'product_id' => Carbon::now()->timestamp,
             'toll' => fake()->numberBetween(1000, 8888),
             'price' => fake()->numberBetween(1000, 9999),
             'stock' => fake()->numberBetween(1, 100),
