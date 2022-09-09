@@ -1,13 +1,24 @@
 import React, { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { type Brand } from '../../../../types'
 import { BrandListing } from '../../molecules'
 import { Confirm } from '../confirm'
 
-export const BrandList: React.FC = () => {
+interface Props {
+    brands: Brand[]
+    perPage: number
+}
+
+export const BrandList: React.FC<Props> = ({ brands, perPage }) => {
     const [confirm, setConfirm] = useState(false)
     const onClickDelete = () => {
         setConfirm(true)
         console.log('callback called')
     }
+
+    const [searchParams] = useSearchParams()
+    const page = parseInt(searchParams.get('page') ?? '0')
+    const startIndex = page * perPage
 
     return (
         <>
@@ -25,7 +36,9 @@ export const BrandList: React.FC = () => {
                 </thead>
 
                 <tbody>
-                    <BrandListing onClickDelete={onClickDelete} />
+                    {brands.map((brand, i) => (
+                        <BrandListing index={startIndex + (i + 1)} brand={brand} key={brand.id} onClickDelete={onClickDelete} />
+                    ))}
                 </tbody>
             </table>
             {confirm ? <Confirm message="Are you sure want to delete" className="text-center text-gray-500 text-lg font-medium roboto" setState={setConfirm} /> : null}

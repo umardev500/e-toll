@@ -1,12 +1,15 @@
 import React from 'react'
 import { toDate } from '../../../../helpers'
+import { type Brand } from '../../../../types'
 
 interface Props {
     onClickDelete: () => void
+    brand: Brand
+    index: number
 }
 
-export const BrandListing: React.FC<Props> = ({ onClickDelete }) => {
-    const createdTime = toDate(1467858254)
+export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) => {
+    const createdTime = toDate(brand.created_at)
 
     const handleDelete = () => {
         onClickDelete()
@@ -14,10 +17,10 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete }) => {
 
     return (
         <tr>
-            <td className="px-4 border-r border-b border-slate-200 py-2 text-center">{1}.</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2 text-center">{index}.</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{'16778276723'}</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2">{'Telkomsel'}</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2">{'0825, 0854, 0846, 0865, 0855, 0836'}</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2">{brand.name}</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2">{brand.prefix.join(', ')}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{createdTime}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{'Active'}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2 whitespace-nowrap w-10">

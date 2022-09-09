@@ -83,7 +83,7 @@ export const Brands: React.FC = () => {
                         <Search callback={searchCallback} title="Enter the keyword" placeholder="Enter key to search" />
                     </div>
                     <div className="bg-white overflow-auto rounded-lg border mb-5">
-                        <BrandList />
+                        <BrandList perPage={perPage} brands={brands} />
                     </div>
                     <div>
                         <Pagination onPageChangeCallback={paginationCallback} pageCount={total} />
