@@ -45,7 +45,7 @@ export const Home: React.FC = () => {
                     .then((res) => {
                         const data = res.data
                         setProducts(data) // set products data
-                        setBrand(data[0].brand.name) // set brand selected
+                        setBrand(data[0].brand?.name ?? '') // set brand selected
                     })
                     .catch((err) => {
                         console.log(err)
