@@ -25,4 +25,9 @@ class OrderFindService
     {
         return OrderFindRepository::findOne($id);
     }
+
+    public static function count($status): int
+    {
+        return OrderFindRepository::count('new');
+    }
 }

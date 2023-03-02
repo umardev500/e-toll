@@ -43,4 +43,20 @@ class OrderFindRepository
     {
         return Order::with('productCopy.brand')->find($id);
     }
+
+    public static function count(string $status): int
+    {
+        $total = Order::where('status', $status)->count();
+        if ($status == 'new') {
+            $now = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::today());
+            $tomorrow = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::today())->addDay();
+            $startOfToday = $now->timestamp;
+            $startOfTomorrow = $tomorrow->timestamp;
+
+            $total = Order::where('settlement_time', '>=', $startOfToday)
+                ->where('settlement_time', '<=', $startOfTomorrow)->count();
+        }
+
+        return $total;
+    }
 }

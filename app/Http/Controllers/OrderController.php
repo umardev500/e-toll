@@ -39,4 +39,11 @@ class OrderController extends Controller
     {
         OrderMarkDoneService::markDone($id);
     }
+
+
+    public function count(Request $req)
+    {
+        $status = $req->query('status');
+        return OrderFindService::count($status);
+    }
 }

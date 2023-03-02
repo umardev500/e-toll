@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('/orders', [OrderController::class, 'create']);
+Route::get('/orders/count', [OrderController::class, 'count']);
 Route::get('/orders/{id}', [OrderController::class, 'findOne']);
 Route::get('/orders', [OrderController::class, 'find']);
 Route::get('/orders/{id}/cancel', [OrderController::class, 'cancel']);
