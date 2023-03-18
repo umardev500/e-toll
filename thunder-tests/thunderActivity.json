@@ -27,7 +27,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2023-03-18T11:22:27.873Z",
+    "modified": "2023-03-18T11:40:34.541Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -37,17 +37,16 @@
     "colId": "history",
     "containerId": "",
     "name": "find all",
-    "url": "http://localhost:8000/api/orders",
+    "url": "http://localhost:8000/api/orders?phone=083142765573",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2023-03-18T11:33:27.957Z",
+    "modified": "2023-03-18T11:37:12.168Z",
     "headers": [],
     "params": [
       {
         "name": "phone",
         "value": "083142765573",
-        "isDisabled": true,
         "isPath": false
       }
     ],

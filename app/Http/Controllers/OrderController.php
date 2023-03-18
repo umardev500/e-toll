@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Services\CreateOrderService;
+use App\Services\OrderFindOneService;
+use App\Services\OrderFindService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -21,20 +23,11 @@ class OrderController extends Controller
 
     public function findOne($id)
     {
-        $order = Order::with('productCopy.brand')->find($id);
-        return $order;
+        return OrderFindOneService::findOne($id);
     }
 
-    public function find()
+    public function find(Request $req)
     {
-        $phone_number = request()->input('phone');
-
-        $query = Order::with('productCopy.brand');
-        if (!empty($phone_number)) {
-            $query->where('orders.phone_number', $phone_number);
-        }
-        $orders =  $query->get();
-
-        return $orders;
+        return OrderFindService::find($req);
     }
 }
