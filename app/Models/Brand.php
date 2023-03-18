@@ -20,4 +20,9 @@ class Brand extends Model
     ];
 
     protected $casts = ['prefix' => 'array'];
+
+    public function product()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Brand;
+use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +14,8 @@ class BrandSeeder extends Seeder
      */
     public function run(): void
     {
-        $brand = Brand::factory()->count(3)->create();
+        Brand::factory()
+            ->has(Product::factory())
+            ->create();
     }
 }
