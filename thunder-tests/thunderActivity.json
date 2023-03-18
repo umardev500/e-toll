@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "d28f776d-6a09-4b5b-9e9b-e8c93ae8cfc3",
+    "colId": "history",
+    "containerId": "",
+    "name": "order",
+    "url": "http://localhost:8000/api/order",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-03-18T08:16:10.555Z",
+    "modified": "2023-03-18T10:20:46.344Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"product_id\": \"1\",\n  \"payment\": {\n    \"type\": \"bank_transfer\",\n    \"bank\": \"bri\"\n  },\n  \"phone_number\": \"083142765573\"\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]
