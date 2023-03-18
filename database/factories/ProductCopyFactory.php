@@ -17,7 +17,7 @@ class ProductCopyFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->title(),
+            'title' => fake()->jobTitle(),
             'price' => fake()->numberBetween(1000, 9999),
             'created_at' => fake()->unixTime()
         ];

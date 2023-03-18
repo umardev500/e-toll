@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Brand;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductCopy;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,7 +18,10 @@ class BrandSeeder extends Seeder
     {
         Brand::factory()
             ->has(Product::factory())
-            ->has(ProductCopy::factory())
+            ->has(
+                ProductCopy::factory()
+                    ->has(Order::factory())
+            )
             ->create();
     }
 }
