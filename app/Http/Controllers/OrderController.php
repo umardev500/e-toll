@@ -23,4 +23,11 @@ class OrderController extends Controller
         $order = Order::with('productCopy')->find($id);
         return $order;
     }
+
+    public function find()
+    {
+        $orders = Order::with('productCopy')->get();
+
+        return $orders;
+    }
 }
