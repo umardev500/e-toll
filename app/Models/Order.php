@@ -19,4 +19,9 @@ class Order extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function productCopy()
+    {
+        return $this->belongsTo(ProductCopy::class);
+    }
 }

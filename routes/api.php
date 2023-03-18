@@ -19,4 +19,5 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/order', [OrderController::class, 'create']);
+Route::post('/order', [OrderController::class, 'create']);
+Route::get('/order/{id}', [OrderController::class, 'findOne']);
