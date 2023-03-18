@@ -23,6 +23,7 @@ class BrandFactory extends Factory
         return [
             'name' => fake()->company(),
             'prefix' => json_encode($prefix),
+            'created_at' => fake()->unixTime(),
         ];
     }
 }

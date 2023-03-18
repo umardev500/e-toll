@@ -14,6 +14,9 @@ class Brand extends Model
     protected $fillable = [
         'name',
         'prefix',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     protected $casts = ['prefix' => 'array'];
