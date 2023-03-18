@@ -25,4 +25,9 @@ class Brand extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function productCopy()
+    {
+        return $this->hasMany(ProductCopy::class);
+    }
 }
