@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Services\CreateOrderService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -26,7 +27,13 @@ class OrderController extends Controller
 
     public function find()
     {
-        $orders = Order::with('productCopy.brand')->get();
+        $phone_number = request()->input('phone');
+
+        $query = Order::with('productCopy.brand');
+        if (!empty($phone_number)) {
+            $query->where('orders.phone_number', $phone_number);
+        }
+        $orders =  $query->get();
 
         return $orders;
     }
