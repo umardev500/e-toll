@@ -20,13 +20,13 @@ class OrderController extends Controller
 
     public function findOne($id)
     {
-        $order = Order::with('productCopy')->find($id);
+        $order = Order::with('productCopy.brand')->find($id);
         return $order;
     }
 
     public function find()
     {
-        $orders = Order::with('productCopy')->get();
+        $orders = Order::with('productCopy.brand')->get();
 
         return $orders;
     }

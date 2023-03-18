@@ -19,4 +19,9 @@ class Product extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 }

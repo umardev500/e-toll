@@ -23,11 +23,11 @@
     "colId": "history",
     "containerId": "",
     "name": "find one",
-    "url": "http://localhost:8000/api/order/1",
+    "url": "http://localhost:8000/api/orders/1",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2023-03-18T11:06:16.310Z",
+    "modified": "2023-03-18T11:22:27.873Z",
     "headers": [],
     "params": [],
     "tests": []
