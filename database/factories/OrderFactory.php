@@ -17,6 +17,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
+            'order_id' => fake()->unixTime(),
             'phone_number' => fake()->phoneNumber(),
             'created_at' => fake()->unixTime()
         ];

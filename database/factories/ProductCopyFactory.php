@@ -18,8 +18,7 @@ class ProductCopyFactory extends Factory
     {
         return [
             'title' => fake()->jobTitle(),
-            'price' => fake()->numberBetween(1000, 9999),
-            'created_at' => fake()->unixTime()
+            'price' => fake()->numberBetween(1000, 9999)
         ];
     }
 }

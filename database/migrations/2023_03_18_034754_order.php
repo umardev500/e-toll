@@ -14,10 +14,11 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('order_id');
             $table->unsignedBigInteger('product_copy_id');
             $table->string('phone_number');
             $table->foreign('product_copy_id')->references('id')->on('product_copies');
-            $table->string('status');
+            $table->string('status')->default('pending');
             $table->unsignedBigInteger('settlement_time')->nullable();
             TimeStamps::addTimeStamps($table);
         });
