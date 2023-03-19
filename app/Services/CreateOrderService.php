@@ -7,6 +7,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Models\Order;
 use App\Models\ProductCopy;
+use App\Repositories\OrderCreateRepository;
 use Carbon\Carbon;
 
 class CreateOrderService
@@ -79,11 +80,11 @@ class CreateOrderService
         $phone = $requestData['phone_number'];
         $trxTime = Carbon::createFromFormat('Y-m-d H:i:s', $trxTime, 'Asia/Jakarta')->timestamp;
 
-        $order = new Order();
-        $order->order_id = $orderId;
-        $order->product_copy_id = $lastInsertedProduct;
-        $order->phone_number = $phone;
-        $order->created_at = $trxTime;
-        $order->save();
+        OrderCreateRepository::create(
+            orderId: $orderId,
+            lastInsertedId: $lastInsertedProduct,
+            phone: $phone,
+            trxTime: $trxTime
+        );
     }
 }

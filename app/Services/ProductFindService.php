@@ -3,22 +3,20 @@
 namespace App\Services;
 
 use App\Models\Product;
+use App\Repositories\ProductFindRepository;
 use Illuminate\Http\Request;
 
 class ProductFindService
 {
     public static function findOne($id)
     {
-        $product = Product::find($id);
-        return $product;
+        return ProductFindRepository::findOne($id);
     }
 
     public static function find(Request $req)
     {
         $perPage = $req->input('per_page', '10');
         $perPage = intval($perPage);
-        $product = Product::with('brand')
-            ->simplePaginate(perPage: $perPage);
-        return $product;
+        return ProductFindRepository::find($perPage);
     }
 }
