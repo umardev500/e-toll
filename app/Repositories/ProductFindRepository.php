@@ -8,7 +8,7 @@ class ProductFindRepository
 {
     public static function findOne($id)
     {
-        return Product::find($id);
+        return Product::with('brand')->where('products.id', $id)->get();
     }
 
     public static function find($perPage)
