@@ -9,13 +9,15 @@ class OrderFindService
 {
     public static function find(Request $req)
     {
-        $phone_number = $req->input('phone');
+        $phoneNumber = $req->input('phone');
+        $perPage = $req->input('per_page', '1');
+        $perPage = intval($perPage);
 
         $query = Order::with('productCopy.brand');
-        if (!empty($phone_number)) {
-            $query->where('orders.phone_number', $phone_number);
+        if (!empty($phoneNumber)) {
+            $query->where('orders.phone_number', $phoneNumber);
         }
-        $orders =  $query->get();
+        $orders =  $query->simplePaginate(perPage: $perPage);
 
         return $orders;
     }
