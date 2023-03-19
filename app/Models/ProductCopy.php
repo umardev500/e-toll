@@ -13,7 +13,7 @@ class ProductCopy extends Model
 
     protected $fillable = [
         'brand_id',
-        'title',
+        'toll',
         'price',
         'created_at',
         'updated_at',
