@@ -21,4 +21,9 @@ class OrderFindService
 
         return $orders;
     }
+
+    public static function findOne($id)
+    {
+        return Order::with('productCopy.brand')->find($id);
+    }
 }

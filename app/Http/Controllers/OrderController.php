@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
 use App\Services\CreateOrderService;
-use App\Services\OrderFindOneService;
 use App\Services\OrderFindService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -23,7 +20,7 @@ class OrderController extends Controller
 
     public function findOne($id)
     {
-        return OrderFindOneService::findOne($id);
+        return OrderFindService::findOne($id);
     }
 
     public function find(Request $req)
