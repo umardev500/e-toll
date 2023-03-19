@@ -82,11 +82,11 @@
     "colId": "history",
     "containerId": "",
     "name": "product find all",
-    "url": "http://localhost:8000/api/products?per_page=1&page=2",
+    "url": "http://localhost:8000/api/products?per_page=1&prefix=4259",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2023-03-19T00:19:28.404Z",
+    "modified": "2023-03-19T01:44:47.324Z",
     "headers": [],
     "params": [
       {
@@ -97,6 +97,12 @@
       {
         "name": "page",
         "value": "2",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "prefix",
+        "value": "4259",
         "isPath": false
       }
     ],
@@ -111,7 +117,7 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2023-03-19T00:26:22.980Z",
+    "modified": "2023-03-19T00:48:42.979Z",
     "headers": [],
     "params": [],
     "body": {
