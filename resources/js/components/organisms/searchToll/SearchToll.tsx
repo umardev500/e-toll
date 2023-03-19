@@ -8,6 +8,12 @@ export const SerachToll: React.FC = () => {
     const inputRef = useRef<HTMLInputElement>(null)
     const context = useContext(AppContext) as AppContextType
 
+    const handleReset = useCallback(() => {
+        context.setProduct(undefined)
+        context.setProducts([])
+        context.setBrand(undefined)
+    }, [])
+
     const handleType = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = inputRef.current
         const phoneNumber = e.target.value
@@ -44,6 +50,8 @@ export const SerachToll: React.FC = () => {
                 console.log(err)
             })
         }
+
+        if (phoneLen <= 0) handleReset()
     }
 
     const handeInputChange = useDebounce(changeCallback, 500)
@@ -52,9 +60,7 @@ export const SerachToll: React.FC = () => {
         const input = inputRef.current
         if (input != null) {
             input.value = ''
-            context.setProduct(undefined)
-            context.setProducts([])
-            context.setBrand(undefined)
+            handleReset()
         }
     }, [])
 
