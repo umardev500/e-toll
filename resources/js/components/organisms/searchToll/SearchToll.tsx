@@ -24,6 +24,7 @@ export const SerachToll: React.FC = () => {
             const jsonData: ProductResponse = await response.json()
             const products = jsonData.data
             context.setProducts(products)
+            context.setBrand(products[0].brand)
         } catch (err) {
             console.log(err)
         }
