@@ -1,8 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AppContext, type AppContextType } from '../../../context/AppContext'
 import { toCurrency } from '../../../helpers'
+import { Modal } from '../modal'
 
 export const Checkout: React.FC = () => {
+    const [paymentOpen, setPaymentOpen] = useState<boolean>(false)
+
     const context = useContext(AppContext) as AppContextType
     const product = context.product
 
@@ -15,12 +18,19 @@ export const Checkout: React.FC = () => {
                         <span className="font-semibold text-2xl text-teal-600">{toCurrency(product?.price ?? 0, 'Rp')}</span>
                     </div>
                     <div>
-                        <button className="outline-none w-full md:w-auto bg-teal-500 hover:bg-teal-600 text-white px-4 md:px-10 py-2 font-medium rounded-md roboto">
+                        <button
+                            onClick={() => {
+                                setPaymentOpen((prev) => !prev)
+                            }}
+                            className="outline-none w-full md:w-auto bg-teal-500 hover:bg-teal-600 text-white px-4 md:px-10 py-2 font-medium rounded-md roboto"
+                        >
                             Choose Payment
                         </button>
                     </div>
                 </div>
             </div>
+
+            {paymentOpen ? <Modal setState={setPaymentOpen} /> : null}
         </>
     )
 }
