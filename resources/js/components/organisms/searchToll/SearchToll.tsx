@@ -71,7 +71,7 @@ export const SerachToll: React.FC = () => {
                     ref={inputRef}
                     onChange={handeInputChange}
                     onBlur={handleType}
-                    className="w-full text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-3.5 text-base font-medium rounded-lg"
+                    className="w-full bg-slate-50 text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-3.5 text-base font-medium rounded-lg"
                     type="text"
                     placeholder="Enter your number"
                 />
