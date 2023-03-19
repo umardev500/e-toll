@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Order;
+use App\Repositories\OrderFindRepository;
 use Illuminate\Http\Request;
 
 class OrderFindService
@@ -13,17 +14,11 @@ class OrderFindService
         $perPage = $req->input('per_page', '1');
         $perPage = intval($perPage);
 
-        $query = Order::with('productCopy.brand');
-        if (!empty($phoneNumber)) {
-            $query->where('orders.phone_number', $phoneNumber);
-        }
-        $orders =  $query->simplePaginate(perPage: $perPage);
-
-        return $orders;
+        return OrderFindRepository::find(perPage: $perPage, phoneNumber: $phoneNumber);
     }
 
     public static function findOne($id)
     {
-        return Order::with('productCopy.brand')->find($id);
+        return OrderFindRepository::findOne($id);
     }
 }
