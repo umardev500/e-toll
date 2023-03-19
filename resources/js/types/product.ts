@@ -1,7 +1,7 @@
 export interface Product {
     id: number
     brand_id: number
-    title: string
+    toll: number
     price: number
 }
 

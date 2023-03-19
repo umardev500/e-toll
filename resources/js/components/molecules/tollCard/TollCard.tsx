@@ -14,11 +14,11 @@ export const TollCard: React.FC<Props> = ({ index, selectedIndex, product, onCli
         <>
             <div
                 onClick={() => {
-                    onClick(index)
+                    onClick(product.id)
                 }}
                 className={`border cursor-pointer text-center rounded-md py-4 px-6 ${selectedIndex === index ? 'border-teal-500' : 'border-slate-200'}`}
             >
-                <div className="font-semibold text-2xl text-teal-600">{toCurrency(product.price, 'Rp')}</div>
+                <div className="font-semibold text-2xl text-teal-600">{toCurrency(product.toll, 'Rp')}</div>
                 <div className="text-sm mt-1 text-slate-500">Bayar: {toCurrency(product.price, 'Rp')}</div>
             </div>
         </>
