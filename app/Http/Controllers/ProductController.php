@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Services\ProductFindService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
-    public function find($id)
+    public function findOne($id)
     {
-        $product = Product::find($id);
-        return $product;
+        return ProductFindService::findOne($id);
     }
 }

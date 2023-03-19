@@ -19,7 +19,7 @@ class CreateOrderService
 
         // Get product data
         $product = new ProductController();
-        $item = $product->find($productId);
+        $item = $product->findOne($productId);
         if ($item == null) {
             return JsonResult::response(404, "product not found");
         }

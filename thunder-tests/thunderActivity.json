@@ -4,11 +4,11 @@
     "colId": "history",
     "containerId": "",
     "name": "order",
-    "url": "http://localhost:8000/api/order",
+    "url": "http://localhost:8000/api/orders",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2023-03-18T10:53:50.078Z",
+    "modified": "2023-03-19T00:07:52.941Z",
     "headers": [],
     "params": [],
     "body": {
