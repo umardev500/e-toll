@@ -26,6 +26,8 @@ export const SerachToll: React.FC = () => {
             if (products.length > 0) {
                 context.setProducts(products)
                 context.setBrand(products[0].brand)
+            } else {
+                context.setProducts([])
             }
         } catch (err) {
             console.log(err)
