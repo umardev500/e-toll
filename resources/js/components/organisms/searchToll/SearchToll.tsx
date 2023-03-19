@@ -1,6 +1,7 @@
 import { format } from 'libphonenumber-js'
 import React, { useCallback, useContext, useRef } from 'react'
 import { AppContext, type AppContextType } from '../../../context/AppContext'
+import { useDebounce } from '../../../hooks'
 import { type ProductResponse } from '../../../types'
 
 export const SerachToll: React.FC = () => {
@@ -29,17 +30,17 @@ export const SerachToll: React.FC = () => {
         }
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const phoneNumber = e.target.value
+    const changeCallback = (phoneNumber: string) => {
+        console.log('callback called')
         const formattedPhoneNumber = format(phoneNumber, 'ID', 'NATIONAL')
         const rawNumber = formattedPhoneNumber.replace(/\D/g, '')
         const prefix = parseInt(rawNumber.substring(0, 4))
-        if (rawNumber.length === 4) {
-            fetchProducts(prefix).catch((err) => {
-                console.log(err)
-            })
-        }
+        fetchProducts(prefix).catch((err) => {
+            console.log(err)
+        })
     }
+
+    const handeInputChange = useDebounce(changeCallback, 500)
 
     const handleClear = useCallback(() => {
         const input = inputRef.current
@@ -53,7 +54,7 @@ export const SerachToll: React.FC = () => {
             <div className="w-full lg:w-1/2 xl:w-1/2 md:w-2/3 relative flex items-center">
                 <input
                     ref={inputRef}
-                    onChange={handleChange}
+                    onChange={handeInputChange}
                     onBlur={handleType}
                     className="w-full text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-3.5 text-base font-medium rounded-lg"
                     type="text"
