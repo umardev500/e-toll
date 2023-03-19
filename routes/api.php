@@ -25,5 +25,6 @@ Route::get('/orders/{id}', [OrderController::class, 'findOne']);
 Route::get('/orders', [OrderController::class, 'find']);
 
 // Product routes
+Route::post('/products', [ProductController::class, 'create']);
 Route::get('/products', [ProductController::class, 'find']);
 Route::get('/products/{id}', [ProductController::class, 'findOne']);
