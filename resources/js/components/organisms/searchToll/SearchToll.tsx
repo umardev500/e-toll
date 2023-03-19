@@ -35,12 +35,15 @@ export const SerachToll: React.FC = () => {
     }
 
     const changeCallback = (phoneNumber: string) => {
-        const formattedPhoneNumber = format(phoneNumber, 'ID', 'NATIONAL')
-        const rawNumber = formattedPhoneNumber.replace(/\D/g, '')
-        const prefix = parseInt(rawNumber.substring(0, 4))
-        fetchProducts(prefix).catch((err) => {
-            console.log(err)
-        })
+        const phoneLen = phoneNumber.length
+        if (phoneLen >= 4) {
+            const formattedPhoneNumber = format(phoneNumber, 'ID', 'NATIONAL')
+            const rawNumber = formattedPhoneNumber.replace(/\D/g, '')
+            const prefix = parseInt(rawNumber.substring(0, 4))
+            fetchProducts(prefix).catch((err) => {
+                console.log(err)
+            })
+        }
     }
 
     const handeInputChange = useDebounce(changeCallback, 500)
