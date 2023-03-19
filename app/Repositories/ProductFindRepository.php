@@ -13,12 +13,16 @@ class ProductFindRepository
             ->get();
     }
 
-    public static function find($perPage, $prefix)
+    public static function find($perPage, $prefix, $brandId)
     {
         $product = Product::with('brand')
-            ->whereHas('brand', function ($query) use ($prefix) {
+            ->whereHas('brand', function ($query) use ($prefix, $brandId) {
                 if ($prefix) {
                     $query->whereJsonContains('prefix', $prefix);
+                }
+
+                if ($brandId) {
+                    $query->where('id', $brandId);
                 }
             })
             ->simplePaginate(perPage: $perPage);

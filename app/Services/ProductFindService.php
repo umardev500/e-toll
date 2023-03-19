@@ -16,10 +16,11 @@ class ProductFindService
     public static function find(Request $req)
     {
         $perPage = $req->input('per_page', '10');
+        $brandId = $req->input('brand_id');
         $perPage = intval($perPage);
         $prefix = $req->input('prefix');
         $prefix = intval($prefix);
 
-        return ProductFindRepository::find($perPage, $prefix);
+        return ProductFindRepository::find($perPage, $prefix, $brandId);
     }
 }
