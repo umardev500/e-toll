@@ -126,5 +126,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "18622bf0-0df4-493b-add4-f741d95d3127",
+    "colId": "history",
+    "containerId": "",
+    "name": "brand find",
+    "url": "http://localhost:8000/api/brands",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-03-19T05:08:28.433Z",
+    "modified": "2023-03-19T05:08:28.433Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

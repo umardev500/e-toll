@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
@@ -28,3 +29,6 @@ Route::get('/orders', [OrderController::class, 'find']);
 Route::post('/products', [ProductController::class, 'create']);
 Route::get('/products', [ProductController::class, 'find']);
 Route::get('/products/{id}', [ProductController::class, 'findOne']);
+
+// Brand
+Route::get('/brands', [BrandController::class, 'find']);
