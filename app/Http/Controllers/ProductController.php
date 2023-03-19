@@ -13,4 +13,9 @@ class ProductController extends Controller
     {
         return ProductFindService::findOne($id);
     }
+
+    public function find(Request $req)
+    {
+        return ProductFindService::find($req);
+    }
 }
