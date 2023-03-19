@@ -8,6 +8,8 @@ export interface AppContextType {
     setPhone: React.Dispatch<React.SetStateAction<string>>
     products: Product[]
     setProducts: React.Dispatch<React.SetStateAction<Product[]>>
+    product?: Product
+    setProduct: React.Dispatch<React.SetStateAction<Product | undefined>>
 }
 
 interface Props {
@@ -18,6 +20,7 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
     const [brands, setBrands] = useState<Brand[]>([])
     const [phone, setPhone] = useState<string>('')
     const [products, setProducts] = useState<Product[]>([])
+    const [product, setProduct] = useState<Product>()
 
     const data = useMemo<AppContextType>(() => {
         return {
@@ -26,8 +29,10 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
             setPhone,
             products,
             setProducts,
+            product,
+            setProduct,
         }
-    }, [brands, products, phone])
+    }, [brands, products, phone, product])
 
     const baseURL = import.meta.env.VITE_API_URL
     const brandURL = `${baseURL}/brands`
