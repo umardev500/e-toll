@@ -1,16 +1,44 @@
 import { format } from 'libphonenumber-js'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useContext, useRef, useState } from 'react'
+import { AppContext, type AppContextType } from '../../../context/AppContext'
+import { type ProductResponse } from '../../../types'
 
 export const SerachToll: React.FC = () => {
     const [brand] = useState('Indosat')
     const inputRef = useRef<HTMLInputElement>(null)
+    const context = useContext(AppContext) as AppContextType
 
     const handleType = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = inputRef.current
+        const phoneNumber = e.target.value
         if (input != null) {
-            const phoneNumber = e.target.value
-            const formattedPhoneNumber = format(phoneNumber, 'ID', 'INTERNATIONAL')
+            const formattedPhoneNumber = format(phoneNumber, 'ID', 'NATIONAL')
             input.value = formattedPhoneNumber
+        }
+    }
+
+    const fetchProducts = async () => {
+        const target = `${import.meta.env.VITE_API_URL}/products`
+        try {
+            const response = await fetch(target)
+            const jsonData: ProductResponse = await response.json()
+            const products = jsonData.data
+            context.setProducts(products)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const phoneNumber = e.target.value
+        const formattedPhoneNumber = format(phoneNumber, 'ID', 'NATIONAL')
+        const rawNumber = formattedPhoneNumber.replace(/\D/g, '')
+        const prefix = rawNumber.substring(0, 4)
+        if (prefix.length === 4) {
+            console.log(prefix)
+            fetchProducts().catch((err) => {
+                console.log(err)
+            })
         }
     }
 
@@ -26,6 +54,7 @@ export const SerachToll: React.FC = () => {
             <div className="w-full lg:w-1/2 xl:w-1/2 md:w-2/3 relative flex items-center">
                 <input
                     ref={inputRef}
+                    onChange={handleChange}
                     onBlur={handleType}
                     className="w-full text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-3.5 text-base font-medium rounded-lg"
                     type="text"

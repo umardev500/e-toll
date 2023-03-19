@@ -1,9 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { type Brand } from '../types'
+import { type Product, type Brand } from '../types'
 
 export const AppContext = React.createContext({})
 export interface AppContextType {
-    brands?: Brand[]
+    brands: Brand[]
+    phone: string
+    setPhone: React.Dispatch<React.SetStateAction<string>>
+    products: Product[]
+    setProducts: React.Dispatch<React.SetStateAction<Product[]>>
 }
 
 interface Props {
@@ -12,16 +16,23 @@ interface Props {
 
 export const AppProvider: React.FC<Props> = ({ children }) => {
     const [brands, setBrands] = useState<Brand[]>([])
+    const [phone, setPhone] = useState<string>('')
+    const [products, setProducts] = useState<Product[]>([])
 
     const data = useMemo<AppContextType>(() => {
         return {
             brands,
+            phone,
+            setPhone,
+            products,
+            setProducts,
         }
-    }, [brands])
+    }, [brands, products, phone])
 
     const baseURL = import.meta.env.VITE_API_URL
     const brandURL = `${baseURL}/brands`
 
+    // Get brands
     useEffect(() => {
         const fetchBrand = async () => {
             try {
