@@ -52,6 +52,9 @@ export const SerachToll: React.FC = () => {
         const input = inputRef.current
         if (input != null) {
             input.value = ''
+            context.setProduct(undefined)
+            context.setProducts([])
+            context.setBrand(undefined)
         }
     }, [])
 
