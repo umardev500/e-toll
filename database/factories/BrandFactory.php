@@ -21,8 +21,6 @@ class BrandFactory extends Factory
             $prefix[] = fake()->numberBetween(1000, 9999);
         }
 
-        $prefixEncoded = json_encode($prefix);
-
         return [
             'name' => fake()->company(),
             'prefix' => $prefix,
