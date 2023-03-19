@@ -23,15 +23,16 @@ export const SerachToll: React.FC = () => {
             const response = await fetch(target)
             const jsonData: ProductResponse = await response.json()
             const products = jsonData.data
-            context.setProducts(products)
-            context.setBrand(products[0].brand)
+            if (products.length > 0) {
+                context.setProducts(products)
+                context.setBrand(products[0].brand)
+            }
         } catch (err) {
             console.log(err)
         }
     }
 
     const changeCallback = (phoneNumber: string) => {
-        console.log('callback called')
         const formattedPhoneNumber = format(phoneNumber, 'ID', 'NATIONAL')
         const rawNumber = formattedPhoneNumber.replace(/\D/g, '')
         const prefix = parseInt(rawNumber.substring(0, 4))
