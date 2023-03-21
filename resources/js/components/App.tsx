@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { AppContext, type AppContextType } from '../context/AppContext'
+import { OrderListBtn } from './atoms/orderListBtn'
 import { Checkout, SerachToll, TollList } from './organisms'
 
 export const App: React.FC = () => {
@@ -8,6 +9,10 @@ export const App: React.FC = () => {
     return (
         <div className="container py-10 mx-auto flex justify-center">
             <div className="px-4 flex flex-col items-center w-full">
+                <div className="py-4 w-full lg:w-1/2 xl:w-1/2 md:w-2/3 relative flex items-center">
+                    <h1 className="mb-1 text-3xl font-medium roboto text-slate-600">Balance selling</h1>
+                </div>
+
                 {/* Input area */}
                 <SerachToll />
 
@@ -22,7 +27,9 @@ export const App: React.FC = () => {
                         {/* Checkout */}
                         <Checkout />
                     </div>
-                ) : null}
+                ) : (
+                    <OrderListBtn />
+                )}
             </div>
         </div>
     )
