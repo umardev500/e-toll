@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { OrderList } from './components/organisms'
-import { Home } from './pages'
+import { Home, Orders } from './pages'
 
 export const router = createBrowserRouter([
     {
@@ -9,6 +8,6 @@ export const router = createBrowserRouter([
     },
     {
         path: '/order-list',
-        element: <OrderList />,
+        element: <Orders />,
     },
 ])
