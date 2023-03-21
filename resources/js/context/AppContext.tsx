@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react'
+import { Toaster } from 'react-hot-toast'
 import { type Brand, type Product } from '../types'
 
 export const AppContext = React.createContext({})
@@ -36,5 +37,9 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
         }
     }, [brand, products, phone, product])
 
-    return <AppContext.Provider value={data}>{children}</AppContext.Provider>
+    return (
+        <AppContext.Provider value={data}>
+            {children} <Toaster />
+        </AppContext.Provider>
+    )
 }
