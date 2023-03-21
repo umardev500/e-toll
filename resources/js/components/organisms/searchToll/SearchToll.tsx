@@ -44,7 +44,7 @@ export const SerachToll: React.FC = () => {
         const formattedPhoneNumber = format(phoneNumber, 'ID', 'NATIONAL')
         let rawNumber = formattedPhoneNumber.replace(/\D/g, '')
         const firstNum = rawNumber.charAt(0)
-        if (firstNum !== '0') {
+        if (firstNum !== '0' && phoneNumber.length > 0) {
             rawNumber = '0' + rawNumber
         }
 
