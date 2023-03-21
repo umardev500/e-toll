@@ -43,7 +43,7 @@ export const OrderListing: React.FC = () => {
                 <div className="flex items-center justify-between gap-2.5">
                     <div className="flex items-center gap-1.5 roboto">
                         <span className="text-gray-500 text-sm font-medium">Status:</span>
-                        <span className="text-green-600 text-sm font-medium">Pending</span>
+                        <span className="text-teal-600 text-sm font-medium">Pending</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <button className="outline-none text-sm font-medium roboto border border-gray-300 px-4 py-1.5 rounded text-gray-400 hover:bg-gray-50">Cancel</button>
