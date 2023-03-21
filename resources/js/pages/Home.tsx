@@ -18,7 +18,7 @@ export const Home: React.FC = () => {
                 {/* Result */}
                 {context.products.length > 0 ? (
                     <div className="mt-10 p-4 w-full md:w-2/3">
-                        <div className="text-gray-600 roboto">Nominal</div>
+                        <div className="text-gray-500 roboto">Nominal</div>
 
                         {/* Toll list */}
                         <TollList />

@@ -76,7 +76,7 @@ export const SerachToll: React.FC = () => {
                     placeholder="Enter your number"
                 />
                 <div className="absolute right-4 flex items-center gap-2.5">
-                    <span className="text-gray-400 font-medium">{context.brand?.name}</span>
+                    <span className="text-gray-400 font-medium roboto">{context.brand?.name}</span>
                     <span onClick={handleClear} className="text-gray-400 hover:text-gray-600 cursor-pointer">
                         <svg width="11" height="11" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path

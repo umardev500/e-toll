@@ -14,8 +14,8 @@ export const Checkout: React.FC = () => {
             <div className="flex justify-end mt-16 border-t border-t-slate-200">
                 <div className="py-4 flex items-end justify-between gap-4 flex-1 mt-4">
                     <div className="flex flex-col items-start">
-                        <span className="text-slate-500 roboto">Harga</span>
-                        <span className="font-semibold text-2xl text-teal-600">{toCurrency(product?.price ?? 0, 'Rp')}</span>
+                        <span className="text-slate-500 roboto">Price</span>
+                        <span className="roboto font-bold text-2xl text-teal-600">{toCurrency(product?.price ?? 0, 'Rp')}</span>
                     </div>
                     <div>
                         <button
