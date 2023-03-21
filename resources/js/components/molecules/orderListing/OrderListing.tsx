@@ -47,7 +47,9 @@ export const OrderListing: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-2">
                         <button className="outline-none text-sm font-medium roboto border border-gray-300 px-4 py-1.5 rounded text-gray-400 hover:bg-gray-50">Cancel</button>
-                        <button className="outline-none text-sm font-medium roboto bg-teal-600 hover:bg-teal-700 text-white px-4 py-1.5 rounded">See more</button>
+                        <button className="outline-none text-sm font-medium roboto border border-teal-600 bg-teal-600 hover:bg-teal-700 text-white px-4 py-1.5 rounded">
+                            See more
+                        </button>
                     </div>
                 </div>
             </div>
