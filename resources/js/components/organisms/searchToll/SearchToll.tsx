@@ -41,11 +41,16 @@ export const SerachToll: React.FC = () => {
     }
 
     const changeCallback = (phoneNumber: string) => {
-        const phoneLen = phoneNumber.length
+        const formattedPhoneNumber = format(phoneNumber, 'ID', 'NATIONAL')
+        let rawNumber = formattedPhoneNumber.replace(/\D/g, '')
+        const phoneLen = rawNumber.length
+        const firstNum = rawNumber.charAt(0)
+        if (firstNum !== '0') {
+            rawNumber = '0' + rawNumber
+        }
         if (phoneLen >= 4) {
-            const formattedPhoneNumber = format(phoneNumber, 'ID', 'NATIONAL')
-            const rawNumber = formattedPhoneNumber.replace(/\D/g, '')
-            const prefix = parseInt(rawNumber.substring(0, 4))
+            let prefix: string | number = rawNumber.substring(0, 4)
+            prefix = parseInt(prefix)
             fetchProducts(prefix).catch((err) => {
                 console.log(err)
             })
