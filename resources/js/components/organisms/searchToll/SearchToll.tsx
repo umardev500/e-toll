@@ -23,7 +23,7 @@ export const SerachToll: React.FC = () => {
         }
     }
 
-    const fetchProducts = async (prefix: number) => {
+    const fetchProducts = async (prefix: string) => {
         const target = `${import.meta.env.VITE_API_URL}/products?prefix=${prefix}`
         try {
             const response = await fetch(target)
@@ -49,8 +49,7 @@ export const SerachToll: React.FC = () => {
             rawNumber = '0' + rawNumber
         }
         if (phoneLen >= 4) {
-            let prefix: string | number = rawNumber.substring(0, 4)
-            prefix = parseInt(prefix)
+            const prefix: string | number = rawNumber.substring(0, 4)
             fetchProducts(prefix).catch((err) => {
                 console.log(err)
             })

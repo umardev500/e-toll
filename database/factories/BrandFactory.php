@@ -18,7 +18,7 @@ class BrandFactory extends Factory
     {
         $prefix = [];
         for ($i = 0; $i < 5; $i++) {
-            $prefix[] = '0' . fake()->numberBetween(100, 999);
+            $prefix[] = 0 . fake()->numberBetween(100, 999);
         }
 
         return [

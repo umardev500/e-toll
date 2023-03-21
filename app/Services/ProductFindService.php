@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Product;
 use App\Repositories\ProductFindRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductFindService
 {
@@ -19,7 +20,6 @@ class ProductFindService
         $brandId = $req->input('brand_id');
         $perPage = intval($perPage);
         $prefix = $req->input('prefix');
-        $prefix = intval($prefix);
 
         return ProductFindRepository::find($perPage, $prefix, $brandId);
     }

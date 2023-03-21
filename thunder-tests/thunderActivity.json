@@ -82,11 +82,11 @@
     "colId": "history",
     "containerId": "",
     "name": "product find all",
-    "url": "http://localhost:8000/api/products?prefix=4259",
+    "url": "http://localhost:8000/api/products?prefix=0706",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2023-03-19T11:56:58.901Z",
+    "modified": "2023-03-21T07:34:21.838Z",
     "headers": [],
     "params": [
       {
@@ -103,7 +103,7 @@
       },
       {
         "name": "prefix",
-        "value": "4259",
+        "value": "0706",
         "isPath": false
       },
       {
