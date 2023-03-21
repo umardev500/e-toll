@@ -1,13 +1,13 @@
 import './bootstrap'
 
-import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { App } from './components/App'
+import { RouterProvider } from 'react-router-dom'
 import '../css/app.css'
 import { AppProvider } from './context/AppContext'
+import { router } from './routes'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <AppProvider>
-        <App />
+        <RouterProvider router={router} />
     </AppProvider>
 )
