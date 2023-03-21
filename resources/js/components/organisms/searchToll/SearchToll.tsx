@@ -47,6 +47,9 @@ export const SerachToll: React.FC = () => {
         if (firstNum !== '0') {
             rawNumber = '0' + rawNumber
         }
+
+        context.setPhone(rawNumber) // set phone number to state
+
         const phoneLen = rawNumber.length
         if (phoneLen >= 4) {
             const prefix: string | number = rawNumber.substring(0, 4)

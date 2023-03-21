@@ -8,6 +8,12 @@ export const Checkout: React.FC = () => {
 
     const context = useContext(AppContext) as AppContextType
     const product = context.product
+    const phone = context.phone
+
+    const handleClickPayment = () => {
+        const isLess = phone.length < 10
+        if (!isLess) setPaymentOpen((prev) => !prev)
+    }
 
     return (
         <>
@@ -19,9 +25,7 @@ export const Checkout: React.FC = () => {
                     </div>
                     <div>
                         <button
-                            onClick={() => {
-                                setPaymentOpen((prev) => !prev)
-                            }}
+                            onClick={handleClickPayment}
                             className="outline-none w-full md:w-auto bg-teal-500 hover:bg-teal-600 text-white px-4 md:px-10 py-2 font-medium rounded-md roboto"
                         >
                             Choose Payment
