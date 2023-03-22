@@ -10,7 +10,7 @@ class ProductFindRepository
     {
         return Product::with('brand')
             ->where('products.id', $id)
-            ->get();
+            ->first();
     }
 
     public static function find($perPage, $prefix, $brandId)
