@@ -108,7 +108,7 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
                 </div>
             </div>
 
-            {detailOpen ? <OrderDetail order={order} setState={setDetailOpen} /> : null}
+            {detailOpen ? <OrderDetail isExp={isExp} order={order} setState={setDetailOpen} /> : null}
         </>
     )
 }

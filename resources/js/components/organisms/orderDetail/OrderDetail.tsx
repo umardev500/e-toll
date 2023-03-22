@@ -6,20 +6,25 @@ import { type Order } from '../../../types'
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
     order: Order
+    isExp: boolean
 }
 
-export const OrderDetail: React.FC<Props> = ({ setState, order }) => {
+export const OrderDetail: React.FC<Props> = ({ setState, order, isExp }) => {
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
     const product = order.product_copy
-
-    console.log(order)
+    const status = order.status
 
     const handleClose = useCallback(() => {
         setState(false)
     }, [])
 
     useClickOutside(overlayRef, innerRef, setState)
+
+    const getStatus = (): string => {
+        if (isExp) return 'Expired'
+        return toUpperFirst(status)
+    }
 
     return (
         <div ref={overlayRef} className="modal pt-5 px-5">
@@ -53,7 +58,7 @@ export const OrderDetail: React.FC<Props> = ({ setState, order }) => {
                     </div>
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-gray-500">Status:</span>
-                        <span className="ml-2    text-sm text-gray-400">{toUpperFirst(order.status)}</span>
+                        <span className="ml-2    text-sm text-gray-400">{getStatus()}</span>
                     </div>
                     <div className="flex items-center justify-between pt-2.5 border-t border-dashed">
                         <span className="font-semibold text-gray-500">Total:</span>
