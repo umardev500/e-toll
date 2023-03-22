@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react'
 import { toCurrency, toUpperFirst } from '../../../helpers'
 import { useClickOutside } from '../../../hooks'
-import { type Order } from '../../../types'
+import { type Status, type Order } from '../../../types'
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
@@ -13,7 +13,7 @@ export const OrderDetail: React.FC<Props> = ({ setState, order, isExp }) => {
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
     const product = order.product_copy
-    const status = order.status
+    const status = order.status as Status
 
     const handleClose = useCallback(() => {
         setState(false)
@@ -21,9 +21,9 @@ export const OrderDetail: React.FC<Props> = ({ setState, order, isExp }) => {
 
     useClickOutside(overlayRef, innerRef, setState)
 
-    const getStatus = (): string => {
-        if (isExp) return 'Expired'
-        return toUpperFirst(status)
+    const getStatus = (): Status => {
+        if (isExp) return 'expired'
+        return status
     }
 
     return (
@@ -58,7 +58,7 @@ export const OrderDetail: React.FC<Props> = ({ setState, order, isExp }) => {
                     </div>
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-gray-500">Status:</span>
-                        <span className="ml-2    text-sm text-gray-400">{getStatus()}</span>
+                        <span className="ml-2    text-sm text-gray-400">{toUpperFirst(getStatus())}</span>
                     </div>
                     <div className="flex items-center justify-between pt-2.5 border-t border-dashed">
                         <span className="font-semibold text-gray-500">Total:</span>

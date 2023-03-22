@@ -3,7 +3,7 @@ import '../../../../css/modal.css'
 import { AppContext, type AppContextType } from '../../../context/AppContext'
 import { toCurrency, toUpperFirst } from '../../../helpers'
 import { useCancelOrder, useExpTime } from '../../../hooks'
-import { type Order } from '../../../types'
+import { type Status, type Order } from '../../../types'
 import { OrderDetail } from '../../organisms'
 
 interface Props {
@@ -14,7 +14,7 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
     const [detailOpen, setDetailOpen] = useState<boolean>(false)
     const [, setCancelStatus] = useState<boolean>(false)
     const context = useContext(AppContext) as AppContextType
-    const status = order.status
+    const status = order.status as Status
 
     const product = order.product_copy
     const trxTimeUnix: number = order.created_at
@@ -32,9 +32,9 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
 
     const isExp = useExpTime(expTimeUnix)
 
-    const getStatus = (): string => {
-        if (isExp) return 'Expired'
-        return toUpperFirst(status)
+    const getStatus = (): Status => {
+        if (isExp) return 'expired'
+        return status
     }
 
     const shownCancel = status === 'pending' && !isExp
@@ -84,7 +84,7 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
                     <div className="flex flex-col xl:flex-row justify-center xl:justify-between xl:items-center gap-2.5">
                         <div className="flex items-center gap-1.5 roboto">
                             <span className="text-gray-500 text-sm font-medium">Status:</span>
-                            <span className="text-teal-600 text-sm font-medium">{getStatus()}</span>
+                            <span className="text-teal-600 text-sm font-medium">{toUpperFirst(getStatus())}</span>
                         </div>
                         <div className="flex items-center gap-2">
                             {shownCancel ? (
