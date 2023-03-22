@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { OrderList } from '../components/organisms'
+import { AppContext, type AppContextType } from '../context/AppContext'
 import { useFetchOrders } from '../hooks'
 
 export const Orders: React.FC = () => {
@@ -8,6 +9,8 @@ export const Orders: React.FC = () => {
     const handleBack = useCallback(() => {
         navigate(-1)
     }, [])
+
+    const context = useContext(AppContext) as AppContextType
 
     useFetchOrders()
 
@@ -33,6 +36,14 @@ export const Orders: React.FC = () => {
                 </div>
                 {/* List */}
                 <OrderList />
+
+                {context.orders.length < 1 ? (
+                    <div className="mt-10">
+                        <div className="flex items-center gap-1.5 roboto hover:bg-slate-50 text-slate-500 hover:text-slate-600 cursor-pointer border px-4 py-2 rounded">
+                            <span>Track other number</span>
+                        </div>
+                    </div>
+                ) : null}
             </div>
         </div>
     )
