@@ -37,8 +37,8 @@ export const Auth: React.FC = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: 'claud17@example.com',
-                    password: 'dummypass',
+                    email: user,
+                    password: pass,
                 }),
             })
 
@@ -93,12 +93,14 @@ export const Auth: React.FC = () => {
                             className="w-full border border-gray-200 focus:border-indigo-200 focus:ring-2 ring-indigo-400  outline-none px-4 py-2 rounded-md text-gray-500 text-base font-medium roboto"
                             type="text"
                             placeholder="Username"
+                            defaultValue="claud17@example.com"
                         />
                         <input
                             ref={passRef}
                             className="mt-2.5 w-full border border-gray-200 focus:border-indigo-200 focus:ring-2 ring-indigo-400  outline-none px-4 py-2 rounded-md text-gray-500 text-base font-medium roboto"
                             type="text"
                             placeholder="Password"
+                            defaultValue="dummypass"
                         />
 
                         <button
