@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TimeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,6 @@ Route::get('/products/{id}', [ProductController::class, 'findOne']);
 
 // Brand
 Route::get('/brands', [BrandController::class, 'find']);
+
+// Time
+Route::get('/server-time', [TimeController::class, 'get']);

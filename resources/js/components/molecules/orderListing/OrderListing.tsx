@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react'
 import '../../../../css/modal.css'
 import { AppContext, type AppContextType } from '../../../context/AppContext'
-import { toCurrency, toUpperFirst } from '../../../helpers'
+import { getServerTime, toCurrency, toUpperFirst } from '../../../helpers'
+import { useExpTime } from '../../../hooks'
 import { type Order } from '../../../types'
 import { OrderDetail } from '../../organisms'
 
@@ -26,6 +27,8 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
         minute: '2-digit',
         hour12: false,
     })
+
+    const isExp = useExpTime(expTimeUnix)
 
     return (
         <>

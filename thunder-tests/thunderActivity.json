@@ -147,5 +147,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "f65f95e9-a362-4636-910f-3a974a515dbd",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8000/api/server-time",
+    "url": "http://localhost:8000/api/server-time",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-03-22T09:42:00.915Z",
+    "modified": "2023-03-22T09:42:00.915Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]
