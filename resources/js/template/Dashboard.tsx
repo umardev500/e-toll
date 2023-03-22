@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Navbar, Sidebar } from '../components/admin'
 import '../../css/font.css'
 import '../../css/dashboard.css'
+import { AppContext, type AppContextType } from '../context/AppContext'
 
 export const Dashboard: React.FC = () => {
+    const containerRef = useRef<HTMLDivElement>(null)
+
+    const context = useContext(AppContext) as AppContextType
+    useEffect(() => {
+        const container = containerRef.current
+        const shown = context.sidebarShown
+        if (container != null) {
+            if (shown) container.classList.add('sidebar-shown')
+            if (!shown) container.classList.remove('sidebar-shown')
+        }
+    }, [context.sidebarShown])
+
     return (
-        <div className="dashboard-container sidebar-shown">
+        <div ref={containerRef} className="dashboard-container sidebar-shown">
             <Navbar />
             <Sidebar />
             <div className="content py-4">
