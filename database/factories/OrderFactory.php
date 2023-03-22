@@ -19,6 +19,8 @@ class OrderFactory extends Factory
         return [
             'order_id' => fake()->unixTime(),
             'phone_number' => fake()->phoneNumber(),
+            'bank' => fake()->company(),
+            'va' => fake()->unixTime(),
             'created_at' => fake()->unixTime()
         ];
     }

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('product_copy_id');
             $table->string('phone_number');
             $table->foreign('product_copy_id')->references('id')->on('product_copies');
+            $table->string('bank');
+            $table->string('va');
             $table->string('status')->default('pending');
             $table->unsignedBigInteger('settlement_time')->nullable();
             TimeStamps::addTimeStamps($table);
