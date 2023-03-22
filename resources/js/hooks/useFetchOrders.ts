@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react'
+import toast from 'react-hot-toast'
 import { AppContext, type AppContextType } from '../context/AppContext'
 import { type OrderResponse } from '../types'
 
@@ -21,7 +22,16 @@ export const useFetchOrders = () => {
             }
         }
 
-        fetchOrders()
+        toast
+            .promise(
+                fetchOrders(),
+                {
+                    success: 'Orders data is loaded',
+                    error: 'Something went wrong!',
+                    loading: 'Loading order...',
+                },
+                { className: 'roboto' }
+            )
             .then((res) => {
                 const orders = res.data
                 context.setOrders(orders)
