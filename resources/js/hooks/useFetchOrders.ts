@@ -15,7 +15,6 @@ export const useFetchOrders = () => {
             try {
                 const response = await fetch(target)
                 const jsonData: OrderResponse = await response.json()
-                console.log(jsonData)
                 return jsonData
             } catch (err) {
                 return await Promise.reject(err)
