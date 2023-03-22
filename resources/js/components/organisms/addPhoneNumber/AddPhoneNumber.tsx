@@ -1,5 +1,6 @@
 import { format } from 'libphonenumber-js'
 import React, { useCallback, useContext, useRef } from 'react'
+import { toast } from 'react-hot-toast'
 import { AppContext, type AppContextType } from '../../../context/AppContext'
 import { useClickOutside, useCloseModal } from '../../../hooks'
 
@@ -28,6 +29,11 @@ export const AddPhoneNumber: React.FC<Props> = ({ setState }) => {
             if (rawLen >= 10) {
                 context.setTrackingNumber(rawNumber)
                 handleClose()
+            } else {
+                toast.error('Number must more than or equal to 10', {
+                    position: 'top-right',
+                    className: 'roboto',
+                })
             }
         }
     }, [])
