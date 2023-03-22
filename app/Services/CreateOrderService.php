@@ -27,26 +27,27 @@ class CreateOrderService
         }
 
         $price = $item->price; // item price
+        return $item;
 
         // charge bank
-        $response = PaymentController::bank($price, $payment['type']);
-        $statusCode = $response->status_code;
-        $statusMessage = $response->status_message;
-        $trxTime = $response->transaction_time;
+        // $response = PaymentController::bank($price, $payment['type']);
+        // $statusCode = $response->status_code;
+        // $statusMessage = $response->status_message;
+        // $trxTime = $response->transaction_time;
 
-        // check for status code
-        if ($statusCode != 201) {
-            return JsonResult::response($statusCode, $statusMessage);
-        }
+        // // check for status code
+        // if ($statusCode != 201) {
+        //     return JsonResult::response($statusCode, $statusMessage);
+        // }
 
-        $orderId = $response->order_id;
+        // $orderId = $response->order_id;
 
-        // do copy of product
-        $lastInsertedProduct = $this->createCopyProduct($item);
-        // do insert to order
-        $this->createOrder($orderId, $trxTime, $item, $lastInsertedProduct, $requestData);
+        // // do copy of product
+        // $lastInsertedProduct = $this->createCopyProduct($item);
+        // // do insert to order
+        // $this->createOrder($orderId, $trxTime, $item, $lastInsertedProduct, $requestData);
 
-        return $response;
+        // return $response;
     }
 
     /**

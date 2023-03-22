@@ -1,6 +1,6 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import '../../../../css/modal.css'
-import { useClickOutside } from '../../../hooks'
+import { useClickOutside, useCloseModal } from '../../../hooks'
 import { type Bank } from '../../../types'
 
 interface Props {
@@ -18,9 +18,7 @@ export const Modal: React.FC<Props> = ({ setState }) => {
 
     useClickOutside(overlayRef, innerRef, setState)
 
-    const handleClose = useCallback(() => {
-        setState(false)
-    }, [])
+    const handleClose = useCloseModal(setState)
 
     return (
         <>
