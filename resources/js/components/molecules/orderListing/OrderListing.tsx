@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { OrderDetail } from '../../organisms'
+import React, { useContext, useState } from 'react'
 import '../../../../css/modal.css'
-import { type Order } from '../../../types'
+import { AppContext, type AppContextType } from '../../../context/AppContext'
 import { toCurrency, toUpperFirst } from '../../../helpers'
+import { type Order } from '../../../types'
+import { OrderDetail } from '../../organisms'
 
 interface Props {
     order: Order
@@ -10,9 +11,21 @@ interface Props {
 
 export const OrderListing: React.FC<Props> = ({ order }) => {
     const [detailOpen, setDetailOpen] = useState<boolean>(false)
+    const context = useContext(AppContext) as AppContextType
+
     const product = order.product_copy
-    const trxTime = new Date(order.created_at * 1000)
+    const trxTimeUnix: number = order.created_at
+    const expTimeUnix: number = trxTimeUnix + context.orderExp
+    const trxTime = new Date(trxTimeUnix * 1000)
     const formattedTrxTime = trxTime.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
+    const expTime = new Date(expTimeUnix * 1000)
+    const formattedExpTime = expTime.toLocaleDateString('en-US', {
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+    })
 
     return (
         <>
@@ -25,7 +38,7 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
                     </div>
                     <div className="roboto whitespace-nowrap flex">
                         <span className="text-gray-500 text-sm">Pay before:</span>
-                        <span className="text-orange-500 text-sm ml-2 font-medium">Mar, 25 10:15</span>
+                        <span className="text-orange-500 text-sm ml-2 font-medium">{formattedExpTime}</span>
                     </div>
                 </div>
                 {/* Center */}
