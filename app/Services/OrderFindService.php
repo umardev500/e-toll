@@ -11,7 +11,7 @@ class OrderFindService
     public static function find(Request $req)
     {
         $phoneNumber = $req->input('phone');
-        $perPage = $req->input('per_page', '1');
+        $perPage = $req->input('per_page', '10');
         $perPage = intval($perPage);
 
         return OrderFindRepository::find(perPage: $perPage, phoneNumber: $phoneNumber);

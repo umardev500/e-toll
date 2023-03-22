@@ -3,7 +3,7 @@
     "_id": "d28f776d-6a09-4b5b-9e9b-e8c93ae8cfc3",
     "colId": "history",
     "containerId": "",
-    "name": "order",
+    "name": "put order",
     "url": "http://localhost:8000/api/orders",
     "method": "GET",
     "sortNum": 0,
@@ -22,7 +22,7 @@
     "_id": "c04fbea3-98e3-4175-b022-204cfd4051ed",
     "colId": "history",
     "containerId": "",
-    "name": "find one",
+    "name": "order find one",
     "url": "http://localhost:8000/api/orders/1",
     "method": "GET",
     "sortNum": 0,
@@ -36,12 +36,12 @@
     "_id": "b8dea7f8-4e3a-4055-8894-166838088df3",
     "colId": "history",
     "containerId": "",
-    "name": "find all",
-    "url": "http://localhost:8000/api/orders?page=1&per_page=1",
+    "name": "order find all",
+    "url": "http://localhost:8000/api/orders",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2023-03-19T00:06:34.934Z",
+    "modified": "2023-03-22T08:05:47.101Z",
     "headers": [],
     "params": [
       {
@@ -53,11 +53,13 @@
       {
         "name": "page",
         "value": "1",
+        "isDisabled": true,
         "isPath": false
       },
       {
         "name": "per_page",
-        "value": "1",
+        "value": "10",
+        "isDisabled": true,
         "isPath": false
       }
     ],
