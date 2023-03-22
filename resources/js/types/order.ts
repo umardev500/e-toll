@@ -1,6 +1,7 @@
 import { type Product } from './product'
 
 export interface Order {
+    id: number
     order_id: string
     phone_number: string
     status: string

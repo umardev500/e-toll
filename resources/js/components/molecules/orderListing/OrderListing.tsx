@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import '../../../../css/modal.css'
 import { AppContext, type AppContextType } from '../../../context/AppContext'
 import { toCurrency, toUpperFirst } from '../../../helpers'
-import { useExpTime } from '../../../hooks'
+import { useCancelOrder, useExpTime } from '../../../hooks'
 import { type Order } from '../../../types'
 import { OrderDetail } from '../../organisms'
 
@@ -12,6 +12,7 @@ interface Props {
 
 export const OrderListing: React.FC<Props> = ({ order }) => {
     const [detailOpen, setDetailOpen] = useState<boolean>(false)
+    const [, setCancelStatus] = useState<boolean>(false)
     const context = useContext(AppContext) as AppContextType
     const status = order.status
 
@@ -37,6 +38,8 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
     }
 
     const shownCancel = status === 'pending' && !isExp
+
+    const handleCancel = useCancelOrder(order.id, setCancelStatus)
 
     return (
         <>
@@ -85,7 +88,10 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
                         </div>
                         <div className="flex items-center gap-2">
                             {shownCancel ? (
-                                <button className="w-full outline-none text-sm font-medium roboto border border-gray-300 px-4 py-1.5 rounded text-gray-400 hover:bg-gray-50">
+                                <button
+                                    onClick={handleCancel}
+                                    className="w-full outline-none text-sm font-medium roboto border border-gray-300 px-4 py-1.5 rounded text-gray-400 hover:bg-gray-50"
+                                >
                                     Cancel
                                 </button>
                             ) : null}
