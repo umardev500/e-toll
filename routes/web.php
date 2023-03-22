@@ -22,12 +22,12 @@ Route::get('/order-list', function () {
     return view('welcome');
 });
 
-Route::get('/admin', function () {
+Route::middleware('auth:sanctum')->get('/admin', function () {
     return view('welcome');
 });
 
 Route::get('/auth', function () {
     return view('welcome');
-});
+})->name('login');
 
 Route::post('/auth', [AuthController::class, 'auth']);
