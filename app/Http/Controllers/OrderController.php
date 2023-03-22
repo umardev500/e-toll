@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\CreateOrderService;
+use App\Services\OrderCancelService;
 use App\Services\OrderFindService;
 use Illuminate\Http\Request;
 
@@ -26,5 +27,10 @@ class OrderController extends Controller
     public function find(Request $req)
     {
         return OrderFindService::find($req);
+    }
+
+    public function cancel($id)
+    {
+        new OrderCancelService($id);
     }
 }
