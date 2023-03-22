@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { AppContext, type AppContextType } from '../../../context/AppContext'
 import { toCurrency } from '../../../helpers'
 import { Modal } from '../modal'
@@ -13,6 +14,12 @@ export const Checkout: React.FC = () => {
     const handleClickPayment = () => {
         const isLess = phone.length < 10
         if (!isLess) setPaymentOpen((prev) => !prev)
+        if (isLess) {
+            toast.error('Number must more than or equal to 10', {
+                position: 'top-right',
+                className: 'roboto',
+            })
+        }
     }
 
     return (
