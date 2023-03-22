@@ -1,6 +1,61 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 export const Auth: React.FC = () => {
+    const userRef = useRef<HTMLInputElement>(null)
+    const passRef = useRef<HTMLInputElement>(null)
+
+    const getXSRF = async (): Promise<string> => {
+        const target = `${import.meta.env.VITE_WEB_URL}/sanctum/csrf-cookie`
+        const cookieName = 'XSRF-TOKEN'
+
+        try {
+            await fetch(target)
+            const cookies = document.cookie.split('; ')
+            const xrf = cookies.find((cookie) => cookie.startsWith(cookieName))?.split('=')[1] ?? ''
+            return await Promise.resolve(xrf)
+        } catch (err) {
+            return await Promise.reject(err)
+        }
+    }
+
+    const doLogin = async (user: string, pass: string) => {
+        const target = `${import.meta.env.VITE_WEB_URL}/auth`
+
+        try {
+            const token = await getXSRF()
+            const decodedToken = decodeURIComponent(token)
+
+            const response = await fetch(target, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'X-XSRF-TOKEN': decodedToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: 'claud17@example.com',
+                    password: 'dummypass',
+                }),
+            })
+
+            const data = await response.text()
+            console.log(data)
+        } catch {}
+    }
+
+    const handleLogin = () => {
+        const user = userRef.current
+        const pass = passRef.current
+
+        if (user != null && pass != null) {
+            doLogin(user.value, pass.value).catch(() => null)
+        }
+    }
+
+    useEffect(() => {
+        // getXSRF().catch(() => null)
+    }, [])
+
     return (
         <>
             <div className="flex justify-center">
@@ -11,17 +66,22 @@ export const Auth: React.FC = () => {
                     </div>
                     <div className="mt-7">
                         <input
+                            ref={userRef}
                             className="w-full border border-gray-200 focus:border-indigo-200 focus:ring-2 ring-indigo-400  outline-none px-4 py-2 rounded-md text-gray-500 text-base font-medium roboto"
                             type="text"
                             placeholder="Username"
                         />
                         <input
+                            ref={passRef}
                             className="mt-2.5 w-full border border-gray-200 focus:border-indigo-200 focus:ring-2 ring-indigo-400  outline-none px-4 py-2 rounded-md text-gray-500 text-base font-medium roboto"
                             type="text"
                             placeholder="Password"
                         />
 
-                        <button className={`bg-indigo-500 hover:bg-indigo-600 w-full mt-4 p-2 rounded-md outline-none text-gray-100 hover:text-gray-50 font-medium roboto`}>
+                        <button
+                            onClick={handleLogin}
+                            className={`bg-indigo-500 hover:bg-indigo-600 w-full mt-4 p-2 rounded-md outline-none text-gray-100 hover:text-gray-50 font-medium roboto`}
+                        >
                             Submit
                         </button>
                     </div>

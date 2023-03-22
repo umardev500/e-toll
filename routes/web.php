@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +29,5 @@ Route::get('/admin', function () {
 Route::get('/auth', function () {
     return view('welcome');
 });
+
+Route::post('/auth', [AuthController::class, 'auth']);
