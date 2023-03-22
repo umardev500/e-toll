@@ -17,6 +17,8 @@ export interface AppContextType {
     orderExp: number
     trackingNumber: string
     setTrackingNumber: React.Dispatch<React.SetStateAction<string>>
+    reloadCount: number
+    setReloadCount: React.Dispatch<React.SetStateAction<number>>
 }
 
 interface Props {
@@ -31,9 +33,12 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
     const [orders, setOrders] = useState<Order[]>([])
     const [orderExp] = useState(3600) // in seconds
     const [trackingNumber, setTrackingNumber] = useState<string>('407-871-9868')
+    const [reloadCount, setReloadCount] = useState(0)
 
     const data = useMemo<AppContextType>(() => {
         return {
+            reloadCount,
+            setReloadCount,
             trackingNumber,
             setTrackingNumber,
             orderExp,
@@ -48,7 +53,7 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
             product,
             setProduct,
         }
-    }, [brand, products, phone, product, orders])
+    }, [brand, products, phone, product, orders, reloadCount])
 
     return (
         <AppContext.Provider value={data}>

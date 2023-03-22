@@ -30,5 +30,5 @@ export const useFetchOrders = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [trackingNum])
+    }, [trackingNum, context.reloadCount])
 }

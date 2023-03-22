@@ -1,8 +1,10 @@
-import { useCallback } from 'react'
+import { useCallback, useContext } from 'react'
 import { toast } from 'react-hot-toast'
+import { AppContext, type AppContextType } from '../context/AppContext'
 
 export const useCancelOrder = (id: number, setState: React.Dispatch<React.SetStateAction<boolean>>) => {
     const target = `${import.meta.env.VITE_API_URL}/orders/${id}/cancel`
+    const context = useContext(AppContext) as AppContextType
 
     const handler = useCallback(() => {
         const doCancel = async () => {
@@ -24,6 +26,9 @@ export const useCancelOrder = (id: number, setState: React.Dispatch<React.SetSta
                 },
                 { className: 'roboto' }
             )
+            .then(() => {
+                context.setReloadCount((prev) => prev + 1)
+            })
             .catch((err) => {
                 console.log(err)
             })
