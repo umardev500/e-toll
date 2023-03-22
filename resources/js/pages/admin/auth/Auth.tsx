@@ -1,8 +1,12 @@
 import React, { useEffect, useRef } from 'react'
+import { toast } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import { type AuthResponse } from '../../../types'
 
 export const Auth: React.FC = () => {
     const userRef = useRef<HTMLInputElement>(null)
     const passRef = useRef<HTMLInputElement>(null)
+    const navigate = useNavigate()
 
     const getXSRF = async (): Promise<string> => {
         const target = `${import.meta.env.VITE_WEB_URL}/sanctum/csrf-cookie`
@@ -18,7 +22,7 @@ export const Auth: React.FC = () => {
         }
     }
 
-    const doLogin = async (user: string, pass: string) => {
+    const doLogin = async (user: string, pass: string): Promise<boolean> => {
         const target = `${import.meta.env.VITE_WEB_URL}/auth`
 
         try {
@@ -38,9 +42,15 @@ export const Auth: React.FC = () => {
                 }),
             })
 
-            const data = await response.text()
-            console.log(data)
-        } catch {}
+            const data: AuthResponse = await response.json()
+            if (data.success) {
+                return await Promise.resolve(true)
+            } else {
+                return await Promise.reject(new Error('not found'))
+            }
+        } catch (err) {
+            return await Promise.reject(err)
+        }
     }
 
     const handleLogin = () => {
@@ -48,7 +58,20 @@ export const Auth: React.FC = () => {
         const pass = passRef.current
 
         if (user != null && pass != null) {
-            doLogin(user.value, pass.value).catch(() => null)
+            toast
+                .promise(
+                    doLogin(user.value, pass.value),
+                    {
+                        loading: 'Loading...',
+                        success: 'Login succeed',
+                        error: 'something went wrong',
+                    },
+                    { className: 'roboto' }
+                )
+                .then(() => {
+                    navigate('/admin')
+                })
+                .catch(() => null)
         }
     }
 
