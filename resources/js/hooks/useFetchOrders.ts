@@ -6,10 +6,11 @@ export const useFetchOrders = () => {
     const baseURL = import.meta.env.VITE_API_URL
 
     const context = useContext(AppContext) as AppContextType
+    const trackingNum = context.trackingNumber
 
     useEffect(() => {
         const fetchOrders = async (): Promise<OrderResponse> => {
-            const target = `${baseURL}/orders?per_page=1`
+            const target = `${baseURL}/orders?phone=${trackingNum}`
 
             try {
                 const response = await fetch(target)
@@ -28,5 +29,5 @@ export const useFetchOrders = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [])
+    }, [trackingNum])
 }

@@ -15,6 +15,8 @@ export interface AppContextType {
     orders: Order[]
     setOrders: React.Dispatch<React.SetStateAction<Order[]>>
     orderExp: number
+    trackingNumber: string
+    setTrackingNumber: React.Dispatch<React.SetStateAction<string>>
 }
 
 interface Props {
@@ -28,9 +30,12 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
     const [product, setProduct] = useState<Product>()
     const [orders, setOrders] = useState<Order[]>([])
     const [orderExp] = useState(3600) // in seconds
+    const [trackingNumber, setTrackingNumber] = useState<string>('000')
 
     const data = useMemo<AppContextType>(() => {
         return {
+            trackingNumber,
+            setTrackingNumber,
             orderExp,
             orders,
             setOrders,
