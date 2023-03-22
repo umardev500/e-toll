@@ -11,6 +11,8 @@ interface Props {
 export const OrderListing: React.FC<Props> = ({ order }) => {
     const [detailOpen, setDetailOpen] = useState<boolean>(false)
     const product = order.product_copy
+    const trxTime = new Date(order.created_at * 1000)
+    const formattedTrxTime = trxTime.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
 
     return (
         <>
@@ -19,7 +21,7 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
                 <div className="flex flex-wrap items-center justify-between">
                     <div className="roboto flex items-center gap-2 whitespace-nowrap">
                         <span className="text-gray-500 font-semibold">Pulsa</span>
-                        <span className="text-sm text-gray-500">Mar, 25 2023</span>
+                        <span className="text-sm text-gray-500">{formattedTrxTime}</span>
                     </div>
                     <div className="roboto whitespace-nowrap flex">
                         <span className="text-gray-500 text-sm">Pay before:</span>
@@ -32,14 +34,14 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
                         <img className="w-14 hidden xl:flex" src="bca.png" alt="" />
                         <div>
                             <div className="roboto text-sm text-gray-500">Payment Method</div>
-                            <div className="roboto mt-1 text-gray-500 font-semibold">BCA Virtual Account</div>
+                            <div className="roboto mt-1 text-gray-500 font-semibold">{order.bank}</div>
                         </div>
                     </div>
                     <div className="flex flex-1 xl:gap-4 items-center">
                         <div className="w-1 h-8 border-l hidden xl:flex"></div>
                         <div>
                             <div className="roboto text-sm text-gray-500">Virtual Account Number</div>
-                            <div className="roboto mt-1 text-gray-500 font-semibold">80777083142765573</div>
+                            <div className="roboto mt-1 text-gray-500 font-semibold">{order.va}</div>
                         </div>
                     </div>
                     <div className="flex items-center xl:gap-4">

@@ -7,6 +7,7 @@ export interface Order {
     product_copy: Product
     bank: string
     va: string
+    created_at: number
 }
 
 export interface OrderResponse {

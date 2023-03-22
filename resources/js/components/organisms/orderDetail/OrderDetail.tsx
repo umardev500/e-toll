@@ -13,6 +13,8 @@ export const OrderDetail: React.FC<Props> = ({ setState, order }) => {
     const innerRef = useRef<HTMLDivElement>(null)
     const product = order.product_copy
 
+    console.log(order)
+
     const handleClose = useCallback(() => {
         setState(false)
     }, [])
@@ -39,7 +41,7 @@ export const OrderDetail: React.FC<Props> = ({ setState, order }) => {
                 <div className="px-6 pb-5 pt-4 roboto flex flex-col gap-2.5">
                     <div className="flex items-center justify-between pb-2.5 border-b border-dashed">
                         <span className="text-sm font-medium text-gray-500">Payment Method:</span>
-                        <span className="ml-2 text-sm text-gray-400">BCA Virtual Account</span>
+                        <span className="ml-2 text-sm text-gray-400">{order.bank}</span>
                     </div>
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-gray-500">Order ID:</span>
