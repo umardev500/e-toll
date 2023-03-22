@@ -9,7 +9,7 @@ export const useFetchOrders = () => {
 
     useEffect(() => {
         const fetchOrders = async (): Promise<OrderResponse> => {
-            const target = `${baseURL}/orders`
+            const target = `${baseURL}/orders?per_page=1`
 
             try {
                 const response = await fetch(target)

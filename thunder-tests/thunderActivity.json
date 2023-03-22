@@ -37,17 +37,16 @@
     "colId": "history",
     "containerId": "",
     "name": "order find all",
-    "url": "http://localhost:8000/api/orders",
+    "url": "http://localhost:8000/api/orders?phone=940.432.1298&per_page=1",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2023-03-22T08:05:47.101Z",
+    "modified": "2023-03-22T08:13:39.800Z",
     "headers": [],
     "params": [
       {
         "name": "phone",
-        "value": "083142765573",
-        "isDisabled": true,
+        "value": "940.432.1298",
         "isPath": false
       },
       {
@@ -58,8 +57,7 @@
       },
       {
         "name": "per_page",
-        "value": "10",
-        "isDisabled": true,
+        "value": "1",
         "isPath": false
       }
     ],

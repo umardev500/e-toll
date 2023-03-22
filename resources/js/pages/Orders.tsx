@@ -1,12 +1,15 @@
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { OrderList } from '../components/organisms'
+import { useFetchOrders } from '../hooks'
 
 export const Orders: React.FC = () => {
     const navigate = useNavigate()
     const handleBack = useCallback(() => {
         navigate(-1)
     }, [])
+
+    useFetchOrders()
 
     return (
         <div className="container py-10 mx-auto flex justify-center">

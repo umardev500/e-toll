@@ -1,13 +1,17 @@
 import React, { useCallback, useRef } from 'react'
+import { toCurrency, toUpperFirst } from '../../../helpers'
 import { useClickOutside } from '../../../hooks'
+import { type Order } from '../../../types'
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
+    order: Order
 }
 
-export const OrderDetail: React.FC<Props> = ({ setState }) => {
+export const OrderDetail: React.FC<Props> = ({ setState, order }) => {
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
+    const product = order.product_copy
 
     const handleClose = useCallback(() => {
         setState(false)
@@ -39,19 +43,19 @@ export const OrderDetail: React.FC<Props> = ({ setState }) => {
                     </div>
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-gray-500">Order ID:</span>
-                        <span className="ml-2 text-sm text-gray-400">166789283474</span>
+                        <span className="ml-2 text-sm text-gray-400">{order.order_id}</span>
                     </div>
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-gray-500">Phone Number:</span>
-                        <span className="ml-2 text-sm text-gray-400">0838-7915-4310</span>
+                        <span className="ml-2 text-sm text-gray-400">{order.phone_number}</span>
                     </div>
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-gray-500">Status:</span>
-                        <span className="ml-2 text-sm text-gray-400">Pending</span>
+                        <span className="ml-2    text-sm text-gray-400">{toUpperFirst(order.status)}</span>
                     </div>
                     <div className="flex items-center justify-between pt-2.5 border-t border-dashed">
                         <span className="font-semibold text-gray-500">Total:</span>
-                        <span className="ml-2 font-semibold text-gray-500">Rp25.000</span>
+                        <span className="ml-2 font-semibold text-gray-500">{toCurrency(product.price, 'Rp')}</span>
                     </div>
                 </div>
             </div>

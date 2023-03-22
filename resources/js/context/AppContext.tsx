@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { type Brand, type Product } from '../types'
+import { type Order, type Brand, type Product } from '../types'
 
 export const AppContext = React.createContext({})
 export interface AppContextType {
@@ -12,6 +12,8 @@ export interface AppContextType {
     setProducts: React.Dispatch<React.SetStateAction<Product[]>>
     product?: Product
     setProduct: React.Dispatch<React.SetStateAction<Product | undefined>>
+    orders: Order[]
+    setOrders: React.Dispatch<React.SetStateAction<Order[]>>
 }
 
 interface Props {
@@ -23,9 +25,12 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
     const [phone, setPhone] = useState<string>('')
     const [products, setProducts] = useState<Product[]>([])
     const [product, setProduct] = useState<Product>()
+    const [orders, setOrders] = useState<Order[]>([])
 
     const data = useMemo<AppContextType>(() => {
         return {
+            orders,
+            setOrders,
             brand,
             setBrand,
             phone,
@@ -35,7 +40,7 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
             product,
             setProduct,
         }
-    }, [brand, products, phone, product])
+    }, [brand, products, phone, product, orders])
 
     return (
         <AppContext.Provider value={data}>
