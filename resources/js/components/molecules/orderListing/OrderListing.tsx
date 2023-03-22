@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import '../../../../css/modal.css'
 import { AppContext, type AppContextType } from '../../../context/AppContext'
-import { getServerTime, toCurrency, toUpperFirst } from '../../../helpers'
+import { toCurrency, toUpperFirst } from '../../../helpers'
 import { useExpTime } from '../../../hooks'
 import { type Order } from '../../../types'
 import { OrderDetail } from '../../organisms'
@@ -29,6 +29,11 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
     })
 
     const isExp = useExpTime(expTimeUnix)
+
+    const getStatus = (): string => {
+        if (isExp) return 'Expired'
+        return toUpperFirst(order.status)
+    }
 
     return (
         <>
@@ -73,7 +78,7 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
                     <div className="flex flex-col xl:flex-row justify-center xl:justify-between xl:items-center gap-2.5">
                         <div className="flex items-center gap-1.5 roboto">
                             <span className="text-gray-500 text-sm font-medium">Status:</span>
-                            <span className="text-teal-600 text-sm font-medium">{toUpperFirst(order.status)}</span>
+                            <span className="text-teal-600 text-sm font-medium">{getStatus()}</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <button className="w-full outline-none text-sm font-medium roboto border border-gray-300 px-4 py-1.5 rounded text-gray-400 hover:bg-gray-50">
