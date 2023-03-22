@@ -32,7 +32,7 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
     const [product, setProduct] = useState<Product>()
     const [orders, setOrders] = useState<Order[]>([])
     const [orderExp] = useState(3600) // in seconds
-    const [trackingNumber, setTrackingNumber] = useState<string>('407-871-9868')
+    const [trackingNumber, setTrackingNumber] = useState<string>('407-871-9868s')
     const [reloadCount, setReloadCount] = useState(0)
 
     const data = useMemo<AppContextType>(() => {
@@ -53,7 +53,7 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
             product,
             setProduct,
         }
-    }, [brand, products, phone, product, orders, reloadCount])
+    }, [brand, products, phone, product, orders, reloadCount, trackingNumber])
 
     return (
         <AppContext.Provider value={data}>
