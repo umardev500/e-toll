@@ -13,6 +13,7 @@ interface Props {
 export const OrderListing: React.FC<Props> = ({ order }) => {
     const [detailOpen, setDetailOpen] = useState<boolean>(false)
     const context = useContext(AppContext) as AppContextType
+    const status = order.status
 
     const product = order.product_copy
     const trxTimeUnix: number = order.created_at
@@ -32,8 +33,10 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
 
     const getStatus = (): string => {
         if (isExp) return 'Expired'
-        return toUpperFirst(order.status)
+        return toUpperFirst(status)
     }
+
+    const shownCancel = status === 'pending' && !isExp
 
     return (
         <>
@@ -50,25 +53,25 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
                     </div>
                 </div>
                 {/* Center */}
-                <div className="mt-4 flex flex-col xl:flex-row gap-4 xl:gap-4 justify-between">
-                    <div className="flex items-center gap-4">
+                <div className="mt-4 gap-4 grid xl:grid-cols-12">
+                    <div className="flex items-center gap-4 col-span-5">
                         <img className="w-14 hidden xl:flex" src="bca.png" alt="" />
                         <div>
-                            <div className="roboto text-sm text-gray-500">Payment Method</div>
+                            <div className="roboto text-sm text-gray-500 whitespace-nowrap">Payment Method</div>
                             <div className="roboto mt-1 text-gray-500 font-semibold">{order.bank}</div>
                         </div>
                     </div>
-                    <div className="flex flex-1 xl:gap-4 items-center">
+                    <div className="flex flex-1 xl:gap-4 col-span-4 items-center">
                         <div className="w-1 h-8 border-l hidden xl:flex"></div>
                         <div>
                             <div className="roboto text-sm text-gray-500">Virtual Account Number</div>
                             <div className="roboto mt-1 text-gray-500 font-semibold">{order.va}</div>
                         </div>
                     </div>
-                    <div className="flex items-center xl:gap-4">
+                    <div className="flex items-center xl:gap-4 col-span-3">
                         <div className="w-1 h-8 border-l hidden xl:flex"></div>
                         <div>
-                            <div className="roboto text-sm text-gray-500">Payment Total</div>
+                            <div className="roboto text-sm text-gray-500 whitespace-nowrap">Payment Total</div>
                             <div className="roboto mt-1 text-gray-500 font-semibold">{toCurrency(product.price, 'Rp')}</div>
                         </div>
                     </div>
@@ -81,9 +84,11 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
                             <span className="text-teal-600 text-sm font-medium">{getStatus()}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <button className="w-full outline-none text-sm font-medium roboto border border-gray-300 px-4 py-1.5 rounded text-gray-400 hover:bg-gray-50">
-                                Cancel
-                            </button>
+                            {shownCancel ? (
+                                <button className="w-full outline-none text-sm font-medium roboto border border-gray-300 px-4 py-1.5 rounded text-gray-400 hover:bg-gray-50">
+                                    Cancel
+                                </button>
+                            ) : null}
                             <button
                                 onClick={() => {
                                     setDetailOpen(true)
