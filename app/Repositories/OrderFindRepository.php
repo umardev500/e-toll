@@ -12,6 +12,7 @@ class OrderFindRepository
         if (!empty($phoneNumber)) {
             $query->where('orders.phone_number', $phoneNumber);
         }
+        $query = $query->orderBy('created_at', 'desc');
         $orders =  $query->simplePaginate(perPage: $perPage);
 
         return $orders;
