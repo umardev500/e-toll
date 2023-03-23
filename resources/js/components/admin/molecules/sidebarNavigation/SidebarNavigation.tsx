@@ -21,6 +21,14 @@ const SidebarElement = () => {
                         </div>
                     </a>
                 </li>
+                <li className="overflow-hidden">
+                    <a className={`sidebar-link rounded flex px-4 items-center hover:bg-gray-100 my-1 h-11 text-gray-500 hover:text-gray-600 font-medium`} href="/">
+                        <div className="flex gap-2.5 items-center flex-1 roboto">
+                            <span className="icon" style={{ ['--off' as string]: "url('app-icon/settings.svg')" }}></span>
+                            <span>Settings</span>
+                        </div>
+                    </a>
+                </li>
             </ul>
         </div>
     )
