@@ -22,7 +22,12 @@ Route::get('/order-list', function () {
     return view('welcome');
 });
 
+// admin
 Route::middleware('auth:sanctum')->get('/admin', function () {
+    return view('welcome');
+});
+
+Route::middleware('auth:sanctum')->get('/admin/orders', function () {
     return view('welcome');
 });
 
