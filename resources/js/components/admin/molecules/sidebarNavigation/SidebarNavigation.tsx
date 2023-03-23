@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../../../../css/sidebar-navigation.css'
 
 const SidebarElement = () => {
     return (

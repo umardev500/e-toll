@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react'
-import '../../../../css/modal.css'
 import { AppContext, type AppContextType } from '../../../context/AppContext'
 import { toCurrency, toUpperFirst } from '../../../helpers'
 import { useCancelOrder, useExpTime } from '../../../hooks'
