@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { Home, Orders } from './pages'
+import { AdminHome, Home, Orders } from './pages'
 
 export const router = createBrowserRouter([
     {
@@ -13,5 +13,9 @@ export const router = createBrowserRouter([
     {
         path: '/order-list/:phone',
         element: <Orders />,
+    },
+    {
+        path: '/admin',
+        element: <AdminHome />,
     },
 ])
