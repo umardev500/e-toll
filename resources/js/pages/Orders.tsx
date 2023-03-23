@@ -39,16 +39,27 @@ export const Orders: React.FC = () => {
 
                             <h1 className="mb-1 roboto leading-none text-3xl font-medium text-slate-600">Order Listing</h1>
                         </div>
-                        <div onClick={reload} className="text-gray-500 hover:text-gray-600 mr-2 cursor-pointer">
-                            <svg width="23" height="23" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.0446 7.83168C15.3858 7.43084 16.8658 7.16876 18.5 7.16876C25.8846 7.16876 31.8662 13.1504 31.8662 20.535C31.8662 27.9196 25.8846 33.9013 18.5 33.9013C11.1154 33.9013 5.13374 27.9196 5.13374 20.535C5.13374 17.7908 5.96624 15.2317 7.38458 13.1042M12.1329 8.20168L16.5883 3.08334M12.1329 8.20168L17.3283 11.9942"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                            </svg>
+                        <div className="flex flex-row-reverse gap-4 items-center text-gray-500 hover:text-gray-600 mr-2 cursor-pointer">
+                            <div onClick={reload}>
+                                <svg width="23" height="23" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M14.0446 7.83168C15.3858 7.43084 16.8658 7.16876 18.5 7.16876C25.8846 7.16876 31.8662 13.1504 31.8662 20.535C31.8662 27.9196 25.8846 33.9013 18.5 33.9013C11.1154 33.9013 5.13374 27.9196 5.13374 20.535C5.13374 17.7908 5.96624 15.2317 7.38458 13.1042M12.1329 8.20168L16.5883 3.08334M12.1329 8.20168L17.3283 11.9942"
+                                        stroke="currentColor"
+                                        strokeWidth="1.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+                            </div>
+                            <div
+                                onClick={() => {
+                                    setNumberModal(true)
+                                }}
+                            >
+                                <svg width="23" height="23" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 12H18M12 18V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
                     {/* List */}
