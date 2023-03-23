@@ -25,8 +25,6 @@ export const Modal: React.FC<Props> = ({ setState }) => {
     const handleClose = useCloseModal(setState)
     const navigate = useNavigate()
 
-    console.log(context.phone)
-
     const handleSubmit = useCallback(() => {
         const phone = context.phone
         const productId = context.product?.id ?? 0

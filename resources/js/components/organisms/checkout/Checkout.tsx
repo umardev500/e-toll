@@ -12,6 +12,15 @@ export const Checkout: React.FC = () => {
     const phone = context.phone
 
     const handleClickPayment = () => {
+        if (product === undefined) {
+            toast.error('Please select the product', {
+                position: 'top-right',
+                className: 'roboto',
+            })
+
+            return
+        }
+
         const isLess = phone.length < 10
         if (!isLess) {
             setPaymentOpen((prev) => !prev)
