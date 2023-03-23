@@ -24,3 +24,7 @@ Route::get('/order-list', function () {
 Route::get('/admin', function () {
     return view('welcome');
 });
+
+Route::get('/auth', function () {
+    return view('welcome');
+});
