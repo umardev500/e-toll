@@ -26,3 +26,15 @@
     font-family: "Lobster Two";
     color: rgba(0, 0, 0, 0.8);
 }
+
+/* overlay */
+.sidebar-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+}
+
+@media (min-width: 1024px) {
+    .sidebar-overlay {
+        display: none;
+    }
+}
