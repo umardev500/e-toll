@@ -10,4 +10,8 @@ export const router = createBrowserRouter([
         path: '/order-list',
         element: <Orders />,
     },
+    {
+        path: '/order-list/:phone',
+        element: <Orders />,
+    },
 ])

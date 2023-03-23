@@ -1,9 +1,10 @@
 import React, { useCallback, useContext, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 import '../../../../css/modal.css'
 import { AppContext, type AppContextType } from '../../../context/AppContext'
 import { useClickOutside, useCloseModal } from '../../../hooks'
-import { type Bank, type OrderRequest } from '../../../types'
+import { type PaymentResponse, type Bank, type OrderRequest } from '../../../types'
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
@@ -22,6 +23,9 @@ export const Modal: React.FC<Props> = ({ setState }) => {
     useClickOutside(overlayRef, innerRef, setState)
 
     const handleClose = useCloseModal(setState)
+    const navigate = useNavigate()
+
+    console.log(context.phone)
 
     const handleSubmit = useCallback(() => {
         const phone = context.phone
@@ -47,7 +51,12 @@ export const Modal: React.FC<Props> = ({ setState }) => {
                 })
                 const statusCode = response.status
                 if (statusCode !== 200) await Promise.reject(new Error('Something went wrong'))
-                const jsonData = await response.json()
+                const jsonData: PaymentResponse = await response.json()
+                const responseStatus = jsonData.status_code
+                if (responseStatus === '201') {
+                    handleClose()
+                    navigate('/order-list')
+                }
             } catch (err) {
                 await Promise.reject(err)
             }
