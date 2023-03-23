@@ -1,0 +1,12 @@
+.sidebar-link .icon {
+    width: 24px;
+    height: 24px;
+    background-color: currentColor;
+    mask: var(--off) no-repeat center;
+}
+
+.sidebar-link.active {
+    background-color: #3b82f6;
+    color: white;
+    font-weight: bold;
+}
