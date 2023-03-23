@@ -1,7 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useContext, useRef, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import '../../../../css/modal.css'
+import { AppContext, type AppContextType } from '../../../context/AppContext'
 import { useClickOutside, useCloseModal } from '../../../hooks'
-import { type Bank } from '../../../types'
+import { type Bank, type OrderRequest } from '../../../types'
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
@@ -11,6 +13,7 @@ export const Modal: React.FC<Props> = ({ setState }) => {
     const [bank, setBank] = useState<Bank>()
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
+    const context = useContext(AppContext) as AppContextType
 
     const handleClick = (item: Bank) => {
         setBank(item)
@@ -19,6 +22,54 @@ export const Modal: React.FC<Props> = ({ setState }) => {
     useClickOutside(overlayRef, innerRef, setState)
 
     const handleClose = useCloseModal(setState)
+
+    const handleSubmit = useCallback(() => {
+        const phone = context.phone
+        const productId = context.product?.id ?? 0
+        const putOrder = async (): Promise<void> => {
+            const target = `${import.meta.env.VITE_API_URL}/orders`
+            const requestBody: OrderRequest = {
+                product_id: productId,
+                phone_numer: phone,
+                payment: {
+                    bank: bank ?? 'bri',
+                },
+            }
+
+            try {
+                const response = await fetch(target, {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody),
+                })
+                const statusCode = response.status
+                if (statusCode !== 200) await Promise.reject(new Error('Something went wrong'))
+                const jsonData = await response.json()
+            } catch (err) {
+                await Promise.reject(err)
+            }
+        }
+
+        if (bank !== undefined && productId !== undefined) {
+            toast
+                .promise(
+                    putOrder(),
+                    {
+                        loading: 'Processing...',
+                        success: 'Order succeed!',
+                        error: 'Something went wrong!',
+                    },
+                    {
+                        className: 'roboto',
+                        position: 'top-right',
+                    }
+                )
+                .catch(() => null)
+        }
+    }, [bank])
 
     return (
         <>
@@ -84,11 +135,13 @@ export const Modal: React.FC<Props> = ({ setState }) => {
                     <div className="px-5 pb-4 flex justify-center flex-col">
                         <button
                             onClick={handleClose}
-                            className="roboto bg-white border border-gray-200 hover:border-gray-300 text-gray-500 hover:text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 mb-2"
+                            className="outline-none roboto bg-white border border-gray-200 hover:border-gray-300 text-gray-500 hover:text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 mb-2"
                         >
                             Cancel
                         </button>
-                        <button className={`roboto bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white mb-2`}>Submit</button>
+                        <button onClick={handleSubmit} className={`outline-none roboto bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white mb-2`}>
+                            Submit
+                        </button>
                     </div>
                 </div>
             </div>

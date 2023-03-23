@@ -7,10 +7,10 @@ use Carbon\Carbon;
 
 class ProductCreateRepository
 {
-    public static function create($title, $price, $brandId)
+    public static function create($toll, $price, $brandId)
     {
         $product = new Product();
-        $product->title = $title;
+        $product->toll = $toll;
         $product->price = $price;
         $product->brand_id = $brandId;
         $product->created_at = Carbon::now()->timestamp;

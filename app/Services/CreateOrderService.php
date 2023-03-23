@@ -27,27 +27,29 @@ class CreateOrderService
         }
 
         $price = $item->price; // item price
-        return $item;
 
         // charge bank
-        // $response = PaymentController::bank($price, $payment['type']);
-        // $statusCode = $response->status_code;
-        // $statusMessage = $response->status_message;
-        // $trxTime = $response->transaction_time;
+        $response = PaymentController::bank($price, $payment['bank']);
+        $statusCode = $response->status_code;
+        $statusMessage = $response->status_message;
+        $trxTime = $response->transaction_time;
+        $trxTime = $response->transaction_time;
+        $vaNumbers = $response->va_numbers[0];
+        $va = $vaNumbers->va_number;
 
-        // // check for status code
-        // if ($statusCode != 201) {
-        //     return JsonResult::response($statusCode, $statusMessage);
-        // }
+        // check for status code
+        if ($statusCode != 201) {
+            return JsonResult::response($statusCode, $statusMessage);
+        }
 
-        // $orderId = $response->order_id;
+        $orderId = $response->order_id;
 
-        // // do copy of product
-        // $lastInsertedProduct = $this->createCopyProduct($item);
-        // // do insert to order
-        // $this->createOrder($orderId, $trxTime, $item, $lastInsertedProduct, $requestData);
+        // do copy of product
+        $lastInsertedProduct = $this->createCopyProduct($item);
+        // do insert to order
+        $this->createOrder($orderId, $trxTime, $va, $lastInsertedProduct, $requestData);
 
-        // return $response;
+        return $response;
     }
 
     /**
@@ -60,7 +62,7 @@ class CreateOrderService
     {
         $product = new ProductCopy();
         $product->brand_id = $item->brand_id;
-        $product->title = $item->title;
+        $product->toll = $item->toll;
         $product->price = $item->price;
         $product->save();
 
@@ -77,15 +79,18 @@ class CreateOrderService
      * @param array $requestData An array of additional data or metadata related to the order.
      * @return void
      */
-    protected function createOrder($orderId, $trxTime, $product, $lastInsertedProduct, $requestData)
+    protected function createOrder($orderId, $trxTime, $va, $lastInsertedProduct, $requestData)
     {
         $phone = $requestData['phone_number'];
+        $payment = $requestData['payment'];
         $trxTime = Carbon::createFromFormat('Y-m-d H:i:s', $trxTime, 'Asia/Jakarta')->timestamp;
 
         OrderCreateRepository::create(
             orderId: $orderId,
             lastInsertedId: $lastInsertedProduct,
             phone: $phone,
+            bank: $payment['bank'],
+            va: $va,
             trxTime: $trxTime
         );
     }
