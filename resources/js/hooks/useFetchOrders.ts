@@ -10,7 +10,7 @@ export const useFetchOrders = () => {
     const trackingNum = context.trackingNumber
 
     useEffect(() => {
-        const numberToTrack = context.phone !== '' ? context.phone : trackingNum
+        const numberToTrack = trackingNum
         const fetchOrders = async (): Promise<OrderResponse> => {
             const target = `${baseURL}/orders?phone=${numberToTrack}`
 
@@ -42,5 +42,5 @@ export const useFetchOrders = () => {
                     console.log(err)
                 })
         }
-    }, [trackingNum, context.reloadCount, context.phone])
+    }, [trackingNum, context.reloadCount])
 }

@@ -13,7 +13,10 @@ export const Checkout: React.FC = () => {
 
     const handleClickPayment = () => {
         const isLess = phone.length < 10
-        if (!isLess) setPaymentOpen((prev) => !prev)
+        if (!isLess) {
+            setPaymentOpen((prev) => !prev)
+            context.setTrackingNumber(phone)
+        }
         if (isLess) {
             toast.error('Number must more than or equal to 10', {
                 position: 'top-right',
