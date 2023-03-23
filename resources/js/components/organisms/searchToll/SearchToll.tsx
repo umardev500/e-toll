@@ -12,6 +12,8 @@ export const SerachToll: React.FC = () => {
         context.setProduct(undefined)
         context.setProducts([])
         context.setBrand(undefined)
+        context.setPhone('')
+        context.setTrackingNumber('')
     }, [])
 
     const handleType = (e: React.ChangeEvent<HTMLInputElement>) => {
