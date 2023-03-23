@@ -6,6 +6,7 @@ export interface VaNumber {
 export interface PaymentResponse {
     status_code: string
     status_message: string
+    message: string
     transaction_id: string
     order_id: string
     gross_amount: string

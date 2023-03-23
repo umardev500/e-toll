@@ -53,9 +53,12 @@ export const Modal: React.FC<Props> = ({ setState }) => {
                 if (statusCode !== 200) await Promise.reject(new Error('Something went wrong'))
                 const jsonData: PaymentResponse = await response.json()
                 const responseStatus = jsonData.status_code
+                console.log(jsonData)
                 if (responseStatus === '201') {
                     handleClose()
                     navigate('/order-list')
+                } else {
+                    await Promise.reject(new Error(jsonData.message))
                 }
             } catch (err) {
                 await Promise.reject(err)
