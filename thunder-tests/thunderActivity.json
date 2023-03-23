@@ -172,12 +172,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2023-03-23T06:41:44.728Z",
-    "modified": "2023-03-23T07:56:03.619Z",
+    "modified": "2023-03-23T08:24:25.192Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"order_id\": \"166783937434\",\n  \"transaction_status\": \"cancel\",\n  \"settlement_time\": \"2023-03-23 19:44:25\"\n}",
+      "raw": "{\n  \"order_id\": \"1679552603\",\n  \"transaction_status\": \"settlement\",\n  \"settlement_time\": \"2023-03-23 19:44:25\"\n}",
       "form": []
     },
     "tests": []
