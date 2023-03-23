@@ -1,7 +1,6 @@
 import React, { useCallback, useContext, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
-import '../../../../css/modal.css'
 import { AppContext, type AppContextType } from '../../../context/AppContext'
 import { useClickOutside, useCloseModal } from '../../../hooks'
 import { type PaymentResponse, type Bank, type OrderRequest } from '../../../types'

@@ -1,7 +1,6 @@
 import React from 'react'
 import { LeftNavbar } from './LeftNavbar'
 import { RightNavbar } from './RightNavbar'
-import '../../../../../css/header.css'
 import { Toggler } from '../../atoms'
 
 export const Navbar: React.FC = () => {

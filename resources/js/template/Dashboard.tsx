@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Navbar, Sidebar } from '../components/admin'
-import '../../css/font.css'
-import '../../css/dashboard.css'
 import { AppContext, type AppContextType } from '../context/AppContext'
 
 export const Dashboard: React.FC = () => {

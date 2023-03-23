@@ -1,5 +1,4 @@
 import { SidebarBrand } from '../../atoms'
-import '../../../../../css/sidebar.css'
 import { SidebarNavigation } from '../../molecules'
 import { useSidebarClose } from '../../../../hooks'
 import { useContext } from 'react'
