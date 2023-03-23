@@ -30,7 +30,7 @@ export const Modal: React.FC<Props> = ({ setState }) => {
             const target = `${import.meta.env.VITE_API_URL}/orders`
             const requestBody: OrderRequest = {
                 product_id: productId,
-                phone_numer: phone,
+                phone_number: phone,
                 payment: {
                     bank: bank ?? 'bri',
                 },
