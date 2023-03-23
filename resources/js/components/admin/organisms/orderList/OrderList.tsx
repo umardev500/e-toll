@@ -1,14 +1,26 @@
 import React from 'react'
+import { AdminOrderListing } from '../../molecules'
 
 export const AdminOrderList: React.FC = () => {
     return (
-        <table className="min-w-full table bg-red-100 table-nohover">
+        <table className="w-full table table-nohover">
             <thead>
-                <tr className="">
-                    <th className="text-center border-r py-3 px-4 w-16 whitespace-nowrap">No.</th>
-                    <th className="text-left border-r py-3 px-4 whitespace-nowrap w-60">Nomor Pesanan</th>
+                <tr>
+                    <th className="text-center px-4 border-r py-3 w-16 whitespace-nowrap">No.</th>
+                    <th className="text-left px-4 border-r py-3 whitespace-nowrap">Order ID</th>
+                    <th className="text-left px-4 border-r py-3 whitespace-nowrap">Balance</th>
+                    <th className="text-left px-4 border-r py-3 whitespace-nowrap">Price</th>
+                    <th className="text-left px-4 border-r py-3 whitespace-nowrap">Phone Number</th>
+                    <th className="text-left px-4 border-r py-3 whitespace-nowrap">Status</th>
+                    <th className="text-center px-4 border-r py-3 whitespace-nowrap">Action</th>
                 </tr>
             </thead>
+
+            <tbody>
+                <AdminOrderListing />
+                <AdminOrderListing />
+                <AdminOrderListing />
+            </tbody>
         </table>
     )
 }
