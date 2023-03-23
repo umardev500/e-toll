@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { AdminOrderList } from '../../../components/admin'
 import { Pagination } from '../../../components/organisms'
 
 export const AdminOrders: React.FC = () => {
+    const [searchParams] = useSearchParams()
+    const page = searchParams.get('page') ?? 0
+
+    useEffect(() => {
+        console.log('page:', page)
+    }, [page])
     return (
         <div>
             <div className="pt-4">

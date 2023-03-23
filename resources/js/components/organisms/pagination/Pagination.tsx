@@ -1,15 +1,24 @@
 import React, { useCallback } from 'react'
 import ReactPaginate from 'react-paginate'
+import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
 
 interface Props {
     pageCount: number
 }
 
 export const Pagination = React.memo(({ pageCount }: Props) => {
-    const initialPage = 1
+    const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
+    let page = searchParams.get('page') ?? 0
+    page = parseInt(page.toString())
+    const initialPage = page ?? 0
 
-    const handlePageChange = useCallback(() => {
-        console.log('clicked')
+    const handlePageChange = useCallback((e: { selected: number }) => {
+        const params = createSearchParams({ page: e.selected.toString() }).toString()
+        navigate({
+            pathname: '/admin/orders',
+            search: `?${params}`,
+        })
     }, [])
 
     return (
