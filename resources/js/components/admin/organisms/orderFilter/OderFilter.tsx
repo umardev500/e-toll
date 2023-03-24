@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { createSearchParams, useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useCloseModal } from '../../../../hooks'
 import { type Status } from '../../../../types'
 
@@ -23,13 +23,10 @@ export const OrderFilter: React.FC<Props> = ({ setState }) => {
 
     const handleClose = useCloseModal(setState)
     const navigate = useNavigate()
-    const loc = useLocation()
+    const [searchParams] = useSearchParams()
     const handleSubmit = () => {
-        let params = `?${createSearchParams({ sort }).toString()}`
-        const prevSearch = loc.search
-        if (prevSearch !== '') {
-            params = `${prevSearch}&${params.slice(1)}`
-        }
+        searchParams.set('sort', sort)
+        const params = searchParams.toString()
         navigate({
             pathname: '/admin/orders',
             search: params,
