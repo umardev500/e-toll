@@ -51,11 +51,11 @@
     "colId": "history",
     "containerId": "",
     "name": "order find all",
-    "url": "http://localhost:8000/api/orders",
+    "url": "http://localhost:8000/api/orders?search=gr",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2023-03-23T03:28:18.463Z",
+    "modified": "2023-03-24T10:15:05.183Z",
     "headers": [],
     "params": [
       {
@@ -74,6 +74,11 @@
         "name": "per_page",
         "value": "1",
         "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "search",
+        "value": "gr",
         "isPath": false
       }
     ],
