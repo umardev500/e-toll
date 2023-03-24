@@ -22,7 +22,7 @@ class OrderFindRepository
         }
 
         if (!empty($search)) {
-            $query->orWhere('orders.order_id', 'LIKE', '%' . $search . '%')
+            $query->where('orders.order_id', 'LIKE', '%' . $search . '%')
                 ->orWhere('orders.phone_number', 'LIKE', '%' . $search . '%')
                 ->orWhere('orders.va', 'LIKE', '%' . $search . '%')
                 ->orWhereHas('productCopy', function ($q) use ($search) {
