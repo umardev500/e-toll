@@ -21,7 +21,8 @@ class OrderFactory extends Factory
             'phone_number' => fake()->phoneNumber(),
             'bank' => fake()->company(),
             'va' => fake()->unixTime(),
-            'created_at' => fake()->unixTime()
+            'created_at' => fake()->unixTime(),
+            'expired_at' => fake()->unixTime()
         ];
     }
 }

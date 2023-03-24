@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class OrderFindRepository
@@ -15,6 +16,7 @@ class OrderFindRepository
         }
         if (!empty($status) && $status == 'pending') {
             $query->where('status', 'pending');
+            $query->where('expired_at', '>', Carbon::now()->timestamp);
         } elseif (!empty($status) && $status != 'none') {
             $query->where('status', $status);
         }

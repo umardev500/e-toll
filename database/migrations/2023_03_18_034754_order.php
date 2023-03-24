@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('va');
             $table->string('status')->default('pending');
             $table->unsignedBigInteger('settlement_time')->nullable();
+            $table->unsignedBigInteger('expired_at')->nullable();
             TimeStamps::addTimeStamps($table);
         });
     }
