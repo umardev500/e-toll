@@ -11,6 +11,7 @@ export const AdminOrders: React.FC = () => {
     const page = searchParams.get('page') ?? 0
     const pageNum = parseInt(page.toString())
     const [orders, setOrders] = useState<Order[]>([])
+    const total = orders.length
 
     const fetchOrder = useFetchOrderAdmin()
     useEffect(() => {
@@ -48,7 +49,7 @@ export const AdminOrders: React.FC = () => {
                         <AdminOrderList orders={orders} />
                     </div>
                     <div>
-                        <Pagination pageCount={100} />
+                        <Pagination pageCount={total} />
                     </div>
                 </div>
             </div>
