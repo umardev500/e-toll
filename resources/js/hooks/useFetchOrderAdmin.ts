@@ -8,7 +8,6 @@ export const useFetchOrderAdmin = () => {
         try {
             const response = await fetch(target)
             const jsonData: OrderResponse = await response.json()
-            console.log(jsonData)
             return await Promise.resolve(jsonData)
         } catch (err) {
             return await Promise.reject(err)
