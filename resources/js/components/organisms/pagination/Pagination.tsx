@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import ReactPaginate from 'react-paginate'
-import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 interface Props {
     pageCount: number
