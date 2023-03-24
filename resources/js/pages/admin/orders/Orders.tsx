@@ -15,7 +15,7 @@ export const AdminOrders: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([])
     const [total, setTotal] = useState(0)
     const [search, setSearch] = useState('')
-    const [, setShowFilter] = useState(false)
+    const [showFilter, setShowFilter] = useState(false)
 
     const fetchOrder = useFetchOrderAdmin()
     useEffect(() => {
@@ -54,7 +54,12 @@ export const AdminOrders: React.FC = () => {
                     <h1 className="text-2xl font-bold text-gray-500 mb-6 mt-2 roboto">Order Listing</h1>
 
                     <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-5">
-                        <button className="outline-none bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-md font-medium roboto whitespace-nowrap mb-4 lg:mb-0 flex items-center justify-center lg:justify-start">
+                        <button
+                            onClick={() => {
+                                setShowFilter(true)
+                            }}
+                            className="outline-none bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-md font-medium roboto whitespace-nowrap mb-4 lg:mb-0 flex items-center justify-center lg:justify-start"
+                        >
                             Filter viewing
                         </button>
                         <Search callback={searchCallback} title="Enter the keyword" placeholder="Enter key to search" />
@@ -67,7 +72,7 @@ export const AdminOrders: React.FC = () => {
                     </div>
                 </div>
             </div>
-            {/* <OrderFilter setState={setShowFilter} /> */}
+            {showFilter ? <OrderFilter setState={setShowFilter} /> : null}
         </div>
     )
 }
