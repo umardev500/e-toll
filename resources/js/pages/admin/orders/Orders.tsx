@@ -18,7 +18,7 @@ export const AdminOrders: React.FC = () => {
     useEffect(() => {
         toast
             .promise(
-                fetchOrder(pageNum),
+                fetchOrder(pageNum, search),
                 {
                     success: 'Orders data is loaded',
                     error: 'Something went wrong!',
@@ -37,10 +37,11 @@ export const AdminOrders: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [pageNum])
+    }, [pageNum, search])
 
-    const searchCallback = useCallback(() => {
-        console.log('callback')
+    const searchCallback = useCallback((keyword: string) => {
+        console.log('callback key', keyword)
+        setSearch(keyword)
     }, [])
 
     return (

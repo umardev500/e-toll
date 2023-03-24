@@ -1,10 +1,10 @@
 import { type OrderResponse } from '../types'
 
 export const useFetchOrderAdmin = () => {
-    const fetchOrder = async (page = 0): Promise<OrderResponse> => {
+    const fetchOrder = async (page = 0, search = ''): Promise<OrderResponse> => {
         page += 1
 
-        const target = `${import.meta.env.VITE_API_URL}/orders?page=${page}`
+        const target = `${import.meta.env.VITE_API_URL}/orders?page=${page}&search=${search}`
         try {
             const response = await fetch(target)
             const jsonData: OrderResponse = await response.json()
