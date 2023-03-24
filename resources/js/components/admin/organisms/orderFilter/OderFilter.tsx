@@ -26,6 +26,7 @@ export const OrderFilter: React.FC<Props> = ({ setState }) => {
     const [searchParams] = useSearchParams()
     const handleSubmit = () => {
         searchParams.set('sort', sort)
+        searchParams.set('status', status)
         const params = searchParams.toString()
         navigate({
             pathname: '/admin/orders',
