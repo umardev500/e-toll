@@ -67,7 +67,7 @@ export const AdminOrders: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <OrderFilter setState={setShowFilter} />
+            {/* <OrderFilter setState={setShowFilter} /> */}
         </div>
     )
 }

@@ -1,7 +1,6 @@
 import { format } from 'libphonenumber-js'
-import React, { useCallback, useContext, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { toast } from 'react-hot-toast'
-import { GlobalContext, type GlobalContextType } from '../../../../context'
 import { toCurrency, toDate, toUpperFirst } from '../../../../helpers'
 import { useClickOutside, useCloseModal, useExpTime } from '../../../../hooks'
 import { type Order, type Status } from '../../../../types'
@@ -16,7 +15,6 @@ export const AdminOrderDetail: React.FC<Props> = ({ setState, order }) => {
     const innerRef = useRef<HTMLDivElement>(null)
     const handleClose = useCloseModal(setState)
     const status = (order?.status ?? 'none') as Status
-    const globalContext = useContext(GlobalContext) as GlobalContextType
     const product = order?.product_copy
     const settledTime = order?.settlement_time
     let settlementTime = ''
@@ -25,9 +23,7 @@ export const AdminOrderDetail: React.FC<Props> = ({ setState, order }) => {
     }
     const orderTime = toDate(order?.created_at ?? 0)
 
-    const trxTimeUnix: number = order?.created_at ?? 0
-    const expTimeUnix: number = trxTimeUnix + globalContext.orderExp
-    const isExp = useExpTime(expTimeUnix)
+    const isExp = useExpTime(order?.expired_at ?? 0)
 
     const getStatus = (): Status => {
         if (isExp && status === 'pending') return 'expired'

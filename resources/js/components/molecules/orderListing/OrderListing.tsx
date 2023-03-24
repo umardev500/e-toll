@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react'
-import { AppContext, type AppContextType } from '../../../context/AppContext'
+import React, { useState } from 'react'
 import { toCurrency, toUpperFirst } from '../../../helpers'
 import { useCancelOrder, useExpTime } from '../../../hooks'
-import { type Status, type Order } from '../../../types'
+import { type Order, type Status } from '../../../types'
 import { OrderDetail } from '../../organisms'
 
 interface Props {
@@ -12,12 +11,11 @@ interface Props {
 export const OrderListing: React.FC<Props> = ({ order }) => {
     const [detailOpen, setDetailOpen] = useState<boolean>(false)
     const [, setCancelStatus] = useState<boolean>(false)
-    const context = useContext(AppContext) as AppContextType
     const status = order.status as Status
 
     const product = order.product_copy
     const trxTimeUnix: number = order.created_at
-    const expTimeUnix: number = trxTimeUnix + context.orderExp
+    const expTimeUnix: number = order.expired_at
     const trxTime = new Date(trxTimeUnix * 1000)
     const formattedTrxTime = trxTime.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
     const expTime = new Date(expTimeUnix * 1000)
@@ -29,7 +27,7 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
         hour12: false,
     })
 
-    const isExp = useExpTime(expTimeUnix)
+    const isExp = useExpTime(order.expired_at)
 
     const getStatus = (): Status => {
         if (isExp && status === 'pending') return 'expired'

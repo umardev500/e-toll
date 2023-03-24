@@ -10,6 +10,7 @@ export interface Order {
     va: string
     created_at: number
     settlement_time: number
+    expired_at: number
 }
 
 export interface OrderResponse {

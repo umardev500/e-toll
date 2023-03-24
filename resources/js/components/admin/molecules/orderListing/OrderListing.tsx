@@ -1,6 +1,5 @@
 import { format } from 'libphonenumber-js'
-import React, { useContext } from 'react'
-import { GlobalContext, type GlobalContextType } from '../../../../context'
+import React from 'react'
 import { toCurrency, toUpperFirst } from '../../../../helpers'
 import { useExpTime } from '../../../../hooks'
 import { type Order, type Status } from '../../../../types'
@@ -12,15 +11,11 @@ interface Props {
 }
 
 export const AdminOrderListing: React.FC<Props> = ({ order, index, callback }) => {
-    const globalContext = useContext(GlobalContext) as GlobalContextType
-
     const product = order.product_copy
     const phone = format(order.phone_number, 'ID', 'INTERNATIONAL')
     const status = order.status as Status
-    const trxTimeUnix: number = order.created_at
-    const expTimeUnix: number = trxTimeUnix + globalContext.orderExp
 
-    const isExp = useExpTime(expTimeUnix)
+    const isExp = useExpTime(order.expired_at)
 
     const getStatus = (): Status => {
         if (isExp && status === 'pending') return 'expired'
