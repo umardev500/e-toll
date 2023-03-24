@@ -12,6 +12,7 @@ export const AdminOrders: React.FC = () => {
     const pageNum = parseInt(page.toString())
     const [orders, setOrders] = useState<Order[]>([])
     const [total, setTotal] = useState(0)
+    const [search, setSearch] = useState('')
 
     const fetchOrder = useFetchOrderAdmin()
     useEffect(() => {
