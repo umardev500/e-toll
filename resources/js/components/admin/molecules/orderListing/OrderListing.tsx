@@ -1,6 +1,8 @@
 import { format } from 'libphonenumber-js'
-import React from 'react'
-import { toCurrency } from '../../../../helpers'
+import React, { useContext } from 'react'
+import { GlobalContext, type GlobalContextType } from '../../../../context'
+import { toCurrency, toUpperFirst } from '../../../../helpers'
+import { useExpTime } from '../../../../hooks'
 import { type Order, type Status } from '../../../../types'
 
 interface Props {
@@ -8,19 +10,20 @@ interface Props {
 }
 
 export const AdminOrderListing: React.FC<Props> = ({ order }) => {
+    const globalContext = useContext(GlobalContext) as GlobalContextType
+
     const product = order.product_copy
     const phone = format(order.phone_number, 'ID', 'INTERNATIONAL')
     const status = order.status as Status
-    const trxTimeUnix: number = order.created_at
+    const trxTimeUnix: number = order.created_at + globalContext.orderExp
     const expTimeUnix: number = trxTimeUnix
 
-    console.log(expTimeUnix)
-    // const isExp = useExpTime(expTimeUnix)
+    const isExp = useExpTime(expTimeUnix)
 
-    // const getStatus = (): Status => {
-    //     if (isExp) return 'expired'
-    //     return status
-    // }
+    const getStatus = (): Status => {
+        if (isExp) return 'expired'
+        return status
+    }
 
     return (
         <tr>
@@ -29,7 +32,7 @@ export const AdminOrderListing: React.FC<Props> = ({ order }) => {
             <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(product.toll)}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(product.price, 'Rp')}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{phone}</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2">Pending</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2">{toUpperFirst(getStatus())}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2 whitespace-nowrap w-10">
                 <div className="text-center">
                     <button className="bg-yellow-600 hover:bg-yellow-700 px-2 py-1.5 rounded-lg">
