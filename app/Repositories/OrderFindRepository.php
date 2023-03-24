@@ -13,7 +13,9 @@ class OrderFindRepository
         if (!empty($phoneNumber)) {
             $query->where('orders.phone_number', $phoneNumber);
         }
-        if (!empty($status) && $status != 'none') {
+        if (!empty($status) && $status == 'pending') {
+            $query->where('status', 'pending');
+        } elseif (!empty($status) && $status != 'none') {
             $query->where('status', $status);
         }
 
