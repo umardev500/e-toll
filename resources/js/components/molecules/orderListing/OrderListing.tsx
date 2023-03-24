@@ -32,7 +32,7 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
     const isExp = useExpTime(expTimeUnix)
 
     const getStatus = (): Status => {
-        if (isExp) return 'expired'
+        if (isExp && status === 'pending') return 'expired'
         return status
     }
 

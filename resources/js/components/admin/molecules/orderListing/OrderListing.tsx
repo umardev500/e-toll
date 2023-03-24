@@ -23,7 +23,7 @@ export const AdminOrderListing: React.FC<Props> = ({ order, index, callback }) =
     const isExp = useExpTime(expTimeUnix)
 
     const getStatus = (): Status => {
-        if (isExp) return 'expired'
+        if (isExp && status === 'pending') return 'expired'
         return status
     }
 

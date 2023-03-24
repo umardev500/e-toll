@@ -1,5 +1,6 @@
 import { format } from 'libphonenumber-js'
 import React, { useCallback, useContext, useRef } from 'react'
+import { toast } from 'react-hot-toast'
 import { GlobalContext, type GlobalContextType } from '../../../../context'
 import { toCurrency, toDate, toUpperFirst } from '../../../../helpers'
 import { useClickOutside, useCloseModal, useExpTime } from '../../../../hooks'
@@ -36,7 +37,26 @@ export const AdminOrderDetail: React.FC<Props> = ({ setState, order }) => {
     useClickOutside(overlayRef, innerRef, setState)
 
     const handleMark = useCallback(() => {
-        console.log('marking handler')
+        const target = `${import.meta.env.VITE_API_URL}/orders/${order?.id ?? 0}/done`
+        const doMarkDone = async () => {
+            try {
+                await fetch(target)
+            } catch (err) {
+                return await Promise.reject(err)
+            }
+        }
+
+        toast
+            .promise(
+                doMarkDone(),
+                {
+                    loading: 'Processing...',
+                    success: 'Marked as done!',
+                    error: 'Something went wrong!',
+                },
+                { className: 'roboto', position: 'top-right' }
+            )
+            .catch(() => null)
     }, [])
 
     return (
