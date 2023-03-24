@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Navbar, Sidebar } from '../components/admin'
+import { AdminProvider } from '../context'
 import { AppContext, type AppContextType } from '../context/AppContext'
 
 export const Dashboard: React.FC = () => {
@@ -17,12 +18,14 @@ export const Dashboard: React.FC = () => {
     }, [context.sidebarShown])
 
     return (
-        <div ref={containerRef} className="dashboard-container sidebar-shown">
-            <Navbar />
-            <Sidebar />
-            <div className="content py-4">
-                <Outlet />
+        <AdminProvider>
+            <div ref={containerRef} className="dashboard-container sidebar-shown">
+                <Navbar />
+                <Sidebar />
+                <div className="content py-4">
+                    <Outlet />
+                </div>
             </div>
-        </div>
+        </AdminProvider>
     )
 }
