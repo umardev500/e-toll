@@ -13,4 +13,6 @@ export interface Order {
 
 export interface OrderResponse {
     data: Order[]
+    to: number
+    per_page: number
 }

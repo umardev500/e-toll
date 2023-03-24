@@ -11,7 +11,7 @@ export const AdminOrders: React.FC = () => {
     const page = searchParams.get('page') ?? 0
     const pageNum = parseInt(page.toString())
     const [orders, setOrders] = useState<Order[]>([])
-    const total = orders.length
+    const [total, setTotal] = useState(0)
 
     const fetchOrder = useFetchOrderAdmin()
     useEffect(() => {
@@ -27,7 +27,11 @@ export const AdminOrders: React.FC = () => {
             )
             .then((res) => {
                 const data = res.data
+                const dataTotal = res.to
+                const perPage = res.per_page
                 setOrders(data)
+                const pages = Math.ceil(dataTotal / perPage)
+                setTotal(pages)
             })
             .catch((err) => {
                 console.log(err)
