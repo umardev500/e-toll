@@ -14,7 +14,9 @@ export const Pagination = React.memo(({ pageCount }: Props) => {
     const initialPage = page ?? 0
 
     const handlePageChange = useCallback((e: { selected: number }) => {
-        const params = createSearchParams({ page: e.selected.toString() }).toString()
+        searchParams.set('page', e.selected.toString())
+        const params = searchParams.toString()
+
         navigate({
             pathname: '/admin/orders',
             search: `?${params}`,
