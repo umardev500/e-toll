@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { useCloseModal } from '../../../../hooks'
+import { useClickOutside, useCloseModal } from '../../../../hooks'
 import { type Status } from '../../../../types'
 
 interface Props {
@@ -33,6 +33,8 @@ export const OrderFilter: React.FC<Props> = ({ setState }) => {
             search: params,
         })
     }
+
+    useClickOutside(overlayRef, innerRef, setState)
 
     return (
         <div className="modal pt-5 px-5" ref={overlayRef}>
