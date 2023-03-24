@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { type Order } from '../../../../types'
 import { AdminOrderListing } from '../../molecules'
 import { AdminOrderDetail } from '../orderDetail'
@@ -10,6 +11,10 @@ interface Props {
 export const AdminOrderList: React.FC<Props> = ({ orders }) => {
     const [showDetail, setShowDetail] = useState(false)
     const [order, setOrder] = useState<Order>()
+    const [searchParams] = useSearchParams()
+    const page = searchParams.get('page') ?? '0'
+    const perPage = 10
+    const startIndex = parseInt(page) * perPage
 
     const callback = useCallback((order: Order) => {
         setOrder(order)
@@ -33,7 +38,7 @@ export const AdminOrderList: React.FC<Props> = ({ orders }) => {
 
                 <tbody>
                     {orders.map((order, i) => (
-                        <AdminOrderListing callback={callback} index={i + 1} order={order} key={order.id} />
+                        <AdminOrderListing callback={callback} index={startIndex + (i + 1)} order={order} key={order.id} />
                     ))}
                 </tbody>
             </table>
