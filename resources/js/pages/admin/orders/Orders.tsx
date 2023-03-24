@@ -1,15 +1,38 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { useSearchParams } from 'react-router-dom'
 import { AdminOrderList } from '../../../components/admin'
 import { Pagination } from '../../../components/organisms'
+import { useFetchOrderAdmin } from '../../../hooks'
+import { type Order } from '../../../types'
 
 export const AdminOrders: React.FC = () => {
     const [searchParams] = useSearchParams()
     const page = searchParams.get('page') ?? 0
+    const pageNum = parseInt(page.toString())
+    const [orders, setOrders] = useState<Order[]>([])
 
+    const fetchOrder = useFetchOrderAdmin()
     useEffect(() => {
-        console.log('page:', page)
-    }, [page])
+        toast
+            .promise(
+                fetchOrder(pageNum),
+                {
+                    success: 'Orders data is loaded',
+                    error: 'Something went wrong!',
+                    loading: 'Loading order...',
+                },
+                { className: 'roboto' }
+            )
+            .then((res) => {
+                const data = res.data
+                setOrders(data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [pageNum])
+
     return (
         <div>
             <div className="pt-4">
@@ -22,7 +45,7 @@ export const AdminOrders: React.FC = () => {
                         </button>
                     </div>
                     <div className="bg-white overflow-auto rounded-lg border-l border-r border-b mb-5">
-                        <AdminOrderList />
+                        <AdminOrderList orders={orders} />
                     </div>
                     <div>
                         <Pagination pageCount={100} />

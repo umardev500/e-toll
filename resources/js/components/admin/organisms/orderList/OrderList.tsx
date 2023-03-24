@@ -1,7 +1,12 @@
 import React from 'react'
+import { type Order } from '../../../../types'
 import { AdminOrderListing } from '../../molecules'
 
-export const AdminOrderList: React.FC = () => {
+interface Props {
+    orders: Order[]
+}
+
+export const AdminOrderList: React.FC<Props> = ({ orders }) => {
     return (
         <table className="w-full table table-nohover">
             <thead>
@@ -17,9 +22,9 @@ export const AdminOrderList: React.FC = () => {
             </thead>
 
             <tbody>
-                <AdminOrderListing />
-                <AdminOrderListing />
-                <AdminOrderListing />
+                {orders.map((order) => (
+                    <AdminOrderListing order={order} key={order.id} />
+                ))}
             </tbody>
         </table>
     )

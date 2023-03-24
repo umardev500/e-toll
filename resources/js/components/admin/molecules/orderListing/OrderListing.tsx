@@ -1,13 +1,34 @@
+import { format } from 'libphonenumber-js'
 import React from 'react'
+import { toCurrency } from '../../../../helpers'
+import { type Order, type Status } from '../../../../types'
 
-export const AdminOrderListing: React.FC = () => {
+interface Props {
+    order: Order
+}
+
+export const AdminOrderListing: React.FC<Props> = ({ order }) => {
+    const product = order.product_copy
+    const phone = format(order.phone_number, 'ID', 'INTERNATIONAL')
+    const status = order.status as Status
+    const trxTimeUnix: number = order.created_at
+    const expTimeUnix: number = trxTimeUnix
+
+    console.log(expTimeUnix)
+    // const isExp = useExpTime(expTimeUnix)
+
+    // const getStatus = (): Status => {
+    //     if (isExp) return 'expired'
+    //     return status
+    // }
+
     return (
         <tr>
             <td className="px-4 border-r border-b border-slate-200 py-2 text-center">{1}.</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2">1679552603</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2">5.000</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2">Rp6.500</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2">0838-7915-4310</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2">{order.order_id}</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(product.toll)}</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(product.price, 'Rp')}</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2">{phone}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">Pending</td>
             <td className="px-4 border-r border-b border-slate-200 py-2 whitespace-nowrap w-10">
                 <div className="text-center">
