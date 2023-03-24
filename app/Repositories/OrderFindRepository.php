@@ -33,7 +33,7 @@ class OrderFindRepository
         }
 
         $query = $query->orderBy('created_at', $sort);
-        $orders =  $query->simplePaginate(perPage: $perPage);
+        $orders =  $query->paginate(perPage: $perPage);
 
         return $orders;
     }

@@ -31,7 +31,7 @@ export const AdminOrders: React.FC = () => {
             )
             .then((res) => {
                 const data = res.data
-                const dataTotal = res.to
+                const dataTotal = res.total
                 const perPage = res.per_page
                 setOrders(data)
                 const pages = Math.ceil(dataTotal / perPage)
