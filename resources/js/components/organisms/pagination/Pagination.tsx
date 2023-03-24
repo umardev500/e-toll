@@ -13,7 +13,7 @@ export const Pagination = React.memo(({ pageCount }: Props) => {
     page = parseInt(page.toString())
     const initialPage = page ?? 0
 
-    const handlePageChange = useCallback((e: { selected: number }) => {
+    const handlePageChange = (e: { selected: number }) => {
         searchParams.set('page', e.selected.toString())
         const params = searchParams.toString()
 
@@ -21,7 +21,7 @@ export const Pagination = React.memo(({ pageCount }: Props) => {
             pathname: '/admin/orders',
             search: `?${params}`,
         })
-    }, [])
+    }
 
     return (
         <div className="py-5 flex lg:justify-end overflow-auto">
