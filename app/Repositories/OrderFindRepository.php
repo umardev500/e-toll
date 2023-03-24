@@ -7,11 +7,14 @@ use Illuminate\Support\Facades\Log;
 
 class OrderFindRepository
 {
-    public static function find($perPage, $phoneNumber, $sort, $search)
+    public static function find($perPage, $phoneNumber, $sort, $status, $search)
     {
         $query = Order::with('productCopy.brand');
         if (!empty($phoneNumber)) {
             $query->where('orders.phone_number', $phoneNumber);
+        }
+        if (!empty($status) && $status != 'none') {
+            $query->where('status', $status);
         }
 
         if (!empty($search)) {

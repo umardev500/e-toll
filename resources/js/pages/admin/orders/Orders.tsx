@@ -10,6 +10,7 @@ export const AdminOrders: React.FC = () => {
     const [searchParams] = useSearchParams()
     const page = searchParams.get('page') ?? 0
     const sort = searchParams.get('sort') ?? 'desc'
+    const status = searchParams.get('status') ?? ''
     const pageNum = parseInt(page.toString())
     const [orders, setOrders] = useState<Order[]>([])
     const [total, setTotal] = useState(0)
@@ -20,7 +21,7 @@ export const AdminOrders: React.FC = () => {
     useEffect(() => {
         toast
             .promise(
-                fetchOrder(pageNum, sort, search),
+                fetchOrder(pageNum, sort, status, search),
                 {
                     success: 'Orders data is loaded',
                     error: 'Something went wrong!',
@@ -39,7 +40,7 @@ export const AdminOrders: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [pageNum, search, sort])
+    }, [pageNum, search, sort, status])
 
     const searchCallback = useCallback((keyword: string) => {
         console.log('callback key', keyword)

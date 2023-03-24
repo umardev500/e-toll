@@ -14,10 +14,11 @@ class OrderFindService
         $phoneNumber = $req->input('phone');
         $perPage = $req->input('per_page', '10');
         $search = $req->query('search');
-        $sort = $req->query('sort');
+        $sort = $req->query('sort', 'desc');
+        $status = $req->query('status');
         $perPage = intval($perPage);
 
-        return OrderFindRepository::find(perPage: $perPage, phoneNumber: $phoneNumber, sort: $sort, search: $search);
+        return OrderFindRepository::find(perPage: $perPage, phoneNumber: $phoneNumber, sort: $sort, status: $status, search: $search);
     }
 
     public static function findOne($id)
