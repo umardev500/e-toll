@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Log;
 
 class OrderFindRepository
 {
-    public static function find($perPage, $phoneNumber, $search)
+    public static function find($perPage, $phoneNumber, $sort, $search)
     {
         $query = Order::with('productCopy.brand');
         if (!empty($phoneNumber)) {
@@ -25,7 +25,7 @@ class OrderFindRepository
                 });
         }
 
-        $query = $query->orderBy('created_at', 'desc');
+        $query = $query->orderBy('created_at', $sort);
         $orders =  $query->simplePaginate(perPage: $perPage);
 
         return $orders;

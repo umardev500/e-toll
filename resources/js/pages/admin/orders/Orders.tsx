@@ -9,6 +9,7 @@ import { type Order } from '../../../types'
 export const AdminOrders: React.FC = () => {
     const [searchParams] = useSearchParams()
     const page = searchParams.get('page') ?? 0
+    const sort = searchParams.get('sort') ?? 'desc'
     const pageNum = parseInt(page.toString())
     const [orders, setOrders] = useState<Order[]>([])
     const [total, setTotal] = useState(0)
@@ -19,7 +20,7 @@ export const AdminOrders: React.FC = () => {
     useEffect(() => {
         toast
             .promise(
-                fetchOrder(pageNum, search),
+                fetchOrder(pageNum, sort, search),
                 {
                     success: 'Orders data is loaded',
                     error: 'Something went wrong!',
@@ -38,7 +39,7 @@ export const AdminOrders: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [pageNum, search])
+    }, [pageNum, search, sort])
 
     const searchCallback = useCallback((keyword: string) => {
         console.log('callback key', keyword)
