@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import ReactPaginate from 'react-paginate'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
