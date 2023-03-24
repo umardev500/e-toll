@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useSearchParams } from 'react-router-dom'
-import { AdminOrderList, Search } from '../../../components/admin'
+import { AdminOrderList, OrderFilter, Search } from '../../../components/admin'
 import { Pagination } from '../../../components/organisms'
 import { useFetchOrderAdmin } from '../../../hooks'
 import { type Order } from '../../../types'
@@ -13,6 +13,7 @@ export const AdminOrders: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([])
     const [total, setTotal] = useState(0)
     const [search, setSearch] = useState('')
+    const [, setShowFilter] = useState(false)
 
     const fetchOrder = useFetchOrderAdmin()
     useEffect(() => {
@@ -64,6 +65,7 @@ export const AdminOrders: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <OrderFilter setState={setShowFilter} />
         </div>
     )
 }
