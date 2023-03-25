@@ -1,33 +1,19 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { AppContext, type AppContextType } from '../../../context/AppContext'
 import { toCurrency } from '../../../helpers'
+import { type Product } from '../../../types'
 import { Modal } from '../modal'
 
-export const Checkout: React.FC = () => {
+interface Props {
+    selectedProduct: Product | null
+}
+
+export const Checkout: React.FC<Props> = ({ selectedProduct }) => {
     const [paymentOpen, setPaymentOpen] = useState<boolean>(false)
 
-    const context = useContext(AppContext) as AppContextType
-    const product = context.product
-    const phone = context.phone
-
     const handleClickPayment = () => {
-        if (product === undefined) {
-            toast.error('Please select the product', {
-                position: 'top-right',
-                className: 'roboto',
-            })
-
-            return
-        }
-
-        const isLess = phone.length < 10
-        if (!isLess) {
-            setPaymentOpen((prev) => !prev)
-            context.setTrackingNumber(phone)
-        }
-        if (isLess) {
-            toast.error('Number must more than or equal to 10', {
+        if (selectedProduct === null) {
+            toast.error('Please select the product first!', {
                 position: 'top-right',
                 className: 'roboto',
             })
@@ -40,7 +26,7 @@ export const Checkout: React.FC = () => {
                 <div className="py-4 flex items-end justify-between gap-4 flex-1 mt-4">
                     <div className="flex flex-col items-start">
                         <span className="text-slate-500 roboto">Price</span>
-                        <span className="roboto font-bold text-2xl text-teal-600">{toCurrency(product?.price ?? 0, 'Rp')}</span>
+                        <span className="roboto font-bold text-2xl text-teal-600">{toCurrency(selectedProduct?.price ?? 0, 'Rp')}</span>
                     </div>
                     <div>
                         <button

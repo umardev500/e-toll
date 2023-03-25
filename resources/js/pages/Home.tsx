@@ -76,7 +76,7 @@ export const Home: React.FC = () => {
                         <CreditList selectedProduct={selectedProduct} clickCallback={clickCallback} credits={products} />
 
                         {/* Checkout */}
-                        <Checkout />
+                        <Checkout selectedProduct={selectedProduct} />
                     </div>
                 ) : (
                     <div className="mt-10">
