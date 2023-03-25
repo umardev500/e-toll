@@ -19,9 +19,10 @@ class ProductFindService
         $perPage = $req->input('per_page', '10');
         $perPage = intval($perPage);
         $sort = $req->input('sort', 'desc');
+        $prefix = $req->input('prefix');
         $status = $req->input('status');
         $search = $req->input('search');
 
-        return ProductFindRepository::find(perPage: $perPage, sort: $sort, status: $status, search: $search);
+        return ProductFindRepository::find(perPage: $perPage, prefix: $prefix, sort: $sort, status: $status, search: $search);
     }
 }

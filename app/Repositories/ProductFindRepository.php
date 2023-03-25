@@ -14,17 +14,23 @@ class ProductFindRepository
             ->first();
     }
 
-    public static function find($perPage, $sort, $status, $search)
+    public static function find($perPage, $prefix, $sort, $status, $search)
     {
         $query = Product::with('brand');
-        $query->where(function ($q) use ($search) {
-            $q->where('product_id', 'LIKE', '%' . $search . '%')
-                ->orWhereHas('brand', function ($q) use ($search) {
-                    $q->where('brand_id', 'LIKE', '%' . $search . '%')
-                        ->orWhere('name', 'LIKE', '%' . $search . '%')
-                        ->orWhereJsonContains('prefix', $search);
-                });
-        });
+        if (!empty($prefix)) {
+            $query->whereHas('brand', function ($q) use ($prefix) {
+                $q->whereJsonContains('prefix', $prefix);
+            });
+        } else {
+            $query->where(function ($q) use ($search) {
+                $q->where('product_id', 'LIKE', '%' . $search . '%')
+                    ->orWhereHas('brand', function ($q) use ($search) {
+                        $q->where('brand_id', 'LIKE', '%' . $search . '%')
+                            ->orWhere('name', 'LIKE', '%' . $search . '%')
+                            ->orWhereJsonContains('prefix', $search);
+                    });
+            });
+        }
 
         if (!empty($status) && $status == 'sold') {
             $query->where('status', $status);
