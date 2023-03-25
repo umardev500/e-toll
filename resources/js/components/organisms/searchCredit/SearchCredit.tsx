@@ -5,9 +5,10 @@ import { useDebounce } from '../../../hooks'
 interface Props {
     callback: (text: string) => void
     brand: string
+    setPhoneNumber: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const SerachCredit: React.FC<Props> = ({ callback, brand }) => {
+export const SerachCredit: React.FC<Props> = ({ callback, brand, setPhoneNumber }) => {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,6 +17,8 @@ export const SerachCredit: React.FC<Props> = ({ callback, brand }) => {
         if (input != null) {
             const formattedPhoneNumber = format(phoneNumber, 'ID', 'NATIONAL')
             input.value = formattedPhoneNumber
+            const rawPhoneNumber = formattedPhoneNumber.replace(/\D/g, '')
+            setPhoneNumber(rawPhoneNumber)
         }
     }
 

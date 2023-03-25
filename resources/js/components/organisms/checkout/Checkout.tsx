@@ -6,14 +6,28 @@ import { Modal } from '../modal'
 
 interface Props {
     selectedProduct: Product | null
+    phoneNumber: string
 }
 
-export const Checkout: React.FC<Props> = ({ selectedProduct }) => {
+export const Checkout: React.FC<Props> = ({ selectedProduct, phoneNumber }) => {
     const [paymentOpen, setPaymentOpen] = useState<boolean>(false)
 
     const handleClickPayment = () => {
         if (selectedProduct === null) {
             toast.error('Please select the product first!', {
+                position: 'top-right',
+                className: 'roboto',
+            })
+
+            return
+        }
+
+        const isLess = phoneNumber.length < 10
+        if (!isLess) {
+            setPaymentOpen((prev) => !prev)
+        }
+        if (isLess) {
+            toast.error('Number must more than or equal to 10', {
                 position: 'top-right',
                 className: 'roboto',
             })

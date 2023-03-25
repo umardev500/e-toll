@@ -8,6 +8,7 @@ export const Home: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([])
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
     const [brand, setBrand] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
     const currentPrefix = useRef<string>('')
 
     const fetchProducts = useBuyerFetchProducts()
@@ -65,7 +66,7 @@ export const Home: React.FC = () => {
                 </div>
 
                 {/* Input area */}
-                <SerachCredit brand={brand} callback={searchCallback} />
+                <SerachCredit setPhoneNumber={setPhoneNumber} brand={brand} callback={searchCallback} />
 
                 {/* Result */}
                 {products.length > 0 ? (
@@ -76,7 +77,7 @@ export const Home: React.FC = () => {
                         <CreditList selectedProduct={selectedProduct} clickCallback={clickCallback} credits={products} />
 
                         {/* Checkout */}
-                        <Checkout selectedProduct={selectedProduct} />
+                        <Checkout phoneNumber={phoneNumber} selectedProduct={selectedProduct} />
                     </div>
                 ) : (
                     <div className="mt-10">
