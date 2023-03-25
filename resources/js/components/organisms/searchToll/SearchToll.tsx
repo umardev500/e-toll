@@ -1,22 +1,15 @@
 import { format } from 'libphonenumber-js'
-import React, { useCallback, useContext, useRef } from 'react'
-import { AppContext, type AppContextType } from '../../../context/AppContext'
+import React, { useCallback, useRef } from 'react'
 import { useDebounce } from '../../../hooks'
-import { type ProductResponse } from '../../../types'
 
-export const SerachToll: React.FC = () => {
+interface Props {
+    callback: (text: string) => void
+}
+
+export const SerachToll: React.FC<Props> = ({ callback }) => {
     const inputRef = useRef<HTMLInputElement>(null)
-    const context = useContext(AppContext) as AppContextType
 
-    const handleReset = useCallback(() => {
-        context.setProduct(undefined)
-        context.setProducts([])
-        context.setBrand(undefined)
-        context.setPhone('')
-        context.setTrackingNumber('')
-    }, [])
-
-    const handleType = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = inputRef.current
         const phoneNumber = e.target.value
         if (input != null) {
@@ -25,51 +18,12 @@ export const SerachToll: React.FC = () => {
         }
     }
 
-    const fetchProducts = async (prefix: string) => {
-        const target = `${import.meta.env.VITE_API_URL}/products?search=${prefix}`
-        try {
-            const response = await fetch(target)
-            const jsonData: ProductResponse = await response.json()
-            const products = jsonData.data
-            if (products.length > 0) {
-                context.setProducts(products)
-                context.setBrand(products[0].brand)
-            } else {
-                context.setProducts([])
-            }
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
-    const changeCallback = (phoneNumber: string) => {
-        const formattedPhoneNumber = format(phoneNumber, 'ID', 'NATIONAL')
-        let rawNumber = formattedPhoneNumber.replace(/\D/g, '')
-        const firstNum = rawNumber.charAt(0)
-        if (firstNum !== '0' && phoneNumber.length > 0) {
-            rawNumber = '0' + rawNumber
-        }
-
-        context.setPhone(rawNumber) // set phone number to state
-
-        const phoneLen = rawNumber.length
-        if (phoneLen >= 4) {
-            const prefix: string | number = rawNumber.substring(0, 4)
-            fetchProducts(prefix).catch((err) => {
-                console.log(err)
-            })
-        }
-
-        if (phoneLen <= 0) handleReset()
-    }
-
-    const handeInputChange = useDebounce(changeCallback, 500)
+    const handleTyping = useDebounce(callback, 500)
 
     const handleClear = useCallback(() => {
         const input = inputRef.current
         if (input != null) {
             input.value = ''
-            handleReset()
         }
     }, [])
 
@@ -78,14 +32,14 @@ export const SerachToll: React.FC = () => {
             <div className="w-full lg:w-1/2 xl:w-1/2 md:w-2/3 relative flex items-center">
                 <input
                     ref={inputRef}
-                    onChange={handeInputChange}
-                    onBlur={handleType}
+                    onChange={handleTyping}
+                    onBlur={handleBlur}
                     className="w-full bg-slate-50 text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-3.5 text-base font-medium rounded-lg"
                     type="text"
                     placeholder="Enter your number"
                 />
                 <div className="absolute right-4 flex items-center gap-2.5">
-                    <span className="text-gray-400 font-medium roboto">{context.brand?.name}</span>
+                    <span className="text-gray-400 font-medium roboto">{'Telkomsel'}</span>
                     <span onClick={handleClear} className="text-gray-400 hover:text-gray-600 cursor-pointer">
                         <svg width="11" height="11" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path

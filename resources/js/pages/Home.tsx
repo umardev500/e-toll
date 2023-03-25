@@ -1,9 +1,55 @@
-import React, { useContext } from 'react'
+import React, { useRef, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { OrderListBtn } from '../components/atoms'
-import { SerachToll, TollList, Checkout } from '../components/organisms'
-import { AppContext, type AppContextType } from '../context/AppContext'
+import { Checkout, CreditList, SerachToll } from '../components/organisms'
+import { useBuyerFetchProducts } from '../hooks'
+import { type Product, type ProductResponse } from '../types'
 export const Home: React.FC = () => {
-    const context = useContext(AppContext) as AppContextType
+    const [products, setProducts] = useState<Product[]>([])
+    const fetchProducts = useBuyerFetchProducts()
+    const currentPrefix = useRef<string>('')
+
+    const searchCallback = (prefix: string) => {
+        if (prefix.length >= 4) {
+            // Check if prefix length is greater than or equal to 4
+            prefix = prefix.substring(0, 4) // Truncate the prefix to the first 4 characters
+            if (currentPrefix.current !== prefix) {
+                // Check if the current prefix in the ref is different from the new truncated prefix
+                currentPrefix.current = prefix // If different, update the current prefix ref to the new truncated prefix
+
+                const doFetch = async (): Promise<ProductResponse> => {
+                    try {
+                        const products = await fetchProducts({ prefix })
+                        return await Promise.resolve(products)
+                    } catch (err) {
+                        return await Promise.reject(err)
+                    }
+                }
+
+                toast
+                    .promise(
+                        doFetch(),
+                        {
+                            loading: 'Loading...',
+                            success: 'Products loaded successfuly',
+                            error: 'Something went wrong!',
+                        },
+                        {
+                            className: 'roboto',
+                            position: 'top-right',
+                        }
+                    )
+                    .then((res) => {
+                        const data = res.data
+                        setProducts(data)
+                        console.log(data)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            }
+        }
+    }
 
     return (
         <div className="container py-10 mx-auto flex justify-center">
@@ -13,15 +59,15 @@ export const Home: React.FC = () => {
                 </div>
 
                 {/* Input area */}
-                <SerachToll />
+                <SerachToll callback={searchCallback} />
 
                 {/* Result */}
-                {context.products.length > 0 ? (
+                {products.length > 0 ? (
                     <div className="mt-10 p-4 w-full md:w-2/3">
                         <div className="text-gray-500 roboto">Nominal</div>
 
                         {/* Toll list */}
-                        <TollList />
+                        <CreditList credits={products} />
 
                         {/* Checkout */}
                         <Checkout />
