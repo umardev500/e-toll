@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { BrandFilter, BrandList, Search } from '../../../components/admin'
+import { BrandFilter, BrandForm, BrandList, Search } from '../../../components/admin'
 import { Pagination } from '../../../components/organisms'
 import { useFetchBrands } from '../../../hooks'
 import { type Brand } from '../../../types'
@@ -11,6 +11,7 @@ export const Brands: React.FC = () => {
     const [total, setTotal] = useState(0)
     const [perPage, setPerPage] = useState(10)
     const [showFilter, setShowFilter] = useState(false)
+    const [form, setForm] = useState(false)
     const navigate = useNavigate()
 
     const [searchParams] = useSearchParams()
@@ -95,6 +96,7 @@ export const Brands: React.FC = () => {
                 </div>
             </div>
             {showFilter ? <BrandFilter setState={setShowFilter} /> : null}
+            <BrandForm setState={setForm} />
         </div>
     )
 }
