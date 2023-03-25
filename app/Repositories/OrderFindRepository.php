@@ -8,19 +8,23 @@ use Illuminate\Support\Facades\Log;
 
 class OrderFindRepository
 {
-    public static function find($perPage, $sort, $status, $search)
+    public static function find($perPage, $phone, $sort, $status, $search)
     {
         $query = Order::with('productCopy.brand');
-        $query->where(function ($q) use ($search) {
-            $q->where('order_id', 'LIKE', '%' . $search . '%')
-                ->orWhere('phone_number', 'LIKE', '%' . $search . '%')
-                ->orWhere('va', 'LIKE', '%' . $search . '%')
-                ->orWhereHas('productCopy', function ($q) use ($search) {
-                    $q->whereHas('brand', function ($q) use ($search) {
-                        $q->where('name', 'LIKE', '%' . $search . '%');
+        if (!empty($phone)) {
+            $query->where('phone_number', $phone);
+        } else {
+            $query->where(function ($q) use ($search) {
+                $q->where('order_id', 'LIKE', '%' . $search . '%')
+                    ->orWhere('phone_number', 'LIKE', '%' . $search . '%')
+                    ->orWhere('va', 'LIKE', '%' . $search . '%')
+                    ->orWhereHas('productCopy', function ($q) use ($search) {
+                        $q->whereHas('brand', function ($q) use ($search) {
+                            $q->where('name', 'LIKE', '%' . $search . '%');
+                        });
                     });
-                });
-        });
+            });
+        }
 
         if (!empty($status) && $status == 'pending') {
             $query->where('status', 'pending');
