@@ -15,7 +15,7 @@ class BrandFindRepository
                 ->orWhereJsonContains('prefix', $search);
         });
 
-        if (!empty($status)) {
+        if (!empty($status) && $status != 'none') {
             $query->where('status', $status);
         }
 
