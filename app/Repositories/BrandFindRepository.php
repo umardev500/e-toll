@@ -9,17 +9,16 @@ class BrandFindRepository
 {
     public static function find($perPage, $sort, $status, $search)
     {
-        $query = Brand::query();
-        if (!empty($status) && $status != 'none') {
+        $query = Brand::where(function ($q) use ($search) {
+            $q->where('brand_id', 'LIKE', '%' . $search . '%')
+                ->orWhere('name', 'LIKE', '%' . $search . '%')
+                ->orWhereJsonContains('prefix', $search);
+        });
+
+        if (!empty($status)) {
             $query->where('status', $status);
         }
 
-        if (!empty($search)) {
-            $query->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('brand_id', 'LIKE', '%' . $search . '%')
-                ->orWhere('status', 'LIKE', '%' . $search . '%')
-                ->orWhereJsonContains('prefix', $search);
-        }
 
         $query = $query->orderBy('created_at', $sort);
         $brands = $query->paginate($perPage);
