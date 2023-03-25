@@ -14,18 +14,16 @@ class ProductFindRepository
             ->first();
     }
 
-    public static function find($perPage, $prefix, $brandId, $sort, $status, $search)
+    public static function find($perPage, $sort, $status, $search)
     {
         $query = Product::with('brand');
-
-        $query->whereHas('brand', function ($q) use ($prefix, $brandId) {
-            if ($prefix) {
-                $q->whereJsonContains('prefix', $prefix);
-            }
-
-            if ($brandId) {
-                $q->where('id', $brandId);
-            }
+        $query->where(function ($q) use ($search) {
+            $q->where('product_id', 'LIKE', '%' . $search . '%')
+                ->orWhereHas('brand', function ($q) use ($search) {
+                    $q->where('brand_id', 'LIKE', '%' . $search . '%')
+                        ->orWhere('name', 'LIKE', '%' . $search . '%')
+                        ->orWhereJsonContains('prefix', $search);
+                });
         });
 
         if (!empty($status) && $status == 'sold') {
@@ -33,20 +31,6 @@ class ProductFindRepository
             $query->where('stock', '<=', 0);
         } elseif (!empty($status) && $status != 'none') {
             $query->where('status', $status);
-        }
-
-        if (!empty($search)) {
-            $query->where('product_id', 'LIKE', '%' . $search . '%')
-                ->orWhere('status', 'LIKE', '%' . $search . '%')
-                ->orWhereHas('brand', function ($q) use ($search, $prefix, $brandId) {
-                    $q->where('name', 'LIKE', '%' . $search . '%');
-                    if ($prefix) {
-                        $q->whereJsonContains('prefix', $prefix);
-                    }
-                    if ($brandId) {
-                        $q->where('id', $brandId);
-                    }
-                });
         }
 
         $query = $query->orderBy('created_at', $sort);
