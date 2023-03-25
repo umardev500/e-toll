@@ -6,9 +6,10 @@ import { useBuyerFetchProducts } from '../hooks'
 import { type Product, type ProductResponse } from '../types'
 export const Home: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([])
-    const fetchProducts = useBuyerFetchProducts()
+    const [brand, setBrand] = useState('')
     const currentPrefix = useRef<string>('')
 
+    const fetchProducts = useBuyerFetchProducts()
     const searchCallback = (prefix: string) => {
         if (prefix.length >= 4) {
             // Check if prefix length is greater than or equal to 4
@@ -41,8 +42,8 @@ export const Home: React.FC = () => {
                     )
                     .then((res) => {
                         const data = res.data
-                        setProducts(data)
-                        console.log(data)
+                        setProducts(data) // set products data
+                        setBrand(data[0].brand.name) // set brand selected
                     })
                     .catch((err) => {
                         console.log(err)
@@ -59,7 +60,7 @@ export const Home: React.FC = () => {
                 </div>
 
                 {/* Input area */}
-                <SerachToll callback={searchCallback} />
+                <SerachToll brand={brand} callback={searchCallback} />
 
                 {/* Result */}
                 {products.length > 0 ? (
