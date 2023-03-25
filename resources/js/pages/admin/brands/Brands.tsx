@@ -70,7 +70,7 @@ export const Brands: React.FC = () => {
 
                     <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-5">
                         <div className="flex gap-2">
-                            <button className="outline-none bg-yellow-500 hover:bg-blue-600 text-white px-2 py-1.5 rounded-md font-medium roboto whitespace-nowrap mb-4 lg:mb-0 flex items-center justify-center lg:justify-start">
+                            <button className="outline-none bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1.5 rounded-md font-medium roboto whitespace-nowrap mb-4 lg:mb-0 flex items-center justify-center lg:justify-start">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M6 12H18M12 18V6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
