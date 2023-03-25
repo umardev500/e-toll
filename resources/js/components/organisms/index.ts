@@ -1,6 +1,6 @@
 export * from './creditList'
 export * from './checkout'
-export * from './searchToll'
+export * from './searchCredit'
 export * from './modal'
 export * from './orderList'
 export * from './orderDetail'

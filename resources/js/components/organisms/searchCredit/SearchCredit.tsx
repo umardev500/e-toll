@@ -7,7 +7,7 @@ interface Props {
     brand: string
 }
 
-export const SerachToll: React.FC<Props> = ({ callback, brand }) => {
+export const SerachCredit: React.FC<Props> = ({ callback, brand }) => {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {

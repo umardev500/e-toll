@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { OrderListBtn } from '../components/atoms'
-import { Checkout, CreditList, SerachToll } from '../components/organisms'
+import { Checkout, CreditList, SerachCredit } from '../components/organisms'
 import { useBuyerFetchProducts } from '../hooks'
 import { type Product, type ProductResponse } from '../types'
 export const Home: React.FC = () => {
@@ -65,7 +65,7 @@ export const Home: React.FC = () => {
                 </div>
 
                 {/* Input area */}
-                <SerachToll brand={brand} callback={searchCallback} />
+                <SerachCredit brand={brand} callback={searchCallback} />
 
                 {/* Result */}
                 {products.length > 0 ? (
