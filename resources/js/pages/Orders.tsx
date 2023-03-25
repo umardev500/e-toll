@@ -1,21 +1,42 @@
-import React, { useCallback, useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useCallback, useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { AddPhoneNumber, OrderList } from '../components/organisms'
-import { AppContext, type AppContextType } from '../context/AppContext'
 import { useFetchOrders, useReload } from '../hooks'
+import { type Order } from '../types'
 
 export const Orders: React.FC = () => {
     const [numberModal, setNumberModal] = useState(false)
+    const [orders, setOrders] = useState<Order[]>([])
+    const [searchParams] = useSearchParams()
+    const phoneNumber = searchParams.get('phone') ?? '0000'
 
     const navigate = useNavigate()
     const handleBack = useCallback(() => {
         navigate(-1)
     }, [])
 
-    const context = useContext(AppContext) as AppContextType
-
-    useFetchOrders()
     const reload = useReload()
+    const fetchOrders = useFetchOrders()
+    useEffect(() => {
+        toast
+            .promise(
+                fetchOrders(phoneNumber),
+                {
+                    success: 'Orders data is loaded',
+                    error: 'Something went wrong!',
+                    loading: 'Loading order...',
+                },
+                { className: 'roboto' }
+            )
+            .then((res) => {
+                const data = res.data
+                setOrders(data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [phoneNumber])
 
     return (
         <>
@@ -63,9 +84,9 @@ export const Orders: React.FC = () => {
                         </div>
                     </div>
                     {/* List */}
-                    <OrderList />
+                    <OrderList orders={orders} />
 
-                    {context.orders.length < 1 ? (
+                    {orders.length < 1 ? (
                         <div
                             onClick={() => {
                                 setNumberModal(true)

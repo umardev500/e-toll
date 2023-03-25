@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useClickOutside, useCloseModal } from '../../../hooks'
 import { type Bank, type OrderRequest, type PaymentResponse, type Product } from '../../../types'
 
@@ -14,6 +14,7 @@ export const Modal: React.FC<Props> = ({ setState, credit, phoneNumber }) => {
     const [bank, setBank] = useState<Bank>()
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
+    const [searchParams] = useSearchParams()
 
     const handleClick = (item: Bank) => {
         setBank(item)
@@ -49,10 +50,14 @@ export const Modal: React.FC<Props> = ({ setState, credit, phoneNumber }) => {
                 if (statusCode !== 200) await Promise.reject(new Error('Something went wrong'))
                 const jsonData: PaymentResponse = await response.json()
                 const responseStatus = jsonData.status_code
-                console.log(jsonData)
                 if (responseStatus === '201') {
                     handleClose()
-                    navigate('/order-list')
+                    searchParams.set('phone', phoneNumber)
+                    const params = searchParams.toString()
+                    navigate({
+                        pathname: '/order-list',
+                        search: `?${params}`,
+                    })
                 } else {
                     await Promise.reject(new Error(jsonData.message))
                 }

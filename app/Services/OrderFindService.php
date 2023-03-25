@@ -15,9 +15,10 @@ class OrderFindService
         $search = $req->query('search');
         $sort = $req->query('sort', 'desc');
         $status = $req->query('status');
+        $phone = $req->query('phone');
         $perPage = intval($perPage);
 
-        return OrderFindRepository::find(perPage: $perPage, sort: $sort, status: $status, search: $search);
+        return OrderFindRepository::find(perPage: $perPage, phone: $phone, sort: $sort, status: $status, search: $search);
     }
 
     public static function findOne($id)
