@@ -6,6 +6,7 @@ import { useBuyerFetchProducts } from '../hooks'
 import { type Product, type ProductResponse } from '../types'
 export const Home: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([])
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
     const [brand, setBrand] = useState('')
     const currentPrefix = useRef<string>('')
 
@@ -52,6 +53,10 @@ export const Home: React.FC = () => {
         }
     }
 
+    const clickCallback = (credit: Product) => {
+        setSelectedProduct(credit)
+    }
+
     return (
         <div className="container py-10 mx-auto flex justify-center">
             <div className="px-4 flex flex-col items-center w-full">
@@ -68,7 +73,7 @@ export const Home: React.FC = () => {
                         <div className="text-gray-500 roboto">Nominal</div>
 
                         {/* Toll list */}
-                        <CreditList credits={products} />
+                        <CreditList selectedProduct={selectedProduct} clickCallback={clickCallback} credits={products} />
 
                         {/* Checkout */}
                         <Checkout />

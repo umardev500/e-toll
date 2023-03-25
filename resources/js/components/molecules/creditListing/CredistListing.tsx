@@ -1,19 +1,19 @@
-import React, { useCallback, useContext } from 'react'
-import { AppContext, type AppContextType } from '../../../context/AppContext'
+import React from 'react'
 import { toCurrency } from '../../../helpers'
 import { type Product } from '../../../types'
 
 interface Props {
     product: Product
+    clickCallback: (credit: Product) => void
+    selectedProduct: Product | null
 }
 
-export const CreditListing: React.FC<Props> = ({ product }) => {
-    const context = useContext(AppContext) as AppContextType
-    const isActive = (context.product?.id ?? 0) === product.id
+export const CreditListing: React.FC<Props> = ({ product, clickCallback, selectedProduct }) => {
+    const isActive = selectedProduct?.id === product.id
 
-    const handleClick = useCallback(() => {
-        context.setProduct(product)
-    }, [])
+    const handleClick = () => {
+        clickCallback(product)
+    }
 
     return (
         <>
