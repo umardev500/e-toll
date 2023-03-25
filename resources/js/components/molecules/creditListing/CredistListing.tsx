@@ -7,7 +7,7 @@ interface Props {
     product: Product
 }
 
-export const TollCard: React.FC<Props> = ({ product }) => {
+export const CreditListing: React.FC<Props> = ({ product }) => {
     const context = useContext(AppContext) as AppContextType
     const isActive = (context.product?.id ?? 0) === product.id
 
