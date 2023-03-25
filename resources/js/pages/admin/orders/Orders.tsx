@@ -12,9 +12,10 @@ export const AdminOrders: React.FC = () => {
     const sort = searchParams.get('sort') ?? 'desc'
     const status = searchParams.get('status') ?? ''
     const pageNum = parseInt(page.toString())
+    const search = searchParams.get('search') ?? ''
+
     const [orders, setOrders] = useState<Order[]>([])
     const [total, setTotal] = useState(0)
-    const [search, setSearch] = useState('')
     const [showFilter, setShowFilter] = useState(false)
 
     const navigate = useNavigate()
@@ -44,10 +45,14 @@ export const AdminOrders: React.FC = () => {
             })
     }, [pageNum, search, sort, status])
 
-    const searchCallback = useCallback((keyword: string) => {
-        console.log('callback key', keyword)
-        setSearch(keyword)
-    }, [])
+    const searchCallback = (keyword: string) => {
+        searchParams.set('search', keyword)
+        const params = searchParams.toString()
+        navigate({
+            pathname: '/admin/orders',
+            search: `?${params}`,
+        })
+    }
 
     const paginateCallback = useCallback((params: string) => {
         navigate({

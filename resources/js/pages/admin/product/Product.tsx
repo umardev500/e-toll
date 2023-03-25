@@ -7,7 +7,6 @@ import { useFetchProducts } from '../../../hooks'
 import { type Product } from '../../../types'
 
 export const Products: React.FC = () => {
-    const [search, setSearch] = useState('')
     const [total, setTotal] = useState(0)
     const [showFilter, setShowFilter] = useState(false)
     const [products, setProducts] = useState<Product[]>([])
@@ -18,11 +17,16 @@ export const Products: React.FC = () => {
     const page = parseInt(searchParams.get('page') ?? '0')
     const sort = searchParams.get('sort') ?? 'desc'
     const status = searchParams.get('status') ?? 'none'
+    const search = searchParams.get('search') ?? ''
 
-    const searchCallback = useCallback((keyword: string) => {
-        console.log('callback key', keyword)
-        setSearch(keyword)
-    }, [])
+    const searchCallback = (keyword: string) => {
+        searchParams.set('search', keyword)
+        const params = searchParams.toString()
+        navigate({
+            pathname: '/admin/products',
+            search: `?${params}`,
+        })
+    }
     const fetchProducts = useFetchProducts()
 
     useEffect(() => {
