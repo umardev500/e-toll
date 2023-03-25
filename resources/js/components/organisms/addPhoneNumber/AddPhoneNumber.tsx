@@ -1,7 +1,7 @@
 import { format } from 'libphonenumber-js'
-import React, { useCallback, useContext, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { toast } from 'react-hot-toast'
-import { AppContext, type AppContextType } from '../../../context/AppContext'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useClickOutside, useCloseModal } from '../../../hooks'
 
 interface Props {
@@ -12,7 +12,8 @@ export const AddPhoneNumber: React.FC<Props> = ({ setState }) => {
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
-    const context = useContext(AppContext) as AppContextType
+    const [searchParams] = useSearchParams()
+    const navigate = useNavigate()
 
     const handleClose = useCloseModal(setState)
     useClickOutside(overlayRef, innerRef, setState)
@@ -27,7 +28,12 @@ export const AddPhoneNumber: React.FC<Props> = ({ setState }) => {
             const rawLen = rawNumber.length
 
             if (rawLen >= 10) {
-                context.setTrackingNumber(rawNumber)
+                searchParams.set('phone', rawNumber)
+                const params = searchParams.toString()
+                navigate({
+                    pathname: '/order-list',
+                    search: `?${params}`,
+                })
                 handleClose()
             } else {
                 toast.error('Number must more than or equal to 10', {
