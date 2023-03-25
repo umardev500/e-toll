@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\WebhookRepositoy;
 use App\Repositories\WhRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class WebhookService
 {
@@ -15,6 +16,8 @@ class WebhookService
         $orderId = $requestData['order_id'];
         $status = $requestData['transaction_status'];
 
-        return WhRepository::setStatus($orderId, $status, $settlementTimeUnix);
+        Log::info($requestData);
+
+        // return WhRepository::setStatus($orderId, $status, $settlementTimeUnix);
     }
 }

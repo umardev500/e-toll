@@ -1,19 +1,19 @@
-import React, { useCallback, useContext, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
-import { AppContext, type AppContextType } from '../../../context/AppContext'
 import { useClickOutside, useCloseModal } from '../../../hooks'
-import { type PaymentResponse, type Bank, type OrderRequest } from '../../../types'
+import { type Bank, type OrderRequest, type PaymentResponse, type Product } from '../../../types'
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
+    credit: Product | null
+    phoneNumber: string
 }
 
-export const Modal: React.FC<Props> = ({ setState }) => {
+export const Modal: React.FC<Props> = ({ setState, credit, phoneNumber }) => {
     const [bank, setBank] = useState<Bank>()
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
-    const context = useContext(AppContext) as AppContextType
 
     const handleClick = (item: Bank) => {
         setBank(item)
@@ -24,14 +24,13 @@ export const Modal: React.FC<Props> = ({ setState }) => {
     const handleClose = useCloseModal(setState)
     const navigate = useNavigate()
 
-    const handleSubmit = useCallback(() => {
-        const phone = context.phone
-        const productId = context.product?.id ?? 0
+    const handleSubmit = () => {
+        const productId = credit?.id ?? 0
         const putOrder = async (): Promise<void> => {
             const target = `${import.meta.env.VITE_API_URL}/orders`
             const requestBody: OrderRequest = {
                 product_id: productId,
-                phone_number: phone,
+                phone_number: phoneNumber,
                 payment: {
                     bank: bank ?? 'bri',
                 },
@@ -78,7 +77,7 @@ export const Modal: React.FC<Props> = ({ setState }) => {
                 )
                 .catch(() => null)
         }
-    }, [bank])
+    }
 
     return (
         <>

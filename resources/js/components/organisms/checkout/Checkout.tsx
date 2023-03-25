@@ -53,7 +53,7 @@ export const Checkout: React.FC<Props> = ({ selectedProduct, phoneNumber }) => {
                 </div>
             </div>
 
-            {paymentOpen ? <Modal setState={setPaymentOpen} /> : null}
+            {paymentOpen ? <Modal phoneNumber={phoneNumber} credit={selectedProduct} setState={setPaymentOpen} /> : null}
         </>
     )
 }
