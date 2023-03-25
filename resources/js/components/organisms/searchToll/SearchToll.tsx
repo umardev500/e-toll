@@ -26,7 +26,7 @@ export const SerachToll: React.FC = () => {
     }
 
     const fetchProducts = async (prefix: string) => {
-        const target = `${import.meta.env.VITE_API_URL}/products?prefix=${prefix}`
+        const target = `${import.meta.env.VITE_API_URL}/products?search=${prefix}`
         try {
             const response = await fetch(target)
             const jsonData: ProductResponse = await response.json()
