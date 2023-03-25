@@ -61,6 +61,7 @@ class CreateOrderService
     protected function createCopyProduct($item)
     {
         $product = new ProductCopy();
+        $product->product_id = Carbon::now()->timestamp;
         $product->brand_id = $item->brand_id;
         $product->toll = $item->toll;
         $product->price = $item->price;
