@@ -56,7 +56,6 @@ export const Brands: React.FC = () => {
                 setTotal(pages)
                 setPerPage(perPage)
                 setBrands(data)
-                console.log(data)
             })
             .catch((err) => {
                 console.log(err)
