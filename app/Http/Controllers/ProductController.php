@@ -42,4 +42,9 @@ class ProductController extends Controller
     {
         return ProductDeleteService::delete($id);
     }
+
+    public function softDelete($id)
+    {
+        return ProductDeleteService::softDelete($id);
+    }
 }

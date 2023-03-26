@@ -10,4 +10,9 @@ class ProductDeleteService
     {
         return ProductDeleteRepository::delete($id);
     }
+
+    public static function softDelete($id)
+    {
+        return ProductDeleteRepository::softDelete($id);
+    }
 }
