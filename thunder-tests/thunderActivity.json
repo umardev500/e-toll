@@ -235,6 +235,20 @@
     "tests": []
   },
   {
+    "_id": "c6436574-77ba-4d73-8ddc-a2a4c439021d",
+    "colId": "history",
+    "containerId": "",
+    "name": "brand delete",
+    "url": "http://localhost:8000/api/brands/3/soft",
+    "method": "DELETE",
+    "sortNum": 0,
+    "created": "2023-03-18T08:16:10.555Z",
+    "modified": "2023-03-26T22:47:41.130Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
     "_id": "18622bf0-0df4-493b-add4-f741d95d3127",
     "colId": "history",
     "containerId": "",

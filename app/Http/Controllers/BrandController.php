@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\BrandCreateService;
+use App\Services\BrandDeleteService;
 use App\Services\BrandFindService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -30,5 +31,15 @@ class BrandController extends Controller
     {
         $data = $request->json()->all();
         return BrandCreateService::statusUpdate($id, $data);
+    }
+
+    public function delete($id)
+    {
+        return BrandDeleteService::delete($id);
+    }
+
+    public function softDelete($id)
+    {
+        return BrandDeleteService::softDelete($id);
     }
 }

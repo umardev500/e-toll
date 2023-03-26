@@ -43,6 +43,8 @@ Route::get('/brands', [BrandController::class, 'find']);
 Route::post('/brands', [BrandController::class, 'create']);
 Route::put('/brands/{id}', [BrandController::class, 'update']);
 Route::put('/brands/{id}/status', [BrandController::class, 'statusUpdate']);
+Route::delete('/brands/{id}', [BrandController::class, 'delete']);
+Route::delete('/brands/{id}/soft', [BrandController::class, 'softDelete']);
 
 // Webhook
 Route::post('/status', [WebhookController::class, 'setStatus']);
