@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('product_copies', function (Blueprint $table) {
             $table->id();
             $table->string('product_id');
-            $table->unsignedBigInteger('brand_id');
-            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->unsignedBigInteger('brand_id')->nullable();
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
             $table->unsignedInteger('credit');
             $table->unsignedInteger(column: 'price');
         });
