@@ -4,7 +4,7 @@ export interface Product {
     id: number
     product_id: number
     brand_id: number
-    toll: number
+    credit: number
     price: number
     stock: number
     status: string
