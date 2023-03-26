@@ -19,7 +19,7 @@ class ProductCopyFactory extends Factory
     {
         return [
             'product_id' => Carbon::now()->timestamp,
-            'toll' => fake()->numberBetween(1000, 8888),
+            'credit' => fake()->numberBetween(1000, 8888),
             'price' => fake()->numberBetween(1000, 9999)
         ];
     }

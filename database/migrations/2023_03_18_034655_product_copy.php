@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('product_id');
             $table->unsignedBigInteger('brand_id');
             $table->foreign('brand_id')->references('id')->on('brands');
-            $table->unsignedInteger('toll');
+            $table->unsignedInteger('credit');
             $table->unsignedInteger(column: 'price');
         });
     }
