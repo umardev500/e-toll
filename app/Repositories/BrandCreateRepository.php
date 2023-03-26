@@ -10,13 +10,22 @@ class BrandCreateRepository
 {
     public static function create($brand, $prefix)
     {
-        Log::info($prefix);
         $now = Carbon::now()->timestamp;
-        $brand = new Brand();
-        $brand->brand_id = '122';
-        $brand->name = '122';
-        $brand->prefix = $prefix;
-        $brand->created_at = $now;
-        $brand->save();
+        $brandInstance = new Brand();
+        $brandInstance->brand_id = $now;
+        $brandInstance->name = $brand;
+        $brandInstance->prefix = $prefix;
+        $brandInstance->created_at = $now;
+        $brandInstance->save();
+    }
+
+    public static function update($id, $brand, $prefix)
+    {
+        $now = Carbon::now()->timestamp;
+        $brandInstance = Brand::find($id);
+        $brandInstance->name = $brand;
+        $brandInstance->prefix = $prefix;
+        $brandInstance->updated_at = $now;
+        $brandInstance->save();
     }
 }

@@ -103,11 +103,11 @@
     "colId": "history",
     "containerId": "",
     "name": "product find all",
-    "url": "http://localhost:8000/api/products?prefix=0435&search=0435",
+    "url": "http://localhost:8000/api/products?prefix=0838",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2023-03-25T14:55:10.556Z",
+    "modified": "2023-03-26T22:35:15.035Z",
     "headers": [],
     "params": [
       {
@@ -124,7 +124,7 @@
       },
       {
         "name": "prefix",
-        "value": "0435",
+        "value": "0838",
         "isPath": false
       },
       {
@@ -136,6 +136,7 @@
       {
         "name": "search",
         "value": "0435",
+        "isDisabled": true,
         "isPath": false
       },
       {
@@ -254,6 +255,25 @@
     "sortNum": 0,
     "created": "2023-03-26T22:03:02.742Z",
     "modified": "2023-03-26T21:58:04.423Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"brand\": \"Axis\",\n  \"prefix\": [\"0838\", \"0835\"]\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "322b2a50-4383-4082-a584-1444856b179b",
+    "colId": "history",
+    "containerId": "",
+    "name": "brand update",
+    "url": "http://localhost:8000/api/brands/2",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2023-03-26T22:03:02.742Z",
+    "modified": "2023-03-26T23:25:22.227Z",
     "headers": [],
     "params": [],
     "body": {

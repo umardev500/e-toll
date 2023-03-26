@@ -14,4 +14,12 @@ class BrandCreateService
 
         BrandCreateRepository::create(brand: $brand, prefix: $prefix);
     }
+
+    public static function update($id, $data)
+    {
+        $brand = $data['brand'];
+        $prefix = $data['prefix'];
+
+        BrandCreateRepository::update(id: $id, brand: $brand, prefix: $prefix);
+    }
 }
