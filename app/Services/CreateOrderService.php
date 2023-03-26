@@ -63,7 +63,7 @@ class CreateOrderService
         $product = new ProductCopy();
         $product->product_id = Carbon::now()->timestamp;
         $product->brand_id = $item->brand_id;
-        $product->toll = $item->toll;
+        $product->credit = $item->credit;
         $product->price = $item->price;
         $product->save();
 

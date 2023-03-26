@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('credit');
             $table->unsignedInteger(column: 'price');
             $table->unsignedInteger(column: 'stock');
-            $table->string(column: 'status');
+            $table->string(column: 'status')->default('active');
             TimeStamps::addTimeStamps($table);
         });
     }

@@ -8,12 +8,11 @@ class ProductCreateService
 {
     public static function create($requestData)
     {
-        $title = $requestData['title'];
+        $credit = $requestData['credit'];
         $price = $requestData['price'];
         $brandId = $requestData['brand_id'];
+        $stock = $requestData['stock'];
 
-        ProductCreateRepository::create($title, $price, $brandId);
-
-        return $requestData;
+        return ProductCreateRepository::create(credit: $credit, price: $price, stock: $stock, brandId: $brandId);
     }
 }

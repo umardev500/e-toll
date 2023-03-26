@@ -157,12 +157,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2023-03-18T08:16:10.555Z",
-    "modified": "2023-03-19T00:48:42.979Z",
+    "modified": "2023-03-26T23:51:26.994Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"title\": \"30.000\",\n  \"price\": 29000,\n  \"brand_id\": 1\n}",
+      "raw": "{\n  \"credit\": \"30000\",\n  \"price\": 29000,\n  \"brand_id\": 1,\n  \"stock\": 10\n}",
       "form": []
     },
     "tests": []
