@@ -17,10 +17,10 @@ class BrandSeeder extends Seeder
     public function run(): void
     {
         Brand::factory()
-            ->has(Product::factory()->count(1))
+            ->has(Product::factory()->count(10))
             ->has(
                 ProductCopy::factory()
-                    ->count(1)
+                    ->count(10)
                     ->has(Order::factory())
             )
             ->create();

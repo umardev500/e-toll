@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('brand_id');
             $table->string('name');
             $table->json('prefix');
-            $table->string('status');
+            $table->string('status')->default('active');
             TimeStamps::addTimeStamps($table);
         });
     }

@@ -243,5 +243,24 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "7f932c47-f6c4-47bf-b09f-c252d4b3cd72",
+    "colId": "history",
+    "containerId": "",
+    "name": "brand create",
+    "url": "http://localhost:8000/api/brands",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-03-26T22:03:02.742Z",
+    "modified": "2023-03-26T21:58:04.423Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"brand\": \"Axis\",\n  \"prefix\": [\"0838\", \"0835\"]\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]
