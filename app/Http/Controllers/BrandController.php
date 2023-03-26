@@ -25,4 +25,10 @@ class BrandController extends Controller
         $data = $request->json()->all();
         return BrandCreateService::update($id, $data);
     }
+
+    public function statusUpdate(Request $request, $id)
+    {
+        $data = $request->json()->all();
+        return BrandCreateService::statusUpdate($id, $data);
+    }
 }

@@ -28,4 +28,13 @@ class BrandCreateRepository
         $brandInstance->updated_at = $now;
         $brandInstance->save();
     }
+
+    public static function statusUpdate($id, $status)
+    {
+        $now = Carbon::now()->timestamp;
+        $brandInstance = Brand::find($id);
+        $brandInstance->status = $status;
+        $brandInstance->updated_at = $now;
+        $brandInstance->save();
+    }
 }

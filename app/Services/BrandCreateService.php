@@ -22,4 +22,11 @@ class BrandCreateService
 
         BrandCreateRepository::update(id: $id, brand: $brand, prefix: $prefix);
     }
+
+    public static function statusUpdate($id, $data)
+    {
+        $status = $data['status'];
+
+        BrandCreateRepository::statusUpdate(id: $id, status: $status);
+    }
 }

@@ -38,6 +38,7 @@ Route::get('/products/{id}', [ProductController::class, 'findOne']);
 Route::get('/brands', [BrandController::class, 'find']);
 Route::post('/brands', [BrandController::class, 'create']);
 Route::put('/brands/{id}', [BrandController::class, 'update']);
+Route::put('/brands/{id}/status', [BrandController::class, 'statusUpdate']);
 
 // Webhook
 Route::post('/status', [WebhookController::class, 'setStatus']);
