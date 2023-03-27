@@ -25,4 +25,11 @@ class ProductCreateService
 
         return ProductCreateRepository::update(id: $id, credit: $credit, price: $price, stock: $stock, brandId: $brandId);
     }
+
+    public static function statusUpdate($id, $requestData)
+    {
+        $status = $requestData['status'];
+
+        return ProductCreateRepository::statusUupdate(id: $id, status: $status);
+    }
 }

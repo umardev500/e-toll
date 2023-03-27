@@ -30,7 +30,17 @@ class ProductCreateRepository
         $product->credit = $credit;
         $product->price = $price;
         $product->stock = $stock;
-        $product->created_at = $now;
+        $product->updated_at = $now;
+        $product->save();
+    }
+
+    public static function statusUupdate($id, $status)
+    {
+        $now = Carbon::now()->timestamp;
+
+        $product = Product::find($id);
+        $product->status = $status;
+        $product->updated_at = $now;
         $product->save();
     }
 }

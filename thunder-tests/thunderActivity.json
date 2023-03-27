@@ -187,6 +187,25 @@
     "tests": []
   },
   {
+    "_id": "c395d90e-9e63-4930-902b-113f0cf410a7",
+    "colId": "history",
+    "containerId": "",
+    "name": "product status update",
+    "url": "http://localhost:8000/api/products/11/status",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2023-03-18T08:16:10.555Z",
+    "modified": "2023-03-27T00:09:26.159Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"status\": \"pending\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
     "_id": "18622bf0-0df4-493b-add4-f741d95d3127",
     "colId": "history",
     "containerId": "",
