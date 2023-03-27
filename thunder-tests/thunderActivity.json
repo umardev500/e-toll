@@ -206,6 +206,20 @@
     "tests": []
   },
   {
+    "_id": "d00c6075-2e02-4033-8e87-c797d9db54d1",
+    "colId": "history",
+    "containerId": "",
+    "name": "product delete",
+    "url": "http://localhost:8000/api/products/11",
+    "method": "DELETE",
+    "sortNum": 0,
+    "created": "2023-03-18T08:16:10.555Z",
+    "modified": "2023-03-27T00:20:03.680Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
     "_id": "18622bf0-0df4-493b-add4-f741d95d3127",
     "colId": "history",
     "containerId": "",

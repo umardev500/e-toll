@@ -35,6 +35,7 @@ Route::get('/products', [ProductController::class, 'find']);
 Route::get('/products/{id}', [ProductController::class, 'findOne']);
 Route::put('/products/{id}', [ProductController::class, 'update']);
 Route::put('/products/{id}/status', [ProductController::class, 'statusUpdate']);
+Route::delete('/products/{id}', [ProductController::class, 'delete']);
 
 // Brand
 Route::get('/brands', [BrandController::class, 'find']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ProductCreateService;
+use App\Services\ProductDeleteService;
 use App\Services\ProductFindService;
 use Illuminate\Http\Request;
 
@@ -35,5 +36,10 @@ class ProductController extends Controller
     {
         $requestData = $req->json()->all();
         return ProductCreateService::statusUpdate($id, $requestData);
+    }
+
+    public function delete($id)
+    {
+        return ProductDeleteService::delete($id);
     }
 }
