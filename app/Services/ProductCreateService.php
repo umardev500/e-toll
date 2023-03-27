@@ -15,4 +15,14 @@ class ProductCreateService
 
         return ProductCreateRepository::create(credit: $credit, price: $price, stock: $stock, brandId: $brandId);
     }
+
+    public static function update($id, $requestData)
+    {
+        $credit = $requestData['credit'];
+        $price = $requestData['price'];
+        $brandId = $requestData['brand_id'];
+        $stock = $requestData['stock'];
+
+        return ProductCreateRepository::update(id: $id, credit: $credit, price: $price, stock: $stock, brandId: $brandId);
+    }
 }

@@ -33,6 +33,7 @@ Route::get('/orders/{id}/done', [OrderController::class, 'markDone']);
 Route::post('/products', [ProductController::class, 'create']);
 Route::get('/products', [ProductController::class, 'find']);
 Route::get('/products/{id}', [ProductController::class, 'findOne']);
+Route::put('/products/{id}', [ProductController::class, 'update']);
 
 // Brand
 Route::get('/brands', [BrandController::class, 'find']);

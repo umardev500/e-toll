@@ -24,4 +24,10 @@ class ProductController extends Controller
 
         return ProductCreateService::create($requestData);
     }
+
+    public function update($id, Request $req)
+    {
+        $requestData = $req->json()->all();
+        return ProductCreateService::update($id, $requestData);
+    }
 }
