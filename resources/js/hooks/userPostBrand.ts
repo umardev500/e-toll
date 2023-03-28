@@ -7,8 +7,8 @@ export const userPostBrand = () => {
         prefix: string[]
     }
 
-    const handler = useCallback((data: UpdateType) => {
-        const doPost = async () => {
+    const handler = useCallback(async (data: UpdateType): Promise<void> => {
+        const doPost = async (): Promise<void> => {
             const target = `${import.meta.env.VITE_API_URL}/brands`
             const token = localStorage.getItem('token') ?? ''
 
@@ -25,14 +25,16 @@ export const userPostBrand = () => {
                 })
 
                 const status = response.status
-                if (status !== 200) return await Promise.reject(new Error(await response.text()))
+                if (status !== 200) {
+                    await Promise.reject(new Error(await response.text()))
+                }
             } catch (err) {
-                return await Promise.reject(err)
+                await Promise.reject(err)
             }
         }
 
-        toast
-            .promise(
+        try {
+            await toast.promise(
                 doPost(),
                 {
                     success: 'Posting brand successfuly',
@@ -41,9 +43,9 @@ export const userPostBrand = () => {
                 },
                 { className: 'roboto' }
             )
-            .catch((err) => {
-                console.log(err)
-            })
+        } catch (err) {
+            await Promise.reject(err)
+        }
     }, [])
 
     return handler

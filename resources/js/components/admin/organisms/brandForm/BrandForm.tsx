@@ -36,6 +36,10 @@ export const BrandForm: React.FC<Props> = ({ setState }) => {
             const prefixes = prefix.value.split(',')
 
             postBrand({ brand: brand.value, prefix: prefixes })
+                .then(() => {
+                    setState(false)
+                })
+                .catch(() => null)
         }
     }, [])
 
