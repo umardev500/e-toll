@@ -1,9 +1,9 @@
 import { type BrandResponse } from '../types'
 
 export const useFetchBrands = () => {
-    const fetchOrders = async (page = 0, sort: string, status: string, search: string): Promise<BrandResponse> => {
+    const fetchOrders = async (page = 0, sort: string, status: string, search: string, perPage = 10): Promise<BrandResponse> => {
         page += 1
-        const target = `${import.meta.env.VITE_API_URL}/brands?page=${page}&sort=${sort}&status=${status}&search=${search}`
+        const target = `${import.meta.env.VITE_API_URL}/brands?per_page=${perPage}&page=${page}&sort=${sort}&status=${status}&search=${search}`
 
         try {
             const response = await fetch(target)

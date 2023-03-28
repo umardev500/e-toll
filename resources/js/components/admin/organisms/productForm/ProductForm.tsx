@@ -1,14 +1,16 @@
 import React, { useRef } from 'react'
 import { useClickOutside, useCloseModal } from '../../../../hooks'
 import Select from 'react-select'
+import { type Brand } from '../../../../types'
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
     setReloadCount?: React.Dispatch<React.SetStateAction<number>>
     updateCallback?: () => void
+    brands: Brand[]
 }
 
-export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateCallback }) => {
+export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateCallback, brands }) => {
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
     const brandRef = useRef<HTMLInputElement>(null)
@@ -17,11 +19,13 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
     const handleClose = useCloseModal(setState)
     useClickOutside(overlayRef, innerRef, setState)
 
-    const options = [
-        { value: 'chocolate', label: 'Telkomsel' },
-        { value: 'axis', label: 'Axis' },
-        { value: 'tri', label: 'Tri' },
-    ]
+    const options: Array<{ value: string; label: string }> = []
+
+    brands.forEach((brand) => {
+        options.push({ value: brand.id.toString(), label: brand.name })
+    })
+
+    console.log(brands)
 
     return (
         <div ref={overlayRef} className="modal pt-5 px-5">

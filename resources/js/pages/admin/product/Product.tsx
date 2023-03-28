@@ -3,8 +3,8 @@ import toast from 'react-hot-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ProductFilter, ProductForm, ProductList, Search } from '../../../components/admin'
 import { Pagination } from '../../../components/organisms'
-import { useFetchProducts } from '../../../hooks'
-import { type Product } from '../../../types'
+import { useFetchBrands, useFetchProducts } from '../../../hooks'
+import { type Brand, type Product } from '../../../types'
 
 export const Products: React.FC = () => {
     const [total, setTotal] = useState(0)
@@ -12,6 +12,7 @@ export const Products: React.FC = () => {
     const [showFilter, setShowFilter] = useState(false)
     const [products, setProducts] = useState<Product[]>([])
     const [perPage, setPerPage] = useState(10)
+    const [brands, setBrands] = useState<Brand[]>([])
     const navigate = useNavigate()
 
     const [searchParams] = useSearchParams()
@@ -62,6 +63,18 @@ export const Products: React.FC = () => {
         })
     }, [])
 
+    const fetchBrands = useFetchBrands()
+    useEffect(() => {
+        fetchBrands(page, sort, status, search, 50)
+            .then((res) => {
+                const data = res.data
+                setBrands(data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
+
     return (
         <div>
             <div className="pt-4">
@@ -100,7 +113,7 @@ export const Products: React.FC = () => {
                 </div>
             </div>
             {showFilter ? <ProductFilter setState={setShowFilter} /> : null}
-            {productForm ? <ProductForm setState={setProductForm} /> : null}
+            {productForm ? <ProductForm brands={brands} setState={setProductForm} /> : null}
         </div>
     )
 }
