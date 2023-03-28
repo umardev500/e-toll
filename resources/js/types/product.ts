@@ -8,7 +8,7 @@ export interface Product {
     price: number
     stock: number
     status: string
-    brand: Brand
+    brand?: Brand
     created_at: number
 }
 
