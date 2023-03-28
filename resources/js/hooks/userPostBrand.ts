@@ -1,27 +1,27 @@
 import { useCallback } from 'react'
 import toast from 'react-hot-toast'
+import { type BrandPostRequest } from '../types'
 
 export const userPostBrand = () => {
-    interface UpdateType {
-        brand: string
-        prefix: string[]
-    }
-
-    const handler = useCallback(async (data: UpdateType): Promise<void> => {
+    const handler = useCallback(async (data: BrandPostRequest): Promise<void> => {
         const doPost = async (): Promise<void> => {
-            const target = `${import.meta.env.VITE_API_URL}/brands`
+            const { isEdit } = data
+            const { brand } = data
+            const addedRoute = data.id !== undefined ? `/${data.id}` : ''
+            const target = `${import.meta.env.VITE_API_URL}/brands${addedRoute}`
+            let method = 'POST'
+            if (isEdit === true) method = 'PUT'
             const token = localStorage.getItem('token') ?? ''
 
             try {
-                console.log('doing post...')
                 const response = await fetch(target, {
-                    method: 'POST',
+                    method,
                     headers: {
                         Accept: 'application/json',
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${token}`,
                     },
-                    body: JSON.stringify(data),
+                    body: JSON.stringify(brand),
                 })
 
                 const status = response.status

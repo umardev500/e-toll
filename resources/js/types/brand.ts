@@ -12,3 +12,14 @@ export interface BrandResponse {
     total: number
     per_page: number
 }
+
+export interface BrandRequestPostPayload {
+    brand: string
+    prefix: string[]
+}
+
+export interface BrandPostRequest {
+    id?: number
+    isEdit?: boolean
+    brand?: BrandRequestPostPayload
+}

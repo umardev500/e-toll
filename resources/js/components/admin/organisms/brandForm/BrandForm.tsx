@@ -1,13 +1,15 @@
 import React, { useCallback, useRef } from 'react'
 import { toast } from 'react-hot-toast'
-import { useCloseModal, useClickOutside, userPostBrand } from '../../../../hooks'
+import { useClickOutside, useCloseModal, userPostBrand } from '../../../../hooks'
+import { type BrandRequestPostPayload, type BrandPostRequest } from '../../../../types'
 
-interface Props {
+interface Props extends BrandPostRequest {
     setState: React.Dispatch<React.SetStateAction<boolean>>
-    setDoneAdded: React.Dispatch<React.SetStateAction<number>>
+    setDoneAdded?: React.Dispatch<React.SetStateAction<number>>
+    updateCallback?: (brand: BrandRequestPostPayload) => void
 }
 
-export const BrandForm: React.FC<Props> = ({ setState, setDoneAdded }) => {
+export const BrandForm: React.FC<Props> = ({ setState, setDoneAdded, isEdit, id, brand: brandData, updateCallback }) => {
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
     const brandRef = useRef<HTMLInputElement>(null)
@@ -36,10 +38,16 @@ export const BrandForm: React.FC<Props> = ({ setState, setDoneAdded }) => {
             }
             const prefixes = prefix.value.split(',')
 
-            postBrand({ brand: brand.value, prefix: prefixes })
+            const brandRequest: BrandPostRequest = {
+                id,
+                isEdit,
+                brand: { brand: brand.value, prefix: prefixes },
+            }
+            postBrand(brandRequest)
                 .then(() => {
                     setState(false)
-                    setDoneAdded((prev) => prev + 1)
+                    if (setDoneAdded !== undefined) setDoneAdded((prev) => prev + 1)
+                    if (updateCallback !== undefined) updateCallback({ brand: brand.value, prefix: prefixes })
                 })
                 .catch(() => null)
         }
@@ -68,17 +76,19 @@ export const BrandForm: React.FC<Props> = ({ setState, setDoneAdded }) => {
                         className="roboto w-full bg-slate-50 text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-2.5 text-base font-medium rounded-lg"
                         type="text"
                         placeholder="Enter the brand name"
+                        defaultValue={brandData?.brand}
                     />
                     <input
                         ref={prefixRef}
                         className="roboto w-full bg-slate-50 text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-2.5 text-base font-medium rounded-lg"
                         type="text"
                         placeholder="prefix: 0838,0831,0832"
+                        defaultValue={brandData?.prefix}
                     />
                 </div>
                 {/* footer */}
                 <div className="px-5 pb-4 flex justify-center flex-col">
-                    <button onClick={handleSubmit} className={`roboto bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white mb-2`}>
+                    <button onClick={handleSubmit} className={`roboto font-normal bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white mb-2`}>
                         Submit
                     </button>
                 </div>

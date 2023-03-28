@@ -13,7 +13,6 @@ export const BrandList: React.FC<Props> = ({ brands, perPage }) => {
     const [confirm, setConfirm] = useState(false)
     const onClickDelete = () => {
         setConfirm(true)
-        console.log('callback called')
     }
 
     const [searchParams] = useSearchParams()
