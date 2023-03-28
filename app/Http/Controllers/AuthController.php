@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -16,10 +17,15 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($creds)) {
-            $req->session()->regenerate();
+            if (!$req->expectsJson()) {
+                $req->session()->regenerate();
+            }
+            $user = User::where('email', $req->email)->first();
+            $token = $user->createToken('token')->plainTextToken;
 
             return response()->json([
-                'success' => true
+                'success' => true,
+                'token' => $token
             ]);
         } else {
             return response()->json([
