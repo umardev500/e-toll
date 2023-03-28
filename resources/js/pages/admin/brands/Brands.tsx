@@ -44,9 +44,9 @@ export const Brands: React.FC = () => {
             .promise(
                 fetchBrands(page, sort, status, search),
                 {
-                    success: 'Products data is loaded',
+                    success: 'Brands data is loaded',
                     error: 'Something went wrong!',
-                    loading: 'Loading products...',
+                    loading: 'Loading Brands...',
                 },
                 { className: 'roboto', position: 'top-right' }
             )

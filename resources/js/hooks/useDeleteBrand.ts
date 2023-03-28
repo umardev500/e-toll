@@ -28,7 +28,7 @@ export const useDeleteBrand = () => {
                     error: 'Something went wrong!',
                     loading: 'processing delete brand...',
                 },
-                { className: 'roboto' }
+                { className: 'roboto', position: 'top-right' }
             )
         } catch (err) {
             await Promise.reject(err)

@@ -41,7 +41,7 @@ export const userPostBrand = () => {
                     error: 'Something went wrong!',
                     loading: 'processing posting brand...',
                 },
-                { className: 'roboto' }
+                { className: 'roboto', position: 'top-right' }
             )
         } catch (err) {
             await Promise.reject(err)
