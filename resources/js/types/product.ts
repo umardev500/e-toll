@@ -10,6 +10,7 @@ export interface Product {
     status: string
     brand?: Brand
     created_at: number
+    updated_at?: number
 }
 
 export interface ProductResponse {

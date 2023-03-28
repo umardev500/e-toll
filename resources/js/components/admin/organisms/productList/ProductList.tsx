@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { type Product } from '../../../../types'
 import { ProductListing } from '../../molecules'
+import { ProductDetail } from '../productDetail'
 
 interface Props {
     products: Product[]
@@ -9,9 +10,17 @@ interface Props {
 }
 
 export const ProductList: React.FC<Props> = ({ products, perPage }) => {
+    const [detailModal, setDetailModal] = useState(false)
+    const [product, setProduct] = useState<Product>()
+
     const [searchParams] = useSearchParams()
     const page = parseInt(searchParams.get('page') ?? '0')
     const startIndex = page * perPage
+
+    const onClickDetail = useCallback((product: Product) => {
+        setDetailModal(true)
+        setProduct(product)
+    }, [])
 
     return (
         <>
@@ -32,10 +41,12 @@ export const ProductList: React.FC<Props> = ({ products, perPage }) => {
 
                 <tbody>
                     {products.map((product, i) => (
-                        <ProductListing product={product} key={product.id} index={startIndex + (i + 1)} />
+                        <ProductListing onClickDetail={onClickDetail} product={product} key={product.id} index={startIndex + (i + 1)} />
                     ))}
                 </tbody>
             </table>
+
+            {detailModal ? <ProductDetail product={product} setState={setDetailModal} /> : null}
         </>
     )
 }
