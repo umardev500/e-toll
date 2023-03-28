@@ -12,6 +12,7 @@ export const Brands: React.FC = () => {
     const [perPage, setPerPage] = useState(10)
     const [showFilter, setShowFilter] = useState(false)
     const [form, setForm] = useState(false)
+    const [doneAdded, setDoneAdded] = useState(0)
     const navigate = useNavigate()
 
     const [searchParams] = useSearchParams()
@@ -61,7 +62,7 @@ export const Brands: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [page, sort, status, search])
+    }, [page, sort, status, search, doneAdded])
 
     return (
         <div>
@@ -101,7 +102,7 @@ export const Brands: React.FC = () => {
                 </div>
             </div>
             {showFilter ? <BrandFilter setState={setShowFilter} /> : null}
-            {form ? <BrandForm setState={setForm} /> : null}
+            {form ? <BrandForm setDoneAdded={setDoneAdded} setState={setForm} /> : null}
         </div>
     )
 }

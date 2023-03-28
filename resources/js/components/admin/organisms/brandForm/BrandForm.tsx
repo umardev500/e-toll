@@ -4,9 +4,10 @@ import { useCloseModal, useClickOutside, userPostBrand } from '../../../../hooks
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
+    setDoneAdded: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const BrandForm: React.FC<Props> = ({ setState }) => {
+export const BrandForm: React.FC<Props> = ({ setState, setDoneAdded }) => {
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
     const brandRef = useRef<HTMLInputElement>(null)
@@ -38,6 +39,7 @@ export const BrandForm: React.FC<Props> = ({ setState }) => {
             postBrand({ brand: brand.value, prefix: prefixes })
                 .then(() => {
                     setState(false)
+                    setDoneAdded((prev) => prev + 1)
                 })
                 .catch(() => null)
         }
