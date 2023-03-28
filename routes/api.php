@@ -4,6 +4,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TimeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,9 @@ Route::put('/brands/{id}', [BrandController::class, 'update']);
 Route::put('/brands/{id}/status', [BrandController::class, 'statusUpdate']);
 Route::delete('/brands/{id}', [BrandController::class, 'delete']);
 Route::delete('/brands/{id}/soft', [BrandController::class, 'softDelete']);
+
+// User
+Route::put('/users', [UserController::class, 'update']);
 
 // Webhook
 Route::post('/status', [WebhookController::class, 'setStatus']);

@@ -6,6 +6,7 @@ use App\Services\BrandCreateService;
 use App\Services\BrandDeleteService;
 use App\Services\BrandFindService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class BrandController extends Controller
