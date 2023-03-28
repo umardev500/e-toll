@@ -12,7 +12,7 @@ export const Brands: React.FC = () => {
     const [perPage, setPerPage] = useState(10)
     const [showFilter, setShowFilter] = useState(false)
     const [form, setForm] = useState(false)
-    const [doneAdded, setDoneAdded] = useState(0)
+    const [reloadCount, setReloadCount] = useState(0)
     const navigate = useNavigate()
 
     const [searchParams] = useSearchParams()
@@ -62,7 +62,7 @@ export const Brands: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [page, sort, status, search, doneAdded])
+    }, [page, sort, status, search, reloadCount])
 
     return (
         <div>
@@ -94,7 +94,7 @@ export const Brands: React.FC = () => {
                         <Search callback={searchCallback} title="Enter the keyword" placeholder="Enter key to search" />
                     </div>
                     <div className="bg-white overflow-auto rounded-lg border mb-5">
-                        <BrandList perPage={perPage} brands={brands} />
+                        <BrandList setReloadCount={setReloadCount} perPage={perPage} brands={brands} />
                     </div>
                     <div>
                         <Pagination onPageChangeCallback={paginationCallback} pageCount={total} />
@@ -102,7 +102,7 @@ export const Brands: React.FC = () => {
                 </div>
             </div>
             {showFilter ? <BrandFilter setState={setShowFilter} /> : null}
-            {form ? <BrandForm setDoneAdded={setDoneAdded} setState={setForm} /> : null}
+            {form ? <BrandForm setReloadCount={setReloadCount} setState={setForm} /> : null}
         </div>
     )
 }

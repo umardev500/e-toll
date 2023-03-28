@@ -18,7 +18,7 @@ export interface AppContextType {
     trackingNumber: string
     setTrackingNumber: React.Dispatch<React.SetStateAction<string>>
     reloadCount: number
-    setReloadCount: React.Dispatch<React.SetStateAction<number>>
+    setReloadCountCount: React.Dispatch<React.SetStateAction<number>>
     sidebarShown: boolean
     setSidebarShown: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -35,7 +35,7 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
     const [orders, setOrders] = useState<Order[]>([])
     const [orderExp] = useState(3600) // in seconds
     const [trackingNumber, setTrackingNumber] = useState<string>('')
-    const [reloadCount, setReloadCount] = useState(0)
+    const [reloadCount, setReloadCountCount] = useState(0)
     const [sidebarShown, setSidebarShown] = useState(true)
 
     const data = useMemo<AppContextType>(() => {
@@ -43,7 +43,7 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
             sidebarShown,
             setSidebarShown,
             reloadCount,
-            setReloadCount,
+            setReloadCountCount,
             trackingNumber,
             setTrackingNumber,
             orderExp,

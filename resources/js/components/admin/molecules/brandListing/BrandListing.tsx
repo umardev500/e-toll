@@ -4,7 +4,7 @@ import { type BrandRequestPostPayload, type Brand } from '../../../../types'
 import { BrandForm } from '../../organisms'
 
 interface Props {
-    onClickDelete: () => void
+    onClickDelete: (id: number) => void
     brand: Brand
     index: number
 }
@@ -16,7 +16,7 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) =
     const [prefix, setPrefix] = useState(brand.prefix)
 
     const handleDelete = () => {
-        onClickDelete()
+        onClickDelete(brand.id)
     }
 
     const handleEdit = useCallback(() => {

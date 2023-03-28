@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { useDeleteBrand } from '../../../../hooks'
 import { type Brand } from '../../../../types'
 import { BrandListing } from '../../molecules'
 import { Confirm } from '../confirm'
@@ -7,17 +8,30 @@ import { Confirm } from '../confirm'
 interface Props {
     brands: Brand[]
     perPage: number
+    setReloadCount: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const BrandList: React.FC<Props> = ({ brands, perPage }) => {
+export const BrandList: React.FC<Props> = ({ brands, perPage, setReloadCount }) => {
     const [confirm, setConfirm] = useState(false)
-    const onClickDelete = () => {
+    const [id, setId] = useState(0)
+    const onClickDelete = (id: number) => {
+        setId(id)
         setConfirm(true)
     }
 
     const [searchParams] = useSearchParams()
     const page = parseInt(searchParams.get('page') ?? '0')
     const startIndex = page * perPage
+
+    const deleteBrand = useDeleteBrand()
+    const handleDelete = useCallback(() => {
+        deleteBrand(id)
+            .then(() => {
+                setConfirm(false)
+                setReloadCount((prev) => prev + 1)
+            })
+            .catch(() => null)
+    }, [id])
 
     return (
         <>
@@ -40,7 +54,9 @@ export const BrandList: React.FC<Props> = ({ brands, perPage }) => {
                     ))}
                 </tbody>
             </table>
-            {confirm ? <Confirm message="Are you sure want to delete" className="text-center text-gray-500 text-lg font-medium roboto" setState={setConfirm} /> : null}
+            {confirm ? (
+                <Confirm onConfirm={handleDelete} message="Are you sure want to delete" className="text-center text-gray-500 text-lg font-medium roboto" setState={setConfirm} />
+            ) : null}
         </>
     )
 }

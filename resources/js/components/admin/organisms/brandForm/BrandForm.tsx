@@ -5,11 +5,11 @@ import { type BrandRequestPostPayload, type BrandPostRequest } from '../../../..
 
 interface Props extends BrandPostRequest {
     setState: React.Dispatch<React.SetStateAction<boolean>>
-    setDoneAdded?: React.Dispatch<React.SetStateAction<number>>
+    setReloadCount?: React.Dispatch<React.SetStateAction<number>>
     updateCallback?: (brand: BrandRequestPostPayload) => void
 }
 
-export const BrandForm: React.FC<Props> = ({ setState, setDoneAdded, isEdit, id, brand: brandData, updateCallback }) => {
+export const BrandForm: React.FC<Props> = ({ setState, setReloadCount, isEdit, id, brand: brandData, updateCallback }) => {
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
     const brandRef = useRef<HTMLInputElement>(null)
@@ -46,7 +46,7 @@ export const BrandForm: React.FC<Props> = ({ setState, setDoneAdded, isEdit, id,
             postBrand(brandRequest)
                 .then(() => {
                     setState(false)
-                    if (setDoneAdded !== undefined) setDoneAdded((prev) => prev + 1)
+                    if (setReloadCount !== undefined) setReloadCount((prev) => prev + 1)
                     if (updateCallback !== undefined) updateCallback({ brand: brand.value, prefix: prefixes })
                 })
                 .catch(() => null)

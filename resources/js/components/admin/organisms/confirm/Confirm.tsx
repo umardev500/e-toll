@@ -5,16 +5,14 @@ interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
     message?: string
     className?: string
+    onConfirm?: () => void
 }
 
-export const Confirm: React.FC<Props> = ({ setState, message, className }) => {
+export const Confirm: React.FC<Props> = ({ setState, message, className, onConfirm }) => {
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
 
     const handleClose = useCloseModal(setState)
-    const handleSubmit = () => {
-        console.log('submitted')
-    }
 
     useClickOutside(overlayRef, innerRef, setState)
 
@@ -47,7 +45,7 @@ export const Confirm: React.FC<Props> = ({ setState, message, className }) => {
                     >
                         Cancel
                     </button>
-                    <button onClick={handleSubmit} className={`roboto font-medium bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white`}>
+                    <button onClick={onConfirm} className={`roboto font-medium bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white`}>
                         Confirm
                     </button>
                 </div>

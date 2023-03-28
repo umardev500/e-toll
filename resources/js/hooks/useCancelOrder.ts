@@ -27,7 +27,7 @@ export const useCancelOrder = (id: number, setState: React.Dispatch<React.SetSta
                 { className: 'roboto' }
             )
             .then(() => {
-                context.setReloadCount((prev) => prev + 1)
+                context.setReloadCountCount((prev) => prev + 1)
             })
             .catch((err) => {
                 console.log(err)

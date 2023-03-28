@@ -5,7 +5,7 @@ export const useReload = () => {
     const context = useContext(AppContext) as AppContextType
 
     const handler = useCallback(() => {
-        context.setReloadCount((prev) => prev + 1)
+        context.setReloadCountCount((prev) => prev + 1)
     }, [])
 
     return handler
