@@ -387,17 +387,50 @@
     "_id": "70826b6e-0b3f-4f48-ae38-a086ee0f1f9f",
     "colId": "history",
     "containerId": "",
-    "name": "http://localhost:8000/api/users",
+    "name": "update user",
     "url": "http://localhost:8000/api/users",
     "method": "PUT",
     "sortNum": 0,
     "created": "2023-03-28T08:26:00.944Z",
-    "modified": "2023-03-28T08:26:00.944Z",
-    "headers": [],
+    "modified": "2023-03-28T09:34:45.895Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"jack\"\n}",
+      "raw": "{\n  \"name\": \"jacki\",\n  \"photo\": \"photo.png\",\n  \"pass\": \"sdsdssss\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "4|OuYweyXeHIr2LV2TrY8iqUscXH8g8XWOZsOUGB9x"
+    },
+    "tests": []
+  },
+  {
+    "_id": "5e0f261a-af4d-4795-98c6-2e08fe3f3ec7",
+    "colId": "history",
+    "containerId": "",
+    "name": "login",
+    "url": "http://localhost:8000/api/auth",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-03-28T09:08:50.979Z",
+    "modified": "2023-03-28T09:10:23.028Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"claud17@example.com\",\n  \"password\": \"dummypass\"\n}",
       "form": []
     },
     "tests": []

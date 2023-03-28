@@ -42,5 +42,3 @@ Route::middleware('auth:sanctum')->get('/admin/brands', function () {
 Route::get('/auth', function () {
     return view('welcome');
 })->name('login');
-
-Route::post('/auth', [AuthController::class, 'auth']);

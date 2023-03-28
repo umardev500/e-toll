@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -48,10 +49,13 @@ Route::delete('/brands/{id}', [BrandController::class, 'delete']);
 Route::delete('/brands/{id}/soft', [BrandController::class, 'softDelete']);
 
 // User
-Route::put('/users', [UserController::class, 'update']);
+Route::put('/users', [UserController::class, 'update'])->middleware(['auth:sanctum']);
 
 // Webhook
 Route::post('/status', [WebhookController::class, 'setStatus']);
 
 // Time
 Route::get('/server-time', [TimeController::class, 'get']);
+
+// Auth
+Route::post('/auth', [AuthController::class, 'auth']);

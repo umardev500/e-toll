@@ -23,7 +23,7 @@ export const Auth: React.FC = () => {
     }
 
     const doLogin = async (user: string, pass: string): Promise<boolean> => {
-        const target = `${import.meta.env.VITE_WEB_URL}/auth`
+        const target = `${import.meta.env.VITE_API_URL}/auth`
 
         try {
             const token = await getXSRF()
@@ -43,6 +43,7 @@ export const Auth: React.FC = () => {
             })
 
             const data: AuthResponse = await response.json()
+            console.log(data)
             if (data.success) {
                 return await Promise.resolve(true)
             } else {
