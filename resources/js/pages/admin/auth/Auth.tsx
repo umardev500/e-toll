@@ -43,8 +43,8 @@ export const Auth: React.FC = () => {
             })
 
             const data: AuthResponse = await response.json()
-            console.log(data)
             if (data.success) {
+                localStorage.setItem('token', data.token)
                 return await Promise.resolve(true)
             } else {
                 return await Promise.reject(new Error('not found'))
