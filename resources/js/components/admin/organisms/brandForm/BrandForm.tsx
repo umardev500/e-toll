@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react'
 import { toast } from 'react-hot-toast'
-import { useCloseModal, useClickOutside } from '../../../../hooks'
+import { useCloseModal, useClickOutside, userPostBrand } from '../../../../hooks'
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
@@ -14,6 +14,7 @@ export const BrandForm: React.FC<Props> = ({ setState }) => {
 
     const handleClose = useCloseModal(setState)
     useClickOutside(overlayRef, innerRef, setState)
+    const postBrand = userPostBrand()
 
     const handleSubmit = useCallback(() => {
         const brand = brandRef.current
@@ -30,7 +31,11 @@ export const BrandForm: React.FC<Props> = ({ setState }) => {
             const validFormat = /^\d+(,\d+)*$/
             if (!validFormat.test(prefixValue)) {
                 toast.error('Invalid prefix. Please try again.', { position: 'top-right', className: 'roboto' })
+                return
             }
+            const prefixes = prefix.value.split(',')
+
+            postBrand({ brand: brand.value, prefix: prefixes })
         }
     }, [])
 

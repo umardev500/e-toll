@@ -253,11 +253,11 @@
     "colId": "history",
     "containerId": "",
     "name": "brand find",
-    "url": "http://localhost:8000/api/brands?search=0408&status=deleted",
+    "url": "http://localhost:8000/api/brands?search=0834",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-19T05:08:28.433Z",
-    "modified": "2023-03-25T08:54:38.463Z",
+    "modified": "2023-03-28T12:02:51.645Z",
     "headers": [],
     "params": [
       {
@@ -268,12 +268,13 @@
       },
       {
         "name": "search",
-        "value": "0408",
+        "value": "0834",
         "isPath": false
       },
       {
         "name": "status",
         "value": "deleted",
+        "isDisabled": true,
         "isPath": false
       }
     ],

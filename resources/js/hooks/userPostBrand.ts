@@ -3,20 +3,19 @@ import toast from 'react-hot-toast'
 
 export const userPostBrand = () => {
     interface UpdateType {
-        name?: string
-        email?: string
-        password?: string
-        photo?: string
+        brand: string
+        prefix: string[]
     }
 
     const handler = useCallback((data: UpdateType) => {
-        const doUpdate = async () => {
-            const target = `${import.meta.env.VITE_API_URL}/users`
+        const doPost = async () => {
+            const target = `${import.meta.env.VITE_API_URL}/brands`
             const token = localStorage.getItem('token') ?? ''
 
             try {
-                await fetch(target, {
-                    method: 'PUT',
+                console.log('doing post...')
+                const response = await fetch(target, {
+                    method: 'POST',
                     headers: {
                         Accept: 'application/json',
                         'Content-Type': 'application/json',
@@ -24,18 +23,21 @@ export const userPostBrand = () => {
                     },
                     body: JSON.stringify(data),
                 })
+
+                const status = response.status
+                if (status !== 200) return await Promise.reject(new Error(await response.text()))
             } catch (err) {
-                console.log(err)
+                return await Promise.reject(err)
             }
         }
 
         toast
             .promise(
-                doUpdate(),
+                doPost(),
                 {
-                    success: 'Cancel succeed',
+                    success: 'Posting brand successfuly',
                     error: 'Something went wrong!',
-                    loading: 'processing cancel...',
+                    loading: 'processing posting brand...',
                 },
                 { className: 'roboto' }
             )
