@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('brand_id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->json('prefix');
             $table->string('status')->default('active');
             TimeStamps::addTimeStamps($table);
