@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
-import { useClickOutside, useCloseModal } from '../../../../hooks'
 import Select from 'react-select'
+import { useClickOutside, useCloseModal, usePriceTyping } from '../../../../hooks'
 import { type Brand } from '../../../../types'
 
 interface Props {
@@ -25,7 +25,8 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
         options.push({ value: brand.id.toString(), label: brand.name })
     })
 
-    console.log(brands)
+    const handlePriceTyping = usePriceTyping('Rp')
+    const handleNumberTyping = usePriceTyping()
 
     return (
         <div ref={overlayRef} className="modal pt-5 px-5">
@@ -67,18 +68,21 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
                         className="roboto w-full bg-slate-50 text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-2.5 text-base font-medium rounded-lg"
                         type="text"
                         placeholder="Enter balance"
+                        onChange={handlePriceTyping}
                     />
                     <input
                         ref={prefixRef}
                         className="roboto w-full bg-slate-50 text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-2.5 text-base font-medium rounded-lg"
                         type="text"
                         placeholder="Price"
+                        onChange={handleNumberTyping}
                     />
                     <input
                         ref={prefixRef}
                         className="roboto w-full bg-slate-50 text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-2.5 text-base font-medium rounded-lg"
                         type="text"
                         placeholder="Product Stock"
+                        onChange={handleNumberTyping}
                     />
                 </div>
                 {/* footer */}
