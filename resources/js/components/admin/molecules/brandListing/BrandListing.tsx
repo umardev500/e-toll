@@ -16,7 +16,7 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) =
     const [statusModal, setStatusModal] = useState(false)
     const [brandName, setBrand] = useState(brand.name)
     const [prefix, setPrefix] = useState(brand.prefix)
-    const [status, setStatus] = useState(brand.status)
+    const [status, setStatus] = useState<BrandStatus>(brand.status)
 
     const handleDelete = () => {
         onClickDelete(brand.id)
@@ -70,7 +70,7 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) =
                         </svg>
                     </button>
                     {editModal ? <BrandForm updateCallback={updateCallback} isEdit id={brand.id} brand={{ brand: brandName, prefix }} setState={setEditModal} /> : null}
-                    {statusModal ? <BrandStatusModal setStatusCallback={setStatusCallback} id={brand.id} setState={setStatusModal} /> : null}
+                    {statusModal ? <BrandStatusModal defaultStatus={status} setStatusCallback={setStatusCallback} id={brand.id} setState={setStatusModal} /> : null}
                 </div>
             </td>
         </tr>

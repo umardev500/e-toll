@@ -6,11 +6,12 @@ import { type BrandStatus, type BrandStatusRequest } from '../../../types'
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
     id: number
+    defaultStatus: BrandStatus
     setStatusCallback: (status: BrandStatus) => void
 }
 
-export const BrandStatusModal: React.FC<Props> = ({ setState, id, setStatusCallback }) => {
-    const [status, setStatus] = useState<BrandStatus>()
+export const BrandStatusModal: React.FC<Props> = ({ setState, id, setStatusCallback, defaultStatus }) => {
+    const [status, setStatus] = useState<BrandStatus>(defaultStatus)
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
 

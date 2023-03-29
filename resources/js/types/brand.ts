@@ -5,7 +5,7 @@ export interface Brand {
     brand_id: number
     name: string
     prefix: string[]
-    status: string
+    status: BrandStatus
     created_at: number
 }
 
