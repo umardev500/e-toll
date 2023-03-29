@@ -16,8 +16,9 @@ export const usePostProduct = () => {
                     },
                     body: JSON.stringify(request.product),
                 })
+                const jsonData = await response.json()
                 const status = response.status
-                if (status !== 200) return await Promise.reject(new Error('Something error'))
+                if (status !== 200) return await Promise.reject(new Error(jsonData.message))
             } catch (err) {
                 return await Promise.reject(err)
             }
@@ -28,7 +29,7 @@ export const usePostProduct = () => {
                 postProduct(),
                 {
                     success: 'Posting product successfuly',
-                    error: 'Something went wrong!',
+                    error: (err: TypeError) => err.message,
                     loading: 'processing posting product...',
                 },
                 { className: 'roboto', position: 'top-right' }

@@ -21,8 +21,9 @@ class ProductController extends Controller
 
     public function create(Request $req)
     {
-        $requestData = $req->json()->all();
+        $req->validate(['credit' => 'unique:products']);
 
+        $requestData = $req->json()->all();
         return ProductCreateService::create($requestData);
     }
 
