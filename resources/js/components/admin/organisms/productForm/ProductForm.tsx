@@ -85,6 +85,12 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
         setBrand(parseInt(newValue?.value ?? '0'))
     }
 
+    const defaultPrice = toCurrency(price ?? 0, 'Rp')
+    const defaultCredit = toCurrency(credit ?? 0)
+    const defaultStock = toCurrency(stock ?? 0)
+    const defaultBrand = { label: brandData?.name ?? '', value: brandData?.id.toString() ?? '' }
+    const onEdit = isEdit ?? false
+
     return (
         <div ref={overlayRef} className="modal pt-5 px-5">
             <div ref={innerRef} style={{ width: 325 }} className="modal-inner bg-white rounded-lg">
@@ -120,7 +126,7 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
                             }),
                         }}
                         options={options}
-                        defaultValue={{ label: brandData?.name ?? '', value: brandData?.id.toString() ?? '' }}
+                        defaultValue={onEdit ? defaultBrand : undefined}
                     />
                     <input
                         ref={balanceRef}
@@ -128,7 +134,7 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
                         type="text"
                         placeholder="Enter balance"
                         onChange={handleNumberTyping}
-                        defaultValue={toCurrency(credit ?? 0)}
+                        defaultValue={onEdit ? defaultCredit : ''}
                     />
                     <input
                         ref={priceRef}
@@ -136,7 +142,7 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
                         type="text"
                         placeholder="Price"
                         onChange={handlePriceTyping}
-                        defaultValue={toCurrency(price ?? 0, 'Rp')}
+                        defaultValue={onEdit ? defaultPrice : ''}
                     />
                     <input
                         ref={stockRef}
@@ -144,7 +150,7 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
                         type="text"
                         placeholder="Product Stock"
                         onChange={handleNumberTyping}
-                        defaultValue={toCurrency(stock ?? 0)}
+                        defaultValue={onEdit ? defaultStock : ''}
                     />
                 </div>
                 {/* footer */}
