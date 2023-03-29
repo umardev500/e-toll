@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { toDate, toUpperFirst } from '../../../../helpers'
 import { type BrandRequestPostPayload, type Brand } from '../../../../types'
+import { BrandStatusModal } from '../../../organisms'
 import { BrandForm } from '../../organisms'
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) => {
     const createdTime = toDate(brand.created_at)
     const [editModal, setEditModal] = useState(false)
+    const [statusModal, setStatusModal] = useState(false)
     const [brandName, setBrand] = useState(brand.name)
     const [prefix, setPrefix] = useState(brand.prefix)
 
@@ -28,6 +30,14 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) =
         setPrefix(item.prefix)
     }
 
+    const handleStatusClick = useCallback(() => {
+        setStatusModal(true)
+    }, [])
+
+    const setStatusCallback = useCallback((status: string) => {
+        console.log('status selected:', status)
+    }, [])
+
     return (
         <tr>
             <td className="px-4 border-r border-b border-slate-200 py-2 text-center">{index}.</td>
@@ -35,7 +45,11 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) =
             <td className="px-4 border-r border-b border-slate-200 py-2">{brandName}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{prefix.join(', ')}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{createdTime}</td>
-            <td className="px-4 border-r border-b border-slate-200 !text-gray-400 hover:!text-gray-500 !cursor-pointer py-2">{toUpperFirst(brand.status)}</td>
+            <td className="px-4 border-r border-b border-slate-200 !text-gray-400 hover:!text-gray-500 !cursor-pointer py-2">
+                <span className="cursor-pointer" onClick={handleStatusClick}>
+                    {toUpperFirst(brand.status)}
+                </span>
+            </td>
             <td className="px-4 border-r border-b border-slate-200  py-2 whitespace-nowrap w-10">
                 <div className="text-center flex gap-1.5">
                     <button onClick={handleEdit} className="outline-none text-white hover:text-gray-200 bg-yellow-600 hover:bg-yellow-700 px-2 py-1.5 rounded-lg">
@@ -55,6 +69,7 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) =
                         </svg>
                     </button>
                     {editModal ? <BrandForm updateCallback={updateCallback} isEdit id={brand.id} brand={{ brand: brandName, prefix }} setState={setEditModal} /> : null}
+                    {statusModal ? <BrandStatusModal setStatusCallback={setStatusCallback} id={brand.id} setState={setStatusModal} /> : null}
                 </div>
             </td>
         </tr>
