@@ -5,7 +5,7 @@ import { type BrandStatus } from '../../../types'
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
     id: number
-    setStatusCallback: (status: string) => void
+    setStatusCallback: (status: BrandStatus) => void
 }
 
 export const BrandStatusModal: React.FC<Props> = ({ setState, id, setStatusCallback }) => {
@@ -23,7 +23,7 @@ export const BrandStatusModal: React.FC<Props> = ({ setState, id, setStatusCallb
 
     const handleSubmit = () => {
         console.log('submit')
-        setStatusCallback(status)
+        setStatusCallback(status ?? 'none')
     }
 
     return (

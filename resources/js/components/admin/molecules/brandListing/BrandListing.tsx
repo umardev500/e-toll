@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { toDate, toUpperFirst } from '../../../../helpers'
-import { type BrandRequestPostPayload, type Brand } from '../../../../types'
+import { type BrandRequestPostPayload, type Brand, type BrandStatus } from '../../../../types'
 import { BrandStatusModal } from '../../../organisms'
 import { BrandForm } from '../../organisms'
 
@@ -34,7 +34,7 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) =
         setStatusModal(true)
     }, [])
 
-    const setStatusCallback = useCallback((status: string) => {
+    const setStatusCallback = useCallback((status: BrandStatus) => {
         console.log('status selected:', status)
     }, [])
 
