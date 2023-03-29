@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { toCurrency, toDate, toUpperFirst } from '../../../../helpers'
-import { type ProductRequestData, type Brand, type Product } from '../../../../types'
+import { type Brand, type Product, type ProductRequestData, type ProductStatus } from '../../../../types'
+import { ProductStatusModal } from '../../../organisms'
 import { ProductForm } from '../../organisms'
 
 interface Props {
@@ -12,17 +13,19 @@ interface Props {
 }
 
 export const ProductListing: React.FC<Props> = ({ product, index, onClickDetail, onClickDelete, brands }) => {
+    const [statusModal, setStatusModal] = useState(false)
     const [productForm, setProductForm] = useState(false)
     const [productTemp, setProductTemp] = useState<ProductRequestData>()
     const isTemp = productTemp !== undefined
     const credit = isTemp ? productTemp.credit : product.credit
     const price = isTemp ? productTemp.price : product.price
     const stock = isTemp ? productTemp.stock : product.stock
+    const [status, setStatus] = useState<ProductStatus>(product.status)
 
     const createdTime = toDate(product.created_at)
     const brand = product.brand
     const getStatus = (): string => {
-        return product.status
+        return status
     }
 
     const handleEdit = useCallback(() => {
@@ -37,6 +40,14 @@ export const ProductListing: React.FC<Props> = ({ product, index, onClickDetail,
         onClickDelete(product.id)
     }, [])
 
+    const handleStatusClick = useCallback(() => {
+        setStatusModal(true)
+    }, [])
+
+    const setStatusCallback = useCallback((status: ProductStatus) => {
+        setStatus(status)
+    }, [])
+
     return (
         <tr>
             <td className="px-4 border-r border-b border-slate-200 py-2 text-center">{index}.</td>
@@ -46,7 +57,11 @@ export const ProductListing: React.FC<Props> = ({ product, index, onClickDetail,
             <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(price, 'Rp')}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(stock)}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{createdTime}</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2 !text-gray-400">{toUpperFirst(getStatus())}</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2 !text-gray-400">
+                <span className="cursor-pointer hover:text-gray-500" onClick={handleStatusClick}>
+                    {toUpperFirst(getStatus())}
+                </span>
+            </td>
             <td className="px-4 border-r border-b border-slate-200 py-2 whitespace-nowrap w-10">
                 <div className="text-center flex gap-1.5">
                     <button
@@ -86,6 +101,7 @@ export const ProductListing: React.FC<Props> = ({ product, index, onClickDetail,
                     {productForm ? (
                         <ProductForm id={product.id} isEdit product={product} productTemp={productTemp} updateCallback={updateCallback} brands={brands} setState={setProductForm} />
                     ) : null}
+                    {statusModal ? <ProductStatusModal defaultStatus={status} setStatusCallback={setStatusCallback} id={product.id} setState={setStatusModal} /> : null}
                 </div>
             </td>
         </tr>

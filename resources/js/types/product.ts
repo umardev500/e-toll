@@ -1,4 +1,5 @@
 import { type Brand } from './brand'
+import { type ProductStatus } from './status'
 
 export interface Product {
     id: number
@@ -7,7 +8,7 @@ export interface Product {
     credit: number
     price: number
     stock: number
-    status: string
+    status: ProductStatus
     brand?: Brand
     created_at: number
     updated_at?: number
@@ -30,4 +31,8 @@ export interface ProductRequest {
     id?: number
     isEdit?: boolean
     product: ProductRequestData
+}
+
+export interface ProductStatusRequest {
+    status: string
 }
