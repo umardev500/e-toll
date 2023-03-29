@@ -1,11 +1,16 @@
 import { useCallback } from 'react'
 import toast from 'react-hot-toast'
+// import toast from 'react-hot-toast'
 import { type ProductRequest } from '../types'
 
 export const usePostProduct = () => {
     const handler = useCallback(async (request: ProductRequest): Promise<void> => {
-        const target = `${import.meta.env.VITE_API_URL}/products`
-        const method = 'POST'
+        const id: string = request.id !== undefined ? `${request.id}` : ''
+        const isEdit = request.isEdit ?? false
+        const additonalUrl = isEdit ? `/${id}` : ''
+
+        const target = `${import.meta.env.VITE_API_URL}/products${additonalUrl}`
+        const method = isEdit ? 'PUT' : 'POST'
         const postProduct = async () => {
             try {
                 const response = await fetch(target, {

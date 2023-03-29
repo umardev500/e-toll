@@ -1,14 +1,18 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import Select, { type ActionMeta, type SingleValue } from 'react-select'
-import { toDigit } from '../../../../helpers'
+import { toCurrency, toDigit } from '../../../../helpers'
 import { useClickOutside, useCloseModal, usePostProduct, usePriceTyping } from '../../../../hooks'
-import { type Brand } from '../../../../types'
+import { type ProductRequestData, type Brand, type ProductRequest, type Product } from '../../../../types'
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
     setReloadCount?: React.Dispatch<React.SetStateAction<number>>
-    updateCallback?: () => void
+    updateCallback?: (item: ProductRequestData) => void
+    id?: number
+    isEdit?: boolean
+    product?: Product
+    productTemp?: ProductRequestData
     brands: Brand[]
 }
 
@@ -17,11 +21,17 @@ interface OptionType {
     value: string
 }
 
-export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateCallback, brands }) => {
+export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateCallback, id, isEdit, product, productTemp, brands }) => {
+    const brandData = product?.brand
+    const isTemp = productTemp !== undefined
+    const credit = isTemp ? productTemp.credit : product?.credit ?? 0
+    const price = isTemp ? productTemp.price : product?.price ?? 0
+    const stock = isTemp ? productTemp.stock : product?.stock ?? 0
+
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
     // input
-    const [brand, setBrand] = useState(0)
+    const [brand, setBrand] = useState(brandData?.id ?? 0)
     const balanceRef = useRef<HTMLInputElement>(null)
     const priceRef = useRef<HTMLInputElement>(null)
     const stockRef = useRef<HTMLInputElement>(null)
@@ -51,17 +61,22 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
             return
         }
 
-        postProduct({
+        const request: ProductRequest = {
+            id,
+            isEdit,
             product: {
                 brand_id: brand,
                 credit: toDigit(credit?.value),
                 price: toDigit(price?.value),
                 stock: toDigit(stock?.value),
             },
-        })
+        }
+
+        postProduct(request)
             .then(() => {
                 setState(false)
                 if (setReloadCount !== undefined) setReloadCount((prev) => prev + 1)
+                if (updateCallback !== undefined) updateCallback(request.product)
             })
             .catch(() => null)
     }, [brand])
@@ -87,7 +102,7 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
                     </button>
                 </div>
                 {/* body */}
-                <div className="px-6 pb-5 pt-4 flex flex-col gap-2.5">
+                <div className="px-6 pb-5 pt-4 flex flex-col gap-2.5 text-left font-normal">
                     <Select
                         onChange={handleBrandChange}
                         classNames={{
@@ -105,6 +120,7 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
                             }),
                         }}
                         options={options}
+                        defaultValue={{ label: brandData?.name ?? '', value: brandData?.id.toString() ?? '' }}
                     />
                     <input
                         ref={balanceRef}
@@ -112,6 +128,7 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
                         type="text"
                         placeholder="Enter balance"
                         onChange={handleNumberTyping}
+                        defaultValue={toCurrency(credit ?? 0)}
                     />
                     <input
                         ref={priceRef}
@@ -119,6 +136,7 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
                         type="text"
                         placeholder="Price"
                         onChange={handlePriceTyping}
+                        defaultValue={toCurrency(price ?? 0, 'Rp')}
                     />
                     <input
                         ref={stockRef}
@@ -126,6 +144,7 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
                         type="text"
                         placeholder="Product Stock"
                         onChange={handleNumberTyping}
+                        defaultValue={toCurrency(stock ?? 0)}
                     />
                 </div>
                 {/* footer */}

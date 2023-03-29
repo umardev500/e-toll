@@ -106,7 +106,7 @@ export const Products: React.FC = () => {
                         <Search callback={searchCallback} title="Enter the keyword" placeholder="Enter key to search" />
                     </div>
                     <div className="bg-white overflow-auto rounded-lg border mb-5">
-                        <ProductList setReloadCount={setReloadCount} perPage={perPage} products={products} />
+                        <ProductList brands={brands} setReloadCount={setReloadCount} perPage={perPage} products={products} />
                     </div>
                     <div>
                         <Pagination onPageChangeCallback={paginationCallback} pageCount={total} />

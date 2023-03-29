@@ -27,5 +27,7 @@ export interface ProductRequestData {
 }
 
 export interface ProductRequest {
+    id?: number
+    isEdit?: boolean
     product: ProductRequestData
 }

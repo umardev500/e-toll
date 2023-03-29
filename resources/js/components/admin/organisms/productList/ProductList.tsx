@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useDeleteProdcut } from '../../../../hooks'
-import { type Product } from '../../../../types'
+import { type Brand, type Product } from '../../../../types'
 import { ProductListing } from '../../molecules'
 import { Confirm } from '../confirm'
 import { ProductDetail } from '../productDetail'
@@ -10,9 +10,10 @@ interface Props {
     products: Product[]
     perPage: number
     setReloadCount?: React.Dispatch<React.SetStateAction<number>>
+    brands: Brand[]
 }
 
-export const ProductList: React.FC<Props> = ({ products, perPage, setReloadCount }) => {
+export const ProductList: React.FC<Props> = ({ products, perPage, setReloadCount, brands }) => {
     const [detailModal, setDetailModal] = useState(false)
     const [product, setProduct] = useState<Product>()
     const [confirm, setConfirm] = useState(false)
@@ -61,7 +62,14 @@ export const ProductList: React.FC<Props> = ({ products, perPage, setReloadCount
 
                 <tbody>
                     {products.map((product, i) => (
-                        <ProductListing onClickDelete={onClickDelete} onClickDetail={onClickDetail} product={product} key={product.id} index={startIndex + (i + 1)} />
+                        <ProductListing
+                            brands={brands}
+                            onClickDelete={onClickDelete}
+                            onClickDetail={onClickDetail}
+                            product={product}
+                            key={product.id}
+                            index={startIndex + (i + 1)}
+                        />
                     ))}
                 </tbody>
             </table>
