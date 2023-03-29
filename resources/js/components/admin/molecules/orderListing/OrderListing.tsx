@@ -33,7 +33,9 @@ export const AdminOrderListing: React.FC<Props> = ({ order, index, callback }) =
             <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(product.credit)}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{toCurrency(product.price, 'Rp')}</td>
             <td className="px-4 border-r border-b border-slate-200 py-2">{phone}</td>
-            <td className="px-4 border-r border-b border-slate-200 py-2">{toUpperFirst(getStatus())}</td>
+            <td className="px-4 border-r border-b border-slate-200 py-2">
+                <span className="text-gray-400">{toUpperFirst(getStatus())}</span>
+            </td>
             <td className="px-4 border-r border-b border-slate-200 py-2 whitespace-nowrap w-10">
                 <div className="text-center">
                     <button onClick={handleView} className="outline-none bg-yellow-600 hover:bg-yellow-700 px-2 py-1.5 rounded-lg">
