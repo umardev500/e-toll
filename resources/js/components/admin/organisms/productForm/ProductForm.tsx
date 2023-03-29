@@ -61,6 +61,7 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
         })
             .then(() => {
                 setState(false)
+                if (setReloadCount !== undefined) setReloadCount((prev) => prev + 1)
             })
             .catch(() => null)
     }, [brand])

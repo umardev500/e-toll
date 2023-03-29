@@ -13,6 +13,7 @@ export const Products: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([])
     const [perPage, setPerPage] = useState(10)
     const [brands, setBrands] = useState<Brand[]>([])
+    const [reloadCount, setReloadCount] = useState(0)
     const navigate = useNavigate()
 
     const [searchParams] = useSearchParams()
@@ -54,7 +55,7 @@ export const Products: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [page, sort, status, search])
+    }, [page, sort, status, search, reloadCount])
 
     const paginationCallback = useCallback((params: string) => {
         navigate({
@@ -74,6 +75,8 @@ export const Products: React.FC = () => {
                 console.log(err)
             })
     }, [])
+
+    console.log(reloadCount)
 
     return (
         <div>
@@ -113,7 +116,7 @@ export const Products: React.FC = () => {
                 </div>
             </div>
             {showFilter ? <ProductFilter setState={setShowFilter} /> : null}
-            {productForm ? <ProductForm brands={brands} setState={setProductForm} /> : null}
+            {productForm ? <ProductForm setReloadCount={setReloadCount} brands={brands} setState={setProductForm} /> : null}
         </div>
     )
 }
