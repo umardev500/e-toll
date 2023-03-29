@@ -16,6 +16,7 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) =
     const [statusModal, setStatusModal] = useState(false)
     const [brandName, setBrand] = useState(brand.name)
     const [prefix, setPrefix] = useState(brand.prefix)
+    const [status, setStatus] = useState(brand.status)
 
     const handleDelete = () => {
         onClickDelete(brand.id)
@@ -26,8 +27,8 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) =
     }, [])
 
     const updateCallback = (item: BrandRequestPostPayload) => {
-        setBrand(item.brand)
-        setPrefix(item.prefix)
+        setBrand(item.brand ?? '')
+        setPrefix(item.prefix ?? [])
     }
 
     const handleStatusClick = useCallback(() => {
@@ -35,7 +36,7 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) =
     }, [])
 
     const setStatusCallback = useCallback((status: BrandStatus) => {
-        console.log('status selected:', status)
+        setStatus(status)
     }, [])
 
     return (
@@ -47,7 +48,7 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) =
             <td className="px-4 border-r border-b border-slate-200 py-2">{createdTime}</td>
             <td className="px-4 border-r border-b border-slate-200 !text-gray-400 hover:!text-gray-500 !cursor-pointer py-2">
                 <span className="cursor-pointer" onClick={handleStatusClick}>
-                    {toUpperFirst(brand.status)}
+                    {toUpperFirst(status)}
                 </span>
             </td>
             <td className="px-4 border-r border-b border-slate-200  py-2 whitespace-nowrap w-10">

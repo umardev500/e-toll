@@ -1,3 +1,5 @@
+import { type BrandStatus } from './status'
+
 export interface Brand {
     id: number
     brand_id: number
@@ -14,12 +16,17 @@ export interface BrandResponse {
 }
 
 export interface BrandRequestPostPayload {
-    brand: string
-    prefix: string[]
+    brand?: string
+    prefix?: string[]
+    status?: BrandStatus
 }
 
 export interface BrandPostRequest {
     id?: number
     isEdit?: boolean
     brand?: BrandRequestPostPayload
+}
+
+export interface BrandStatusRequest {
+    status: string
 }

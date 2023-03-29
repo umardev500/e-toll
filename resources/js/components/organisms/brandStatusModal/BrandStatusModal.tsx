@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
-import { useClickOutside, useCloseModal } from '../../../hooks'
-import { type BrandStatus } from '../../../types'
+import toast from 'react-hot-toast'
+import { useClickOutside, useCloseModal, useUpdateStatusBrand } from '../../../hooks'
+import { type BrandStatus, type BrandStatusRequest } from '../../../types'
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
@@ -21,9 +22,21 @@ export const BrandStatusModal: React.FC<Props> = ({ setState, id, setStatusCallb
 
     const handleClose = useCloseModal(setState)
 
+    const updateStatus = useUpdateStatusBrand()
     const handleSubmit = () => {
         console.log('submit')
-        setStatusCallback(status ?? 'none')
+        if (status === undefined) {
+            toast.error('Status must be selected.', { position: 'top-right', className: 'roboto' })
+            return
+        }
+
+        const request: BrandStatusRequest = { status }
+        updateStatus(id, request)
+            .then(() => {
+                setState(false)
+                setStatusCallback(status)
+            })
+            .catch(() => null)
     }
 
     return (
