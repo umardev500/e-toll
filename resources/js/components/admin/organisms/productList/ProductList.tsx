@@ -1,17 +1,22 @@
 import React, { useCallback, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { useDeleteProdcut } from '../../../../hooks'
 import { type Product } from '../../../../types'
 import { ProductListing } from '../../molecules'
+import { Confirm } from '../confirm'
 import { ProductDetail } from '../productDetail'
 
 interface Props {
     products: Product[]
     perPage: number
+    setReloadCount?: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const ProductList: React.FC<Props> = ({ products, perPage }) => {
+export const ProductList: React.FC<Props> = ({ products, perPage, setReloadCount }) => {
     const [detailModal, setDetailModal] = useState(false)
     const [product, setProduct] = useState<Product>()
+    const [confirm, setConfirm] = useState(false)
+    const [id, setId] = useState<number>(0)
 
     const [searchParams] = useSearchParams()
     const page = parseInt(searchParams.get('page') ?? '0')
@@ -21,6 +26,21 @@ export const ProductList: React.FC<Props> = ({ products, perPage }) => {
         setDetailModal(true)
         setProduct(product)
     }, [])
+
+    const onClickDelete = useCallback((id: number) => {
+        setId(id)
+        setConfirm(true)
+    }, [])
+
+    const deleteProduct = useDeleteProdcut()
+    const handleDelete = useCallback(() => {
+        deleteProduct(id)
+            .then(() => {
+                setConfirm(false)
+                if (setReloadCount !== undefined) setReloadCount((prev) => prev + 1)
+            })
+            .catch(() => null)
+    }, [id])
 
     return (
         <>
@@ -41,12 +61,15 @@ export const ProductList: React.FC<Props> = ({ products, perPage }) => {
 
                 <tbody>
                     {products.map((product, i) => (
-                        <ProductListing onClickDetail={onClickDetail} product={product} key={product.id} index={startIndex + (i + 1)} />
+                        <ProductListing onClickDelete={onClickDelete} onClickDetail={onClickDetail} product={product} key={product.id} index={startIndex + (i + 1)} />
                     ))}
                 </tbody>
             </table>
 
             {detailModal ? <ProductDetail product={product} setState={setDetailModal} /> : null}
+            {confirm ? (
+                <Confirm onConfirm={handleDelete} message="Are you sure want to delete" className="text-center text-gray-500 text-lg font-medium roboto" setState={setConfirm} />
+            ) : null}
         </>
     )
 }
