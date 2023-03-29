@@ -18,3 +18,14 @@ export interface ProductResponse {
     total: number
     per_page: number
 }
+
+export interface ProductRequestData {
+    brand_id: number
+    credit: number
+    price: number
+    stock: number
+}
+
+export interface ProductRequest {
+    product: ProductRequestData
+}

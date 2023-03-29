@@ -1,6 +1,8 @@
-import React, { useRef } from 'react'
-import Select from 'react-select'
-import { useClickOutside, useCloseModal, usePriceTyping } from '../../../../hooks'
+import React, { useCallback, useRef, useState } from 'react'
+import { toast } from 'react-hot-toast'
+import Select, { type ActionMeta, type SingleValue } from 'react-select'
+import { toDigit } from '../../../../helpers'
+import { useClickOutside, useCloseModal, usePostProduct, usePriceTyping } from '../../../../hooks'
 import { type Brand } from '../../../../types'
 
 interface Props {
@@ -10,16 +12,24 @@ interface Props {
     brands: Brand[]
 }
 
+interface OptionType {
+    label: string
+    value: string
+}
+
 export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateCallback, brands }) => {
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
-    const brandRef = useRef<HTMLInputElement>(null)
-    const prefixRef = useRef<HTMLInputElement>(null)
+    // input
+    const [brand, setBrand] = useState(0)
+    const balanceRef = useRef<HTMLInputElement>(null)
+    const priceRef = useRef<HTMLInputElement>(null)
+    const stockRef = useRef<HTMLInputElement>(null)
 
     const handleClose = useCloseModal(setState)
     useClickOutside(overlayRef, innerRef, setState)
 
-    const options: Array<{ value: string; label: string }> = []
+    const options: OptionType[] = []
 
     brands.forEach((brand) => {
         options.push({ value: brand.id.toString(), label: brand.name })
@@ -27,6 +37,37 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
 
     const handlePriceTyping = usePriceTyping('Rp')
     const handleNumberTyping = usePriceTyping()
+
+    const postProduct = usePostProduct()
+    const handleSubmit = useCallback(() => {
+        const credit = balanceRef.current
+        const price = priceRef.current
+        const stock = stockRef.current
+        if (brand === 0 || credit?.value === '' || price?.value === '' || stock?.value === '') {
+            toast.error('All input must provided', {
+                className: 'roboto',
+                position: 'top-right',
+            })
+            return
+        }
+
+        postProduct({
+            product: {
+                brand_id: brand,
+                credit: toDigit(credit?.value),
+                price: toDigit(price?.value),
+                stock: toDigit(stock?.value),
+            },
+        })
+            .then(() => {
+                setState(false)
+            })
+            .catch(() => null)
+    }, [brand])
+
+    const handleBrandChange = (newValue: SingleValue<OptionType>, actionMeta: ActionMeta<OptionType>) => {
+        setBrand(parseInt(newValue?.value ?? '0'))
+    }
 
     return (
         <div ref={overlayRef} className="modal pt-5 px-5">
@@ -47,6 +88,7 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
                 {/* body */}
                 <div className="px-6 pb-5 pt-4 flex flex-col gap-2.5">
                     <Select
+                        onChange={handleBrandChange}
                         classNames={{
                             placeholder: () => '!text-gray-400 roboto font-medium',
                             control: (state) =>
@@ -64,21 +106,21 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
                         options={options}
                     />
                     <input
-                        ref={brandRef}
+                        ref={balanceRef}
                         className="roboto w-full bg-slate-50 text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-2.5 text-base font-medium rounded-lg"
                         type="text"
                         placeholder="Enter balance"
-                        onChange={handlePriceTyping}
-                    />
-                    <input
-                        ref={prefixRef}
-                        className="roboto w-full bg-slate-50 text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-2.5 text-base font-medium rounded-lg"
-                        type="text"
-                        placeholder="Price"
                         onChange={handleNumberTyping}
                     />
                     <input
-                        ref={prefixRef}
+                        ref={priceRef}
+                        className="roboto w-full bg-slate-50 text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-2.5 text-base font-medium rounded-lg"
+                        type="text"
+                        placeholder="Price"
+                        onChange={handlePriceTyping}
+                    />
+                    <input
+                        ref={stockRef}
                         className="roboto w-full bg-slate-50 text-gray-500 border focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none px-4 py-2.5 text-base font-medium rounded-lg"
                         type="text"
                         placeholder="Product Stock"
@@ -87,7 +129,9 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
                 </div>
                 {/* footer */}
                 <div className="px-5 pb-4 flex justify-center flex-col">
-                    <button className={`roboto font-normal bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white mb-2`}>Submit</button>
+                    <button onClick={handleSubmit} className={`roboto font-normal bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white mb-2`}>
+                        Submit
+                    </button>
                 </div>
             </div>
         </div>
