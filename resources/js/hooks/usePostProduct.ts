@@ -16,9 +16,12 @@ export const usePostProduct = () => {
                     },
                     body: JSON.stringify(request.product),
                 })
-                const jsonData = await response.json()
                 const status = response.status
-                if (status !== 200) return await Promise.reject(new Error(jsonData.message))
+                if (status === 422) {
+                    const jsonData = await response.json()
+                    return await Promise.reject(new Error(jsonData.message))
+                }
+                if (status !== 200) return await Promise.reject(new Error('Something went wrong'))
             } catch (err) {
                 return await Promise.reject(err)
             }
