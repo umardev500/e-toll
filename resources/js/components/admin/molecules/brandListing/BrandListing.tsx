@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { toDate, toUpperFirst } from '../../../../helpers'
 import { type BrandRequestPostPayload, type Brand, type BrandStatus } from '../../../../types'
 import { BrandStatusModal } from '../../../organisms'
@@ -17,6 +17,9 @@ export const BrandListing: React.FC<Props> = ({ onClickDelete, brand, index }) =
     const [brandName, setBrand] = useState(brand.name)
     const [prefix, setPrefix] = useState(brand.prefix)
     const [status, setStatus] = useState<BrandStatus>(brand.status)
+    useEffect(() => {
+        setStatus(brand.status)
+    }, [brand])
 
     const handleDelete = () => {
         onClickDelete(brand.id)
