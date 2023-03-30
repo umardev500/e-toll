@@ -1,5 +1,5 @@
-import React, { useRef } from 'react'
-import { useClickOutside, useCloseModal } from '../../../../hooks'
+import React, { useCallback, useRef } from 'react'
+import { useClickOutside, useCloseModal, useLogout } from '../../../../hooks'
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
@@ -11,6 +11,11 @@ export const LogoutModal: React.FC<Props> = ({ setState }) => {
 
     const handleClose = useCloseModal(setState)
     useClickOutside(overlayRef, innerRef, setState)
+
+    const logout = useLogout()
+    const handleLogout = useCallback(() => {
+        logout().catch(() => null)
+    }, [])
 
     return (
         <div ref={overlayRef} className="modal pt-5 px-5">
@@ -34,7 +39,9 @@ export const LogoutModal: React.FC<Props> = ({ setState }) => {
                 </div>
                 {/* footer */}
                 <div className="px-5 pb-4 flex justify-center flex-col">
-                    <button className={`roboto font-normal bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white mb-2`}>Confirm</button>
+                    <button onClick={handleLogout} className={`roboto font-normal bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white mb-2`}>
+                        Confirm
+                    </button>
                 </div>
             </div>
         </div>

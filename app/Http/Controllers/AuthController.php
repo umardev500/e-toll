@@ -33,4 +33,13 @@ class AuthController extends Controller
             ]);
         }
     }
+
+    public function logout(Request $req)
+    {
+        Auth::logout();
+        if (!$req->expectsJson()) {
+            $req->session()->invalidate();
+            $req->session()->regenerateToken();
+        }
+    }
 }

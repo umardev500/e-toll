@@ -61,3 +61,4 @@ Route::get('/server-time', [TimeController::class, 'get']);
 
 // Auth
 Route::post('/auth', [AuthController::class, 'auth']);
+Route::get('/logout', [AuthController::class, 'logout']);
