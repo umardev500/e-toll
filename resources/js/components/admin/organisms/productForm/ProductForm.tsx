@@ -14,6 +14,7 @@ interface Props {
     product?: Product
     productTemp?: ProductRequestData
     brands: Brand[]
+    brandTemp?: Brand
 }
 
 interface OptionType {
@@ -21,8 +22,8 @@ interface OptionType {
     value: string
 }
 
-export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateCallback, id, isEdit, product, productTemp, brands }) => {
-    const brandData = product?.brand
+export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateCallback, id, isEdit, product, productTemp, brands, brandTemp }) => {
+    const brandData = brandTemp
     const isTemp = productTemp !== undefined
     const credit = isTemp ? productTemp.credit : product?.credit ?? 0
     const price = isTemp ? productTemp.price : product?.price ?? 0

@@ -103,7 +103,16 @@ export const ProductListing: React.FC<Props> = ({ product, index, onClickDetail,
                     </button>
 
                     {productForm ? (
-                        <ProductForm id={product.id} isEdit product={product} productTemp={productTemp} updateCallback={updateCallback} brands={brands} setState={setProductForm} />
+                        <ProductForm
+                            id={product.id}
+                            isEdit
+                            product={product}
+                            brandTemp={brand}
+                            productTemp={productTemp}
+                            updateCallback={updateCallback}
+                            brands={brands}
+                            setState={setProductForm}
+                        />
                     ) : null}
                     {statusModal ? <ProductStatusModal defaultStatus={status} setStatusCallback={setStatusCallback} id={product.id} setState={setStatusModal} /> : null}
                 </div>
