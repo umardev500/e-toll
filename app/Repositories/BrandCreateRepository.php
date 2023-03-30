@@ -34,8 +34,12 @@ class BrandCreateRepository
         $now = Carbon::now()->timestamp;
         $brandInstance = Brand::find($id);
         $brandInstance->status = $status;
-        $brandInstance->updated_at = $now;
-        $brandInstance->deleted_at = null;
+        if ($status != 'deleted') {
+            $brandInstance->updated_at = $now;
+            $brandInstance->deleted_at = null;
+        } else {
+            $brandInstance->deleted_at = $now;
+        }
         $brandInstance->save();
     }
 }

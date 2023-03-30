@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { useDeleteBrandSoft } from '../../../../hooks'
+import { useDeleteBrand } from '../../../../hooks'
 import { type Brand } from '../../../../types'
 import { BrandListing } from '../../molecules'
 import { Confirm } from '../confirm'
@@ -23,7 +23,7 @@ export const BrandList: React.FC<Props> = ({ brands, perPage, setReloadCount }) 
     const page = parseInt(searchParams.get('page') ?? '0')
     const startIndex = page * perPage
 
-    const deleteBrand = useDeleteBrandSoft()
+    const deleteBrand = useDeleteBrand()
     const handleDelete = useCallback(() => {
         deleteBrand(id)
             .then(() => {
