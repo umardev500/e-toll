@@ -70,7 +70,7 @@ export const ProductListing: React.FC<Props> = ({ product, index, onClickDetail,
                 <div className="text-center flex gap-1.5">
                     <button
                         onClick={() => {
-                            onClickDetail({ ...product, stock, credit, price, updated_at: updatedTime })
+                            onClickDetail({ ...product, stock, credit, price, updated_at: updatedTime, brand })
                         }}
                         className="outline-none bg-teal-600 hover:bg-teal-700 px-2 py-1.5 rounded-lg"
                     >
