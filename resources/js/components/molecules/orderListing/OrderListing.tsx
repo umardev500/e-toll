@@ -12,6 +12,13 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
     const [detailOpen, setDetailOpen] = useState<boolean>(false)
     const [, setCancelStatus] = useState<boolean>(false)
     const status = order.status as Status
+    const layout: Intl.DateTimeFormatOptions = {
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+    }
 
     const product = order.product_copy
     const trxTimeUnix: number = order.created_at
@@ -19,15 +26,35 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
     const trxTime = new Date(trxTimeUnix * 1000)
     const formattedTrxTime = trxTime.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
     const expTime = new Date(expTimeUnix * 1000)
-    const formattedExpTime = expTime.toLocaleDateString('en-US', {
-        month: 'short',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-    })
+    const formattedExpTime = expTime.toLocaleDateString('en-US', layout)
+    const createdTimeUnix = order.updated_at
+    // succed time
+    const succedTime = new Date(createdTimeUnix * 1000)
+    const formatedSucceedTime = succedTime.toLocaleDateString('en-US', layout)
 
+    // settelement time
+    const settlementUnix = order.settlement_time ?? 0
+    const settlementTime = new Date(settlementUnix * 1000)
+    const formatedSettlementTime = settlementTime.toLocaleDateString('en-US', layout)
     const isExp = useExpTime(order.expired_at)
+
+    let selectedPayStatusDate = formattedExpTime
+    let selectedPayPrefix = 'Pay before'
+    if (status === 'succeed') {
+        console.log('succeed')
+        selectedPayPrefix = 'Succeed on'
+        selectedPayStatusDate = formatedSucceedTime
+    }
+
+    if ((status === 'expired' || isExp) && status !== 'succeed' && status !== 'settlement') {
+        console.log('expired')
+        selectedPayPrefix = 'Expired on'
+    }
+
+    if (status === 'settlement') {
+        selectedPayPrefix = 'Settlement on'
+        selectedPayStatusDate = formatedSettlementTime
+    }
 
     const getStatus = (): Status => {
         if (isExp && status === 'pending') return 'expired'
@@ -48,8 +75,8 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
                         <span className="text-sm text-gray-500">{formattedTrxTime}</span>
                     </div>
                     <div className="roboto whitespace-nowrap flex">
-                        <span className="text-gray-500 text-sm">Pay before:</span>
-                        <span className="text-orange-500 text-sm ml-2 font-medium">{formattedExpTime}</span>
+                        <span className="text-gray-500 text-sm">{selectedPayPrefix}:</span>
+                        <span className="text-orange-500 text-sm ml-2 font-medium">{selectedPayStatusDate}</span>
                     </div>
                 </div>
                 {/* Center */}

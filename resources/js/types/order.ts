@@ -11,6 +11,7 @@ export interface Order {
     created_at: number
     settlement_time: number
     expired_at: number
+    updated_at: number
 }
 
 export interface OrderResponse {
