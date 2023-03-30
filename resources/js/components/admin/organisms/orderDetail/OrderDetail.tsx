@@ -8,9 +8,10 @@ import { type Order, type Status } from '../../../../types'
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
     order?: Order
+    setReloadCount: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const AdminOrderDetail: React.FC<Props> = ({ setState, order }) => {
+export const AdminOrderDetail: React.FC<Props> = ({ setState, order, setReloadCount }) => {
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
     const handleClose = useCloseModal(setState)
@@ -52,6 +53,10 @@ export const AdminOrderDetail: React.FC<Props> = ({ setState, order }) => {
                 },
                 { className: 'roboto', position: 'top-right' }
             )
+            .then(() => {
+                setReloadCount((prev) => prev + 1)
+                setState(false)
+            })
             .catch(() => null)
     }, [])
 

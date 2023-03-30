@@ -6,9 +6,10 @@ import { AdminOrderDetail } from '../orderDetail'
 
 interface Props {
     orders: Order[]
+    setReloadCount: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const AdminOrderList: React.FC<Props> = ({ orders }) => {
+export const AdminOrderList: React.FC<Props> = ({ orders, setReloadCount }) => {
     const [showDetail, setShowDetail] = useState(false)
     const [order, setOrder] = useState<Order>()
     const [searchParams] = useSearchParams()
@@ -43,7 +44,7 @@ export const AdminOrderList: React.FC<Props> = ({ orders }) => {
                 </tbody>
             </table>
 
-            {showDetail ? <AdminOrderDetail order={order} setState={setShowDetail} /> : null}
+            {showDetail ? <AdminOrderDetail setReloadCount={setReloadCount} order={order} setState={setShowDetail} /> : null}
         </>
     )
 }

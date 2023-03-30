@@ -13,6 +13,7 @@ export const AdminOrders: React.FC = () => {
     const status = searchParams.get('status') ?? ''
     const pageNum = parseInt(page.toString())
     const search = searchParams.get('search') ?? ''
+    const [reloadCount, setReloadCount] = useState(0)
 
     const [orders, setOrders] = useState<Order[]>([])
     const [total, setTotal] = useState(0)
@@ -30,7 +31,7 @@ export const AdminOrders: React.FC = () => {
                     error: 'Something went wrong!',
                     loading: 'Loading order...',
                 },
-                { className: 'roboto' }
+                { className: 'roboto', position: 'top-right' }
             )
             .then((res) => {
                 const data = res.data
@@ -43,7 +44,7 @@ export const AdminOrders: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [pageNum, search, sort, status])
+    }, [pageNum, search, sort, status, reloadCount])
 
     const searchCallback = (keyword: string) => {
         searchParams.set('search', keyword)
@@ -79,7 +80,7 @@ export const AdminOrders: React.FC = () => {
                         <Search callback={searchCallback} title="Enter the keyword" placeholder="Enter key to search" />
                     </div>
                     <div className="bg-white overflow-auto rounded-lg border-l border-r border-b mb-5">
-                        <AdminOrderList orders={orders} />
+                        <AdminOrderList setReloadCount={setReloadCount} orders={orders} />
                     </div>
                     <div>
                         <Pagination onPageChangeCallback={paginateCallback} pageCount={total} />
