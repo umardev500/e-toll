@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\UserFindService;
 use App\Services\UserUpdateService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,5 +18,10 @@ class UserController extends Controller
 
         $data = $req->json()->all();
         return UserUpdateService::update($data);
+    }
+
+    public function find()
+    {
+        return UserFindService::find();
     }
 }

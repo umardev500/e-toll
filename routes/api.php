@@ -50,6 +50,7 @@ Route::delete('/brands/{id}', [BrandController::class, 'delete']);
 Route::delete('/brands/{id}/soft', [BrandController::class, 'softDelete']);
 
 // User
+Route::get('/users', [UserController::class, 'find'])->middleware(['auth:sanctum']);
 Route::put('/users', [UserController::class, 'update'])->middleware(['auth:sanctum']);
 
 // Webhook
