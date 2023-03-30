@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDropdownClick, useMatchRouteClass } from '../../../../hooks'
+import { SubMenu } from './SubMenu'
 
 interface Props {
     setUserProfile: React.Dispatch<React.SetStateAction<boolean>>
@@ -86,6 +87,7 @@ const SidebarElement: React.FC<Props> = ({ setUserProfile }) => {
                             className="arrow-icon inline-flex items-center justify-center"
                         ></span>
                     </a>
+                    <SubMenu />
                 </li>
             </ul>
         </div>

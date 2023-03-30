@@ -2,11 +2,23 @@
     --mask-size: 24px;
 }
 
+.sub-menu {
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 300ms ease;
+}
+
 .sidebar-list.shown {
     .sidebar-link {
         .arrow-icon {
             transform: rotate(90deg);
         }
+    }
+
+    .sub-menu {
+        height: var(--h);
+        opacity: 1;
     }
 }
 
