@@ -16,6 +16,7 @@ class BrandDeleteRepository
     {
         $now = Carbon::now()->timestamp;
         $brandInstance = Brand::find($id);
+        $brandInstance->status = 'deleted';
         $brandInstance->deleted_at = $now;
         return $brandInstance->save();
     }
