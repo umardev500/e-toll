@@ -53,8 +53,8 @@ class OrderFindRepository
             $startOfToday = $now->timestamp;
             $startOfTomorrow = $tomorrow->timestamp;
 
-            $total = Order::where('settlement_time', '>=', $startOfToday)
-                ->where('settlement_time', '<=', $startOfTomorrow)->count();
+            $total = Order::where('created_at', '>=', $startOfToday)
+                ->where('created_at', '<=', $startOfTomorrow)->count();
         }
         if (empty($status)) {
             $total = Order::count();
