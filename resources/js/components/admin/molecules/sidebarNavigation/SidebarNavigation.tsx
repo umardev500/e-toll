@@ -87,7 +87,7 @@ const SidebarElement: React.FC<Props> = ({ setUserProfile }) => {
                             className="arrow-icon inline-flex items-center justify-center"
                         ></span>
                     </a>
-                    <SubMenu />
+                    <SubMenu setUserProfile={setUserProfile} />
                 </li>
             </ul>
         </div>
