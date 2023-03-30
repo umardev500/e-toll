@@ -2,6 +2,14 @@
     --mask-size: 24px;
 }
 
+.sidebar-list.shown {
+    .sidebar-link {
+        .arrow-icon {
+            transform: rotate(90deg);
+        }
+    }
+}
+
 .sidebar-link {
     .icon {
         width: 24px;
@@ -16,6 +24,14 @@
             mask: var(--on) no-repeat center;
             mask-size: var(--mask-size);
         }
+    }
+
+    .arrow-icon {
+        width: 24px;
+        height: 24px;
+        background-color: #7d7c7c;
+        mask: var(--icon);
+        transition: all 300ms ease;
     }
 }
 

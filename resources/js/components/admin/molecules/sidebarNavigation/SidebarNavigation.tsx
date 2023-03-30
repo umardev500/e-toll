@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useMatchRouteClass } from '../../../../hooks'
+import { useDropdownClick, useMatchRouteClass } from '../../../../hooks'
 
 interface Props {
     setUserProfile: React.Dispatch<React.SetStateAction<boolean>>
@@ -72,17 +72,19 @@ const SidebarElement: React.FC<Props> = ({ setUserProfile }) => {
                         </div>
                     </Link>
                 </li>
-                <li className="overflow-hidden">
+                <li className="overflow-hidden sidebar-list">
                     <a
-                        onClick={() => {
-                            setUserProfile(true)
-                        }}
+                        onClick={useDropdownClick()}
                         className={`cursor-pointer outline-none sidebar-link rounded flex px-4 items-center hover:bg-gray-100 my-1 h-11 text-gray-500 hover:text-gray-600 font-medium`}
                     >
                         <div className="flex gap-2.5 items-center flex-1 roboto">
                             <span className="icon" style={{ ['--off' as string]: "url('/app-icon/settings.svg')" }}></span>
                             <span>Settings</span>
                         </div>
+                        <span
+                            style={{ ['--icon' as string]: "url('/app-icon/chevron-right.svg') no-repeat center" }}
+                            className="arrow-icon inline-flex items-center justify-center"
+                        ></span>
                     </a>
                 </li>
             </ul>
