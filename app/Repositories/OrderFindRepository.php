@@ -46,7 +46,7 @@ class OrderFindRepository
 
     public static function count(string $status): int
     {
-        $total = Order::where('status', $status)->count();
+
         if ($status == 'new') {
             $now = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::today());
             $tomorrow = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::today())->addDay();
@@ -55,8 +55,12 @@ class OrderFindRepository
 
             $total = Order::where('created_at', '>=', $startOfToday)
                 ->where('created_at', '<=', $startOfTomorrow)->count();
-        }
-        if (empty($status)) {
+        } elseif ($status == 'pending') {
+            $query = Order::where('status', 'pending');
+            $total = $query->where('expired_at', '>', Carbon::now()->timestamp);
+        } elseif (!empty($status)) {
+            $total = Order::where('status', $status)->count();
+        } else {
             $total = Order::count();
         }
 
