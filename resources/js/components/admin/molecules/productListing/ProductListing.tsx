@@ -21,6 +21,7 @@ export const ProductListing: React.FC<Props> = ({ product, index, onClickDetail,
     const price = isTemp ? productTemp.price : product.price
     const stock = isTemp ? productTemp.stock : product.stock
     const [status, setStatus] = useState<ProductStatus>(product.status)
+    const [updatedTime, setUpdatedTime] = useState(product.updated_at ?? 0)
 
     const createdTime = toDate(product.created_at)
     const brand = product.brand
@@ -34,6 +35,7 @@ export const ProductListing: React.FC<Props> = ({ product, index, onClickDetail,
 
     const updateCallback = (item: ProductRequestData) => {
         setProductTemp(item)
+        setUpdatedTime(Math.round(Date.now() / 1000))
     }
 
     const handleDelete = useCallback(() => {
@@ -46,6 +48,7 @@ export const ProductListing: React.FC<Props> = ({ product, index, onClickDetail,
 
     const setStatusCallback = useCallback((status: ProductStatus) => {
         setStatus(status)
+        setUpdatedTime(Math.round(Date.now() / 1000))
     }, [])
 
     return (
@@ -66,7 +69,7 @@ export const ProductListing: React.FC<Props> = ({ product, index, onClickDetail,
                 <div className="text-center flex gap-1.5">
                     <button
                         onClick={() => {
-                            onClickDetail({ ...product, stock, credit, price })
+                            onClickDetail({ ...product, stock, credit, price, updated_at: updatedTime })
                         }}
                         className="outline-none bg-teal-600 hover:bg-teal-700 px-2 py-1.5 rounded-lg"
                     >
