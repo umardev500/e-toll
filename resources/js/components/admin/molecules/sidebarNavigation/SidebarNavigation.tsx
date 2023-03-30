@@ -5,9 +5,10 @@ import { SubMenu } from './SubMenu'
 
 interface Props {
     setUserProfile: React.Dispatch<React.SetStateAction<boolean>>
+    setUserLogout: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const SidebarElement: React.FC<Props> = ({ setUserProfile }) => {
+const SidebarElement: React.FC<Props> = ({ setUserProfile, setUserLogout }) => {
     const isHome = useMatchRouteClass('/admin')
     const isOrders = useMatchRouteClass('/admin/orders')
     const isProduct = useMatchRouteClass('/admin/products')
@@ -87,7 +88,7 @@ const SidebarElement: React.FC<Props> = ({ setUserProfile }) => {
                             className="arrow-icon inline-flex items-center justify-center"
                         ></span>
                     </a>
-                    <SubMenu setUserProfile={setUserProfile} />
+                    <SubMenu setUserProfile={setUserProfile} setUserLogout={setUserLogout} />
                 </li>
             </ul>
         </div>

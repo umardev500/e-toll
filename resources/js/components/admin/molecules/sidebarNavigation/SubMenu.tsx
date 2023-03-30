@@ -6,9 +6,10 @@ const menuHeight = 44
 
 interface Props {
     setUserProfile: React.Dispatch<React.SetStateAction<boolean>>
+    setUserLogout: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const SubMenu: React.FC<Props> = ({ setUserProfile }) => {
+export const SubMenu: React.FC<Props> = ({ setUserProfile, setUserLogout }) => {
     return (
         <div className="sub-menu" style={{ ['--h' as string]: `${menuHeight * totalMenu + marginY * 2}px` }}>
             <ul className="sidebar-navigation">
@@ -34,6 +35,9 @@ export const SubMenu: React.FC<Props> = ({ setUserProfile }) => {
                 </li>
                 <li className="overflow-hidden">
                     <a
+                        onClick={() => {
+                            setUserLogout(true)
+                        }}
                         className={`cursor-pointer outline-none sidebar-link rounded flex px-4 items-center hover:bg-gray-100 my-1 h-11 text-gray-500 hover:text-gray-600 font-medium`}
                     >
                         <div className="flex gap-2.5 items-center flex-1 roboto">
