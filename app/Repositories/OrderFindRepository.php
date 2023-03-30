@@ -57,7 +57,7 @@ class OrderFindRepository
                 ->where('created_at', '<=', $startOfTomorrow)->count();
         } elseif ($status == 'pending') {
             $query = Order::where('status', 'pending');
-            $total = $query->where('expired_at', '>', Carbon::now()->timestamp);
+            $total = $query->where('expired_at', '>', Carbon::now()->timestamp)->count();
         } elseif (!empty($status)) {
             $total = Order::where('status', $status)->count();
         } else {
