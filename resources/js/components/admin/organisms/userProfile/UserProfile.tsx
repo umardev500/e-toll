@@ -1,16 +1,53 @@
-import React, { useRef } from 'react'
-import { useCloseModal, useClickOutside } from '../../../../hooks'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { toast } from 'react-hot-toast'
+import { useCloseModal, useClickOutside, useFetchUser } from '../../../../hooks'
+import { type User } from '../../../../types'
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const UserProfile: React.FC<Props> = ({ setState }) => {
+    const [user, setUser] = useState<User>()
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
+    const nameRef = useRef<HTMLInputElement>(null)
+    const userRef = useRef<HTMLInputElement>(null)
+    const passRef = useRef<HTMLInputElement>(null)
 
     const handleClose = useCloseModal(setState)
     useClickOutside(overlayRef, innerRef, setState)
+
+    const fetchUser = useFetchUser()
+    useEffect(() => {
+        fetchUser()
+            .then((data) => {
+                setUser(data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
+
+    const handleUpdate = useCallback(() => {
+        const name = nameRef.current?.value ?? ''
+        const user = userRef.current?.value ?? ''
+        const pass = passRef.current?.value ?? ''
+
+        if (name.length < 4) {
+            toast.error('Name at least more than 3', { className: 'roboto', position: 'top-right' })
+            return
+        }
+
+        if (user.length < 6) {
+            toast.error('Username at least more than 5', { className: 'roboto', position: 'top-right' })
+            return
+        }
+
+        if (pass.length !== 0 && pass !== 'helloworld' && pass.length < 6) {
+            toast.error('Password at least be more than 5', { className: 'roboto', position: 'top-right' })
+        }
+    }, [])
 
     return (
         <div ref={overlayRef} className="modal pt-5 px-5">
@@ -32,20 +69,28 @@ export const UserProfile: React.FC<Props> = ({ setState }) => {
                 <div className="px-6 pb-5 pt-4 flex flex-col gap-2.5">
                     <div className="flex items-center justify-between pb-2.5 border-b border-dashed">
                         <span className="text-sm font-medium text-gray-500">Name:</span>
-                        <input className="text-sm text-right outline-none text-gray-400" type="text" placeholder="Enter your password" defaultValue={'Umar Schweins'} />
+                        <input ref={nameRef} className="text-sm text-right outline-none text-gray-400" type="text" placeholder="Enter your password" defaultValue={user?.name} />
                     </div>
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-gray-500">Username:</span>
-                        <input className="text-sm text-right outline-none text-gray-400" type="text" placeholder="Enter your password" defaultValue={'schweinsteiger'} />
+                        <input ref={userRef} className="text-sm text-right outline-none text-gray-400" type="text" placeholder="Enter your password" defaultValue={user?.email} />
                     </div>
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-gray-500">Password:</span>
-                        <input className="text-sm text-right outline-none text-gray-400" type="password" placeholder="Enter your password" defaultValue={'helloworld'} />
+                        <input
+                            ref={passRef}
+                            className="text-sm text-right outline-none text-gray-400"
+                            type="password"
+                            placeholder="Enter your password"
+                            defaultValue={'helloworld'}
+                        />
                     </div>
                 </div>
                 {/* footer */}
                 <div className="px-5 pb-4 flex justify-center flex-col">
-                    <button className={`roboto font-normal bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white mb-2`}>Update data</button>
+                    <button onClick={handleUpdate} className={`roboto font-normal bg-blue-600 hover:bg-blue-700 rounded-md px-3 py-2 text-white mb-2`}>
+                        Update data
+                    </button>
                 </div>
             </div>
         </div>
