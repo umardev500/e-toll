@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { OrderListBtn } from '../components/atoms'
 import { Checkout, CreditList, SerachCredit } from '../components/organisms'
@@ -58,6 +58,13 @@ export const Home: React.FC = () => {
         setSelectedProduct(credit)
     }
 
+    const oncClear = useCallback(() => {
+        setBrand('')
+        setSelectedProduct(null)
+        setPhoneNumber('')
+        setProducts([])
+    }, [])
+
     return (
         <div className="container py-10 mx-auto flex justify-center">
             <div className="px-4 flex flex-col items-center w-full">
@@ -66,7 +73,7 @@ export const Home: React.FC = () => {
                 </div>
 
                 {/* Input area */}
-                <SerachCredit setPhoneNumber={setPhoneNumber} brand={brand} callback={searchCallback} />
+                <SerachCredit oncClear={oncClear} setPhoneNumber={setPhoneNumber} brand={brand} callback={searchCallback} />
 
                 {/* Result */}
                 {products.length > 0 ? (

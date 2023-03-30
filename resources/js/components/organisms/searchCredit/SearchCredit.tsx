@@ -6,9 +6,10 @@ interface Props {
     callback: (text: string) => void
     brand: string
     setPhoneNumber: React.Dispatch<React.SetStateAction<string>>
+    oncClear: () => void
 }
 
-export const SerachCredit: React.FC<Props> = ({ callback, brand, setPhoneNumber }) => {
+export const SerachCredit: React.FC<Props> = ({ callback, brand, setPhoneNumber, oncClear }) => {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,6 +29,7 @@ export const SerachCredit: React.FC<Props> = ({ callback, brand, setPhoneNumber 
         const input = inputRef.current
         if (input != null) {
             input.value = ''
+            oncClear()
         }
     }, [])
 
