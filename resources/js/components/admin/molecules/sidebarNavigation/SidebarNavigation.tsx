@@ -2,7 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useMatchRouteClass } from '../../../../hooks'
 
-const SidebarElement = () => {
+interface Props {
+    setUserProfile: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const SidebarElement: React.FC<Props> = ({ setUserProfile }) => {
     const isHome = useMatchRouteClass('/admin')
     const isOrders = useMatchRouteClass('/admin/orders')
     const isProduct = useMatchRouteClass('/admin/products')
@@ -69,15 +73,17 @@ const SidebarElement = () => {
                     </Link>
                 </li>
                 <li className="overflow-hidden">
-                    <Link
-                        to={'/admin/settings'}
-                        className={`outline-none sidebar-link rounded flex px-4 items-center hover:bg-gray-100 my-1 h-11 text-gray-500 hover:text-gray-600 font-medium`}
+                    <a
+                        onClick={() => {
+                            setUserProfile(true)
+                        }}
+                        className={`cursor-pointer outline-none sidebar-link rounded flex px-4 items-center hover:bg-gray-100 my-1 h-11 text-gray-500 hover:text-gray-600 font-medium`}
                     >
                         <div className="flex gap-2.5 items-center flex-1 roboto">
                             <span className="icon" style={{ ['--off' as string]: "url('/app-icon/settings.svg')" }}></span>
                             <span>Settings</span>
                         </div>
-                    </Link>
+                    </a>
                 </li>
             </ul>
         </div>
