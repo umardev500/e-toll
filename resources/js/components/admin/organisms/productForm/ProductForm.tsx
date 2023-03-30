@@ -72,6 +72,8 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
             },
         }
 
+        console.log(request)
+
         postProduct(request)
             .then(() => {
                 setState(false)

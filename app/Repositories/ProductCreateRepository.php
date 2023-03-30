@@ -26,6 +26,7 @@ class ProductCreateRepository
         $now = Carbon::now()->timestamp;
 
         $product = Product::find($id);
+        $product->brand_id = $brandId;
         $product->product_id = $now;
         $product->credit = $credit;
         $product->price = $price;
