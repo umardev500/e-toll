@@ -39,6 +39,10 @@ class ProductFindRepository
             $query->where('status', $status);
         }
 
+        $query->whereHas('brand', function ($q) {
+            $q->where('status', 'active');
+        });
+
         $query = $query->orderBy('created_at', $sort);
         $products = $query->paginate(perPage: $perPage);
         return $products;
