@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { useCloseModal, useClickOutside, useFetchUser } from '../../../../hooks'
-import { type User } from '../../../../types'
+import { useCloseModal, useClickOutside, useFetchUser, useUpdateUser } from '../../../../hooks'
+import { type UserRequest, type User } from '../../../../types'
 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
@@ -29,6 +29,7 @@ export const UserProfile: React.FC<Props> = ({ setState }) => {
             })
     }, [])
 
+    const updateUser = useUpdateUser()
     const handleUpdate = useCallback(() => {
         const name = nameRef.current?.value ?? ''
         const user = userRef.current?.value ?? ''
@@ -46,7 +47,22 @@ export const UserProfile: React.FC<Props> = ({ setState }) => {
 
         if (pass.length !== 0 && pass !== 'helloworld' && pass.length < 6) {
             toast.error('Password at least be more than 5', { className: 'roboto', position: 'top-right' })
+            return
         }
+
+        const request: UserRequest = {
+            name,
+            email: user,
+            password: pass !== 'helloworld' ? pass : '',
+        }
+
+        updateUser(request)
+            .then(() => {
+                setState(false)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }, [])
 
     return (
