@@ -35,6 +35,7 @@ class BrandCreateRepository
         $brandInstance = Brand::find($id);
         $brandInstance->status = $status;
         $brandInstance->updated_at = $now;
+        $brandInstance->deleted_at = null;
         $brandInstance->save();
     }
 }
