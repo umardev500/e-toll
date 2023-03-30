@@ -28,6 +28,6 @@ class OrderFindService
 
     public static function count($status): int
     {
-        return OrderFindRepository::count('new');
+        return OrderFindRepository::count($status);
     }
 }

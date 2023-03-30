@@ -56,6 +56,9 @@ class OrderFindRepository
             $total = Order::where('settlement_time', '>=', $startOfToday)
                 ->where('settlement_time', '<=', $startOfTomorrow)->count();
         }
+        if (empty($status)) {
+            $total = Order::count();
+        }
 
         return $total;
     }

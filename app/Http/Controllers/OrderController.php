@@ -43,7 +43,7 @@ class OrderController extends Controller
 
     public function count(Request $req)
     {
-        $status = $req->query('status');
-        return OrderFindService::count($status);
+        $status = $req->query('status', '');
+        return response()->json(OrderFindService::count($status));
     }
 }

@@ -1,12 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FeaturedList } from '../../components/admin'
 import { toCurrency } from '../../helpers'
+import { useFetchOrderCount } from '../../hooks'
 
 export const AdminHome: React.FC = () => {
+    const [orders, setOrders] = useState(0)
+    const [newOrders, setNewOrders] = useState(0)
+    const [pending, setPending] = useState(0)
+    const [settlement, setSettlement] = useState(0)
+
+    const fetchNewOrders = useFetchOrderCount()
+    useEffect(() => {
+        fetchNewOrders('')
+            .then((count) => {
+                setOrders(count)
+            })
+            .catch(() => null)
+        fetchNewOrders('new')
+            .then((count) => {
+                setNewOrders(count)
+            })
+            .catch(() => null)
+        fetchNewOrders('pending')
+            .then((count) => {
+                setPending(count)
+            })
+            .catch(() => null)
+        fetchNewOrders('settlement')
+            .then((count) => {
+                setSettlement(count)
+            })
+            .catch(() => null)
+    }, [])
+
     return (
         <div>
             <div>
-                <FeaturedList orders={toCurrency(3500)} newOrder={toCurrency(45)} pending={toCurrency(12)} confirmation={toCurrency(33)} />
+                <FeaturedList orders={toCurrency(orders)} newOrder={toCurrency(newOrders)} pending={toCurrency(pending)} confirmation={toCurrency(settlement)} />
             </div>
         </div>
     )
