@@ -8,7 +8,7 @@ import { type ProductRequestData, type Brand, type ProductRequest, type Product 
 interface Props {
     setState: React.Dispatch<React.SetStateAction<boolean>>
     setReloadCount?: React.Dispatch<React.SetStateAction<number>>
-    updateCallback?: (item: ProductRequestData) => void
+    updateCallback?: (item: ProductRequestData, brand: Brand) => void
     id?: number
     isEdit?: boolean
     product?: Product
@@ -72,13 +72,12 @@ export const ProductForm: React.FC<Props> = ({ setState, setReloadCount, updateC
             },
         }
 
-        console.log(request)
-
         postProduct(request)
             .then(() => {
                 setState(false)
                 if (setReloadCount !== undefined) setReloadCount((prev) => prev + 1)
-                if (updateCallback !== undefined) updateCallback(request.product)
+                const updatedBrand = brands.filter((val) => val.id === brand)
+                if (updateCallback !== undefined) updateCallback(request.product, updatedBrand[0])
             })
             .catch(() => null)
     }, [brand])

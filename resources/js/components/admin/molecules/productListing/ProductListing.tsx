@@ -24,7 +24,7 @@ export const ProductListing: React.FC<Props> = ({ product, index, onClickDetail,
     const [updatedTime, setUpdatedTime] = useState(product.updated_at ?? 0)
 
     const createdTime = toDate(product.created_at)
-    const brand = product.brand
+    const [brand, setBrand] = useState<Brand | undefined>(product.brand)
     const getStatus = (): string => {
         return status
     }
@@ -33,9 +33,10 @@ export const ProductListing: React.FC<Props> = ({ product, index, onClickDetail,
         setProductForm(true)
     }, [])
 
-    const updateCallback = (item: ProductRequestData) => {
+    const updateCallback = (item: ProductRequestData, brand: Brand) => {
         setProductTemp(item)
         setUpdatedTime(Math.round(Date.now() / 1000))
+        setBrand(brand)
     }
 
     const handleDelete = useCallback(() => {
