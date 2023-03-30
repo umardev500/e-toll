@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useClickOutside, useCloseModal } from '../../../../hooks'
 import { type BrandStatus } from '../../../../types'
@@ -12,6 +12,13 @@ export const BrandFilter: React.FC<Props> = ({ setState }) => {
     const [status, setStatus] = useState<BrandStatus>('none')
     const overlayRef = useRef<HTMLDivElement>(null)
     const innerRef = useRef<HTMLDivElement>(null)
+    const [searchParams] = useSearchParams()
+    const sortParam = searchParams.get('sort')
+    const statusParam = searchParams.get('status') as BrandStatus
+    useEffect(() => {
+        if (sortParam !== null) setSort(sortParam)
+        if (statusParam !== null) setStatus(statusParam ?? 'none')
+    }, [])
 
     const handleSort = (value: string) => {
         setSort(value)
@@ -23,7 +30,6 @@ export const BrandFilter: React.FC<Props> = ({ setState }) => {
 
     const handleClose = useCloseModal(setState)
     const navigate = useNavigate()
-    const [searchParams] = useSearchParams()
     const handleSubmit = () => {
         searchParams.set('sort', sort)
         searchParams.set('status', status)
