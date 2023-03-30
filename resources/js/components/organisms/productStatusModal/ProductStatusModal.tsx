@@ -89,6 +89,16 @@ export const ProductStatusModal: React.FC<Props> = ({ setState, id, setStatusCal
                         >
                             <span>Status Soldout</span>
                         </div>
+                        <div
+                            onClick={() => {
+                                handleClick('deleted')
+                            }}
+                            className={`${
+                                status === 'deleted' ? 'bg-blue-50 ring-2' : 'bg-gray-50 hover:bg-gray-100'
+                            } cursor-pointer text-left mb-2.5 rounded-md py-3 px-4 roboto text-gray-500 font-medium`}
+                        >
+                            <span>Status Deleted</span>
+                        </div>
                     </div>
                     {/* footer */}
                     <div className="px-5 pb-4 flex justify-center flex-col">

@@ -41,7 +41,12 @@ class ProductCreateRepository
 
         $product = Product::find($id);
         $product->status = $status;
-        $product->updated_at = $now;
+        if ($status != 'deleted') {
+            $product->updated_at = $now;
+            $product->deleted_at = null;
+        } else {
+            $product->deleted_at = $now;
+        }
         $product->save();
     }
 }
