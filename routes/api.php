@@ -26,32 +26,40 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('/orders', [OrderController::class, 'create']);
-Route::get('/orders/count', [OrderController::class, 'count']);
-Route::get('/orders/{id}', [OrderController::class, 'findOne']);
-Route::get('/orders', [OrderController::class, 'find']);
-Route::get('/orders/{id}/cancel', [OrderController::class, 'cancel']);
-Route::get('/orders/{id}/done', [OrderController::class, 'markDone']);
 
 // Product routes
-Route::post('/products', [ProductController::class, 'create']);
 Route::get('/products', [ProductController::class, 'find']);
-Route::get('/products/{id}', [ProductController::class, 'findOne']);
-Route::put('/products/{id}', [ProductController::class, 'update']);
-Route::put('/products/{id}/status', [ProductController::class, 'statusUpdate']);
-Route::delete('/products/{id}', [ProductController::class, 'delete']);
-Route::delete('/products/{id}/soft', [ProductController::class, 'softDelete']);
 
-// Brand
-Route::get('/brands', [BrandController::class, 'find']);
-Route::post('/brands', [BrandController::class, 'create']);
-Route::put('/brands/{id}', [BrandController::class, 'update']);
-Route::put('/brands/{id}/status', [BrandController::class, 'statusUpdate']);
-Route::delete('/brands/{id}', [BrandController::class, 'delete']);
-Route::delete('/brands/{id}/soft', [BrandController::class, 'softDelete']);
+// protected rotue
+Route::middleware('auth:sanctum')->group(function () {
+    // orders
+    Route::get('/orders/count', [OrderController::class, 'count']);
+    Route::get('/orders/{id}', [OrderController::class, 'findOne']);
+    Route::get('/orders', [OrderController::class, 'find']);
+    Route::get('/orders/{id}/cancel', [OrderController::class, 'cancel']);
+    Route::get('/orders/{id}/done', [OrderController::class, 'markDone']);
 
-// User
-Route::get('/users', [UserController::class, 'find'])->middleware(['auth:sanctum']);
-Route::put('/users', [UserController::class, 'update'])->middleware(['auth:sanctum']);
+    // Product
+    Route::post('/products', [ProductController::class, 'create']);
+    Route::get('/products/{id}', [ProductController::class, 'findOne']);
+    Route::put('/products/{id}', [ProductController::class, 'update']);
+    Route::put('/products/{id}/status', [ProductController::class, 'statusUpdate']);
+    Route::delete('/products/{id}', [ProductController::class, 'delete']);
+    Route::delete('/products/{id}/soft', [ProductController::class, 'softDelete']);
+
+    // Brand
+    Route::get('/brands', [BrandController::class, 'find']);
+    Route::post('/brands', [BrandController::class, 'create']);
+    Route::put('/brands/{id}', [BrandController::class, 'update']);
+    Route::put('/brands/{id}/status', [BrandController::class, 'statusUpdate']);
+    Route::delete('/brands/{id}', [BrandController::class, 'delete']);
+    Route::delete('/brands/{id}/soft', [BrandController::class, 'softDelete']);
+
+    // User
+    Route::get('/users', [UserController::class, 'find'])->middleware(['auth:sanctum']);
+    Route::put('/users', [UserController::class, 'update'])->middleware(['auth:sanctum']);
+    Route::get('/logout', [AuthController::class, 'logout']);
+});
 
 // Webhook
 Route::post('/status', [WebhookController::class, 'setStatus']);
@@ -61,4 +69,3 @@ Route::get('/server-time', [TimeController::class, 'get']);
 
 // Auth
 Route::post('/auth', [AuthController::class, 'auth']);
-Route::get('/logout', [AuthController::class, 'logout']);

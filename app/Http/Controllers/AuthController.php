@@ -12,7 +12,7 @@ class AuthController extends Controller
     public function auth(Request $req)
     {
         $creds = $req->validate([
-            'email' => ['required', 'email'],
+            'email' => ['required'],
             'password' => ['required']
         ]);
 
