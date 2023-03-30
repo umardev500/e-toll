@@ -66,7 +66,7 @@ export const Products: React.FC = () => {
 
     const fetchBrands = useFetchBrands()
     useEffect(() => {
-        fetchBrands(page, sort, status, search, 50)
+        fetchBrands(page, sort, 'active', search, 50)
             .then((res) => {
                 const data = res.data
                 setBrands(data)
