@@ -13,22 +13,22 @@ export const AdminHome: React.FC = () => {
     useEffect(() => {
         fetchNewOrders('')
             .then((count) => {
-                setOrders(count)
+                if (count > 0) setOrders(count)
             })
             .catch(() => null)
         fetchNewOrders('new')
             .then((count) => {
-                setNewOrders(count)
+                if (count > 0) setNewOrders(count)
             })
             .catch(() => null)
         fetchNewOrders('pending')
             .then((count) => {
-                setPending(count)
+                if (count > 0) setPending(count)
             })
             .catch(() => null)
         fetchNewOrders('settlement')
             .then((count) => {
-                setSettlement(count)
+                if (count > 0) setSettlement(count)
             })
             .catch(() => null)
     }, [])
