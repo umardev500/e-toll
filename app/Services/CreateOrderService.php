@@ -34,8 +34,8 @@ class CreateOrderService
         $statusMessage = $response->status_message;
         $trxTime = $response->transaction_time;
         $trxTime = $response->transaction_time;
-        $vaNumbers = $response->va_numbers[0];
-        $va = $vaNumbers->va_number;
+        $vaNumbers = isset($response->va_numbers) ? $response->va_numbers[0]->va_number : $response->permata_va_number;
+        $va = $vaNumbers;
 
         // check for status code
         if ($statusCode != 201) {
