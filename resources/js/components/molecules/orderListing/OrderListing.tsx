@@ -90,7 +90,7 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
                         <img className="w-14 hidden xl:flex" src="bca.png" alt="" />
                         <div>
                             <div className="roboto text-sm text-gray-500 whitespace-nowrap">Payment Method</div>
-                            <div className="roboto mt-1 text-gray-500 font-semibold">{order.bank}</div>
+                            <div className="roboto mt-1 text-gray-500 font-semibold">{toUpperFirst(order.bank)}</div>
                         </div>
                     </div>
                     <div className="flex flex-1 xl:gap-4 col-span-4 items-center">
