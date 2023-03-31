@@ -128,7 +128,7 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
                                 onClick={() => {
                                     setDetailOpen(true)
                                 }}
-                                className="w-full whitespace-nowrap outline-none text-sm font-medium roboto border border-teal-600 bg-teal-600 hover:bg-teal-700 text-white px-4 py-1.5 rounded"
+                                className="w-full whitespace-nowrap outline-none text-sm font-medium roboto border border-sky-500 bg-sky-500 hover:bg-teal-700 text-white px-4 py-1.5 rounded"
                             >
                                 See more
                             </button>
