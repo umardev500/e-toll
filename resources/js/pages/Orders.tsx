@@ -8,6 +8,7 @@ import { type Order } from '../types'
 export const Orders: React.FC = () => {
     const [numberModal, setNumberModal] = useState(false)
     const [orders, setOrders] = useState<Order[]>([])
+    const [reloadCount, setReloadCount] = useState<number>(0)
     const [searchParams] = useSearchParams()
     const phoneNumber = searchParams.get('phone') ?? '0000'
 
@@ -16,7 +17,7 @@ export const Orders: React.FC = () => {
         navigate(-1)
     }, [])
 
-    const reload = useReload()
+    const reload = useReload(setReloadCount)
     const fetchOrders = useFetchOrders()
     useEffect(() => {
         toast
@@ -36,7 +37,7 @@ export const Orders: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [phoneNumber])
+    }, [phoneNumber, reloadCount])
 
     return (
         <>

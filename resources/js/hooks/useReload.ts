@@ -1,11 +1,8 @@
-import { useCallback, useContext } from 'react'
-import { AppContext, type AppContextType } from '../context/AppContext'
+import { useCallback } from 'react'
 
-export const useReload = () => {
-    const context = useContext(AppContext) as AppContextType
-
+export const useReload = (setReloadCount: React.Dispatch<React.SetStateAction<number>>) => {
     const handler = useCallback(() => {
-        context.setReloadCountCount((prev) => prev + 1)
+        setReloadCount((prev) => prev + 1)
     }, [])
 
     return handler
