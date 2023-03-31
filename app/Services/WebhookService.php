@@ -11,13 +11,14 @@ class WebhookService
 {
     public static function setStatus(array $requestData)
     {
-        $settlementTime = $requestData['settlement_time'];
-        $settlementTimeUnix = Carbon::createFromFormat('Y-m-d H:i:s', $settlementTime, 'Asia/Jakarta')->timestamp;
-        $orderId = $requestData['order_id'];
         $status = $requestData['transaction_status'];
+        $settlementTimeUnix = null;
+        if ($status == 'settlement') {
+            $settlementTime = $requestData['settlement_time'];
+            $settlementTimeUnix = Carbon::createFromFormat('Y-m-d H:i:s', $settlementTime, 'Asia/Jakarta')->timestamp;
+        }
+        $orderId = $requestData['order_id'];
 
-        Log::info($requestData);
-
-        // return WhRepository::setStatus($orderId, $status, $settlementTimeUnix);
+        return WhRepository::setStatus($orderId, $status, $settlementTimeUnix);
     }
 }
