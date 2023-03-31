@@ -46,8 +46,13 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
         selectedPayStatusDate = formatedSucceedTime
     }
 
-    if ((status === 'expired' || isExp) && status !== 'succeed' && status !== 'settlement') {
-        console.log('expired')
+    if (status === 'cancel') {
+        const updatedUnix = order.updated_at ?? 0
+        const updatedTime = new Date(updatedUnix * 1000)
+        const formattedUpdated = updatedTime.toLocaleDateString('en-US', layout)
+        selectedPayPrefix = 'Canceled on'
+        selectedPayStatusDate = formattedUpdated
+    } else if ((status === 'expired' || isExp) && status !== 'succeed' && status !== 'settlement') {
         selectedPayPrefix = 'Expired on'
     }
 
