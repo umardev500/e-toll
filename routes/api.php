@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::post('/orders', [OrderController::class, 'create']);
+Route::get('/orders', [OrderController::class, 'find']);
 
 // Product routes
 Route::get('/products', [ProductController::class, 'find']);
@@ -33,9 +33,9 @@ Route::get('/products', [ProductController::class, 'find']);
 // protected rotue
 Route::middleware('auth:sanctum')->group(function () {
     // orders
+    Route::post('/orders', [OrderController::class, 'create']);
     Route::get('/orders/count', [OrderController::class, 'count']);
     Route::get('/orders/{id}', [OrderController::class, 'findOne']);
-    Route::get('/orders', [OrderController::class, 'find']);
     Route::get('/orders/{id}/cancel', [OrderController::class, 'cancel']);
     Route::get('/orders/{id}/done', [OrderController::class, 'markDone']);
 

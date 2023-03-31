@@ -7,7 +7,11 @@ export const useFetchOrders = () => {
         const target = `${baseURL}/orders?phone=${numberToTrack}&status=none`
 
         try {
-            const response = await fetch(target)
+            const response = await fetch(target, {
+                headers: {
+                    Accept: 'application/json',
+                },
+            })
             const jsonData: OrderResponse = await response.json()
             return jsonData
         } catch (err) {
