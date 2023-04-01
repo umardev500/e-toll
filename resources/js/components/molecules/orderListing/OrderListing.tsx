@@ -87,7 +87,9 @@ export const OrderListing: React.FC<Props> = ({ order }) => {
                 {/* Center */}
                 <div className="mt-4 gap-4 grid xl:grid-cols-12">
                     <div className="flex items-center gap-4 col-span-5">
-                        <img className="w-14 hidden xl:flex" src="bca.png" alt="" />
+                        <div className="border w-11 h-11 p-2 rounded">
+                            <img className="w-full hidden xl:flex" src={`${order.bank}.png`} alt="" />
+                        </div>
                         <div>
                             <div className="roboto text-sm text-gray-500 whitespace-nowrap">Payment Method</div>
                             <div className="roboto mt-1 text-gray-500 font-semibold">{toUpperFirst(order.bank)}</div>

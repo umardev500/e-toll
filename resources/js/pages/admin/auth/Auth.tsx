@@ -99,7 +99,7 @@ export const Auth: React.FC = () => {
                         <input
                             ref={passRef}
                             className="mt-2.5 w-full border border-gray-200 focus:border-indigo-200 focus:ring-2 ring-indigo-400  outline-none px-4 py-2 rounded-md text-gray-500 text-base font-medium roboto"
-                            type="text"
+                            type="password"
                             placeholder="Password"
                             defaultValue="dummypass"
                         />
