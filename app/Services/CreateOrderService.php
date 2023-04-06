@@ -36,6 +36,7 @@ class CreateOrderService
         $trxTime = $response->transaction_time;
         $vaNumbers = isset($response->va_numbers) ? $response->va_numbers[0]->va_number : $response->permata_va_number;
         $va = $vaNumbers;
+        $expTime = Carbon::createFromFormat('Y-m-d H:i:s', $response->expiry_time, 'Asia/Jakarta')->timestamp;
 
         // check for status code
         if ($statusCode != 201) {
@@ -47,7 +48,7 @@ class CreateOrderService
         // do copy of product
         $lastInsertedProduct = $this->createCopyProduct($item);
         // do insert to order
-        $this->createOrder($orderId, $trxTime, $va, $lastInsertedProduct, $requestData);
+        $this->createOrder($orderId, $trxTime, $expTime, $va, $lastInsertedProduct, $requestData);
 
         return $response;
     }
@@ -80,7 +81,7 @@ class CreateOrderService
      * @param array $requestData An array of additional data or metadata related to the order.
      * @return void
      */
-    protected function createOrder($orderId, $trxTime, $va, $lastInsertedProduct, $requestData)
+    protected function createOrder($orderId, $trxTime, $expTime, $va, $lastInsertedProduct, $requestData)
     {
         $phone = $requestData['phone_number'];
         $payment = $requestData['payment'];
@@ -92,7 +93,8 @@ class CreateOrderService
             phone: $phone,
             bank: $payment['bank'],
             va: $va,
-            trxTime: $trxTime
+            trxTime: $trxTime,
+            expTime: $expTime
         );
     }
 }
