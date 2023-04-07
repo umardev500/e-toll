@@ -33,10 +33,12 @@ class CreateOrderService
         $statusCode = $response->status_code;
         $statusMessage = $response->status_message;
         $trxTime = $response->transaction_time;
-        $trxTime = $response->transaction_time;
         $vaNumbers = isset($response->va_numbers) ? $response->va_numbers[0]->va_number : $response->permata_va_number;
         $va = $vaNumbers;
-        $expTime = Carbon::createFromFormat('Y-m-d H:i:s', $response->expiry_time, 'Asia/Jakarta')->timestamp;
+        $expTime = Carbon::createFromFormat('Y-m-d H:i:s', $trxTime, 'Asia/Jakarta')->timestamp + (24 * 60 * 60);
+        if (isset($response->expiry_time)) {
+            $expTime = Carbon::createFromFormat('Y-m-d H:i:s', $response->expiry_time, 'Asia/Jakarta')->timestamp;
+        }
 
         // check for status code
         if ($statusCode != 201) {

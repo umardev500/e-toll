@@ -29,6 +29,10 @@ class PaymentController extends Controller
             ],
             'bank_transfer' => [
                 'bank' => $bank
+            ],
+            'custom_expiry' => [
+                'expiry_duration' => 24 * 60,
+                'unit' => 'minute'
             ]
         ]);
 
